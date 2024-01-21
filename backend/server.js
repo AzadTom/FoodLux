@@ -64,13 +64,13 @@ class Server {
 
       // cors & corsOption
       const corsOptions = {
-        origin: '*',
+        origin: [process.env.FRONTEND],
         methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
         credentials: true
       };
 
      
-      server.options('*',cors(corsOptions));
+      server.use(cors());
 
       //  global middleware
        server.use(dateMethod)
