@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+
+
+    .linear-up{
+
+        background: linear-gradient(180deg, transparent, rgba(8, 8, 8, 0.61), #212121);
+    }
+
+
+    .rm-scroll::-webkit-scrollbar{
+
+        display: none;
+
+    }
+
+    
+    
+    
+    
+     
+
+
+    
+
+}
