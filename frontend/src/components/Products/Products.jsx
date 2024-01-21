@@ -2,7 +2,7 @@ import ProductCard from "./ProductCard";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {demo} from '../../utils/demo.js';
 import {useDispatch ,useSelector} from 'react-redux';
-import  {getProducts,setStatus} from '../../reducers/productSlice.js';
+import  {productsData} from '../../reducers/productSlice.js';
 import  {addtocart}from '../../reducers/cartSlice.js';
 import { useEffect } from "react";
 import {addToFav,removeToFav} from '../../reducers/favSlice.js'
@@ -56,15 +56,7 @@ const Products = ()=>{
      }
 
       useEffect(()=>{
-
-           
-
-       dispatch(setStatus("loading")); 
-       dispatch(getProducts(demo)); 
-       dispatch(setStatus("idle"));
-           
-            
-
+        dispatch(productsData());
       },[])
 
 
