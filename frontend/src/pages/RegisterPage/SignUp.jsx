@@ -121,6 +121,7 @@ function SignUp() {
          
          dispatch(signUp(userDetails));
          console.log(userDetails);
+         console.log(user);
       }
       else
       {
