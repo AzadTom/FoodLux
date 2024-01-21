@@ -1,0 +1,14 @@
+
+
+mongo:
+
+Mongod: mongo daemon (host  to process where mongodb runs)
+
+
+mongodb:
+
+
+
+
+Middleware: Middleware gets access between request and response.
+
