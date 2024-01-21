@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import ProductCard from '../components/Products/ProductCard';
-import { addToFav,removeToFav } from '../reducers/favSlice';
-import { addtocart } from '../reducers/cartSlice';
+import ProductCard from '../../components/Products/ProductCard';
+import { addToFav,removeToFav } from '../../reducers/favSlice';
+import { addtocart } from '../../reducers/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import FavoriteIcon from '@mui/icons-material/Favorite';

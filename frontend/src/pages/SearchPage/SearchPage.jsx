@@ -1,11 +1,11 @@
 import { useSelector,useDispatch } from 'react-redux';
-import ProductCard from '../components/Products/ProductCard';
-import {addtocart} from '../reducers/cartSlice.js';
+import ProductCard from '../../components/Products/ProductCard.jsx';
+import {addtocart} from '../../reducers/cartSlice.js';
 
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-import {addToFav,removeToFav} from '../reducers/favSlice.js'
+import {addToFav,removeToFav} from '../../reducers/favSlice.js'
 
 import toast from "react-hot-toast";
 

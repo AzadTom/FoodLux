@@ -13,12 +13,12 @@ import ThemeButton from './components/HeroSection/ThemeButton';
 // pages components
 const Home  = lazy(()=> import("./pages/HomePage/Home"));
 const HomePage =  lazy(()=> import("./pages/HomePage/HomePage"));
-const SignUp = lazy(()=> import("./pages/SignUp"));
-const SignIn = lazy(()=> import("./pages/SignIn"));
-const Cart  = lazy(()=> import("./pages/CartPage"));
-const SearchPage = lazy(()=>import("./pages/SearchPage"));
-const Wishlist = lazy(()=> import("./pages/Wishlist"));
-const NotFound = lazy(()=> import("./pages/NotFound"));
+const SignUp = lazy(()=> import("./pages/RegisterPage/SignUp"));
+const SignIn = lazy(()=> import("./pages/RegisterPage/SignIn"));
+const Cart  = lazy(()=> import("./pages/CartPage/CartPage"));
+const SearchPage = lazy(()=>import("./pages/SearchPage/SearchPage"));
+const Wishlist = lazy(()=> import("./pages/WishlistPage/Wishlist"));
+const NotFound = lazy(()=> import("./pages/NotFoundPage/NotFound"));
 
 
 

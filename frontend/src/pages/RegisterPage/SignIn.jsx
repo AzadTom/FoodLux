@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Input from '../components/Others/Input';
+import Input from '../../components/Others/Input';
 
+import {useDispatch ,useSelector} from 'react-redux';
+import { signIn} from '../../reducers/userSlice.js';
 
 function SignIn() {
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const {status,user} = useSelector((state)=>(state.user))
 
 
     const [userDetails,setUserDetails] = useState({
@@ -47,6 +53,33 @@ function SignIn() {
   }
 
 
+  const submitForm = (e)=>{
+
+      e.preventDefault();
+
+      dispatch(signIn(userDetails))
+
+  }
+
+
+  if(status=="loading")
+  {
+
+     return(
+       <div className='w-full h-screen flex justify-center items-center'>
+           <span>Loading...</span>
+       </div>
+     )
+  }
+
+
+  if(user)
+  {
+
+    console.log(user)
+    navigate("/home");
+
+  }
 
 
 
@@ -54,7 +87,7 @@ function SignIn() {
     <div className='flex    items-center justify-center   w-full h-screen  '>
 
             
-         <form className='max-w-[800px]  flex flex-col justify-center    p-[2rem] gap-4 rounded-md '>
+         <form className='max-w-[800px]  flex flex-col justify-center    p-[2rem] gap-4 rounded-md ' onSubmit={submitForm}>
 
                
                 <h2 className='text-xl  '>LogIn </h2>
@@ -66,7 +99,7 @@ function SignIn() {
               ))
             } 
           <div className='flex flex-col justify-center   gap-2 '>
-          <button className='px-[20px] py-[10px] bg-black text-white rounded-md'>Sign In</button>
+          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>Sign In</button>
             <p className='text-center cursor-pointer' onClick={()=> navigate("/signup")}>Don't have an account? SignUp</p>
           </div>
             <div className='flex  flex-col  justify-center text-center gap-2  '>

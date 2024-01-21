@@ -1,5 +1,5 @@
 import { userModel } from "../models/userModel.js";
-import bcryptjs from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import Jwt  from "jsonwebtoken";
 
 
@@ -18,9 +18,9 @@ export const signUp = async(req,res)=>{
     }
 
 
-    const hashPassword = bcryptjs.hash(password,10);
+    const hashPassword = await bcrypt.hash(password,10);
 
-    const newUser = await userModel.create({name,email,password:hashPassword});
+    const newUser = await userModel.create({name:name,email:email,password:hashPassword});
 
 
 
@@ -48,7 +48,7 @@ export const signin = async(req,res)=>{
     }
 
 
-    const hashPassword = bcryptjs.compare(password,user.password);
+    const hashPassword = await bcrypt.compare(password,user.password);
 
   
     if(hashPassword)
@@ -63,6 +63,17 @@ export const signin = async(req,res)=>{
     }
    
 
+
+}
+
+
+export const userProfile = async(req,res,next)=>{
+
+     const userid = req.userid;
+
+     const user = await userModel.findById(userid);
+
+     res.status(200).json({user:user})
 
 }
 

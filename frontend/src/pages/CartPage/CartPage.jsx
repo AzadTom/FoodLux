@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import Cart from "../components/Cart/Cart";
-import OrderSummary from "../components/Cart/OrderSummary";
+import Cart from "../../components/Cart/Cart";
+import OrderSummary from "../../components/Cart/OrderSummary";
 import { useNavigate } from "react-router-dom";
 
 const CartPage = ()=>{

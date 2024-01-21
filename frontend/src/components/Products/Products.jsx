@@ -1,6 +1,5 @@
 import ProductCard from "./ProductCard";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {demo} from '../../utils/demo.js';
 import {useDispatch ,useSelector} from 'react-redux';
 import  {productsData} from '../../reducers/productSlice.js';
 import  {addtocart}from '../../reducers/cartSlice.js';

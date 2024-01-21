@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Input from '../components/Others/Input';
-import { validateUserDetail } from '../utils/validate.js'; 
+import Input from '../../components/Others/Input.jsx';
+import { validateUserDetail } from '../../utils/validate.js'; 
+import {useDispatch ,useSelector} from 'react-redux';
+import { signUp } from '../../reducers/userSlice.js';
+ 
 
 
 function SignUp() {
 
   const navigate = useNavigate();
+
+   const dispatch = useDispatch();
+
+   const {status,user} = useSelector((state)=>(state.user))
 
 
     const [userDetails,setUserDetails] = useState({
@@ -111,6 +118,8 @@ function SignUp() {
 
       if(isValid)
       {
+         
+         dispatch(signUp(userDetails));
          console.log(userDetails);
       }
       else
@@ -124,6 +133,24 @@ function SignUp() {
   }
 
 
+   if(status=="loading")
+   {
+
+      return(
+        <div className='w-full h-screen flex justify-center items-center'>
+            <span>Loading...</span>
+        </div>
+      )
+   }
+
+
+   if(user)
+   {
+
+     console.log(user)
+     navigate("/home");
+
+   }
 
 
 

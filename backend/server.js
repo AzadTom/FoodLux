@@ -2,6 +2,8 @@ import express from 'express';
 import {config} from 'dotenv';
 import cors from 'cors';
 
+// middleware
+import { dateMethod } from './middleWare/dateMethod.js';
 
 // Routes
 import {productRoute} from './routes/productRoute.js';
@@ -51,7 +53,7 @@ class Server {
 
       server.get("/",async(req,res)=>{
 
-        res.json({home:"home"});
+        res.json({api:"api is working!"});
         
       })
 
@@ -59,13 +61,20 @@ class Server {
 
     middleware(){
 
+
+      // cors & corsOption
       const corsOptions = {
-        origin: '*',
+        origin: process.env.FRONTEND,
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         allowedHeaders: 'Content-Type,Authorization',
       };
 
        server.use(cors(corsOptions));
+
+      //  global middleware
+       server.use(dateMethod)
+
+      //  convert into json form
        server.use(express.json());
       
     }
