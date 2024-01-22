@@ -20,6 +20,15 @@ const server = express();
 
 config({path:"./config.env"});
 
+ // cors & corsOption
+ const corsOptions = {
+  origin: [process.env.FRONTEND],
+  methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+  credentials: true
+};
+
+server.use(cors(corsOptions));
+
 
 
 class Server {
@@ -57,27 +66,12 @@ class Server {
     middleware(){
 
 
-      
-
-      // cors & corsOption
-      const corsOptions = {
-        origin: [process.env.FRONTEND],
-        methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
-        credentials: true
-      };
-      
-      server.use(cors(corsOptions));
-
       //  global middleware
        server.use(dateMethod)
 
       //  convert into json form
        server.use(express.json());
 
-       
-
-     
-       
       
     }
 
