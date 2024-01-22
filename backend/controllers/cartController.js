@@ -50,7 +50,7 @@ export const removetocart = async(req,res)=>{
 
         const cartid = req.params.id;
 
-        const singlecart =  await cartModel.findById(cartid);
+        const singlecart =  await cartModel.deleteOne({_id:req.params.id});
 
         res.status(200).json({singlecart});
         
