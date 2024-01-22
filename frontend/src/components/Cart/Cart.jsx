@@ -18,15 +18,7 @@ const Cart = () => {
 
     const {token} = useSelector((state)=>(state.token));
 
-    const showToast = (content,icon)=>
-     {
-
-        toast(content,{
-            icon:icon,
-            position:'top-center'
-        })
-
-     }
+    
 
 
      useEffect(()=>{

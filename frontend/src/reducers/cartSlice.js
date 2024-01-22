@@ -23,7 +23,7 @@ const cartSlice = createSlice({
       
       setCartNull:(state,action)=>{
 
-        state.cart = [];
+         state.cart = [];
 
       }
        

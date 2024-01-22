@@ -9,7 +9,7 @@ const STATUS = Object.freeze({
 })
 
 const initialState = {
-    user:null,
+    user:"",
     status:STATUS.idle,
 }
 
@@ -20,7 +20,7 @@ const userSlice = createSlice({
 
      setUserNull:(state,action)=>{
 
-        state.user = null;
+        state.user = "";
         state.status = STATUS.idle;
 
      }   

@@ -35,8 +35,9 @@ const initialState = {
         })
         .addCase(getfavs.fulfilled,(state,action)=>{
 
-            state.wishData = action.payload.favData;
+            state.wishData =  action.payload;
             state.status = STATUS.idle;
+            
         })
         .addCase(addTOfav.fulfilled,(state,action)=>{
 
@@ -44,7 +45,8 @@ const initialState = {
         })
         .addCase(removeTofav.fulfilled,(state,action)=>{
 
-            state.wishData = state.wishData.filter((item)=>(item._id !== action.payload.singlecart._id));
+             
+            state.wishData = state.wishData.filter((item)=>(item._id !== action.payload._id));
         })
 
     }
