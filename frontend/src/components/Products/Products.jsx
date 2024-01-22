@@ -10,16 +10,20 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const Products = ()=>{
 
 
     
 
+     const navigate = useNavigate();
       const dispatch = useDispatch();
 
       const {products,status} = useSelector((state)=>(state.product));
 
       const {wishData} = useSelector((state)=>(state.favData));
+
+      const {token} = useSelector((state)=>(state.token));
 
 
 
@@ -28,6 +32,10 @@ const Products = ()=>{
 
       const add =(item)=>{
 
+         if(!token)
+         {
+           return navigate("/signin");
+         }
         dispatch(addtocart(item));
         
 
@@ -35,6 +43,10 @@ const Products = ()=>{
 
      const addRemoveToFav = (product)=>{
 
+          if(!token)
+          {
+            return navigate("/signin");
+          }
 
         const isFound =  wishData.find((item)=>(item.id == product.id));
 

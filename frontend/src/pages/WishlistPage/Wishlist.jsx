@@ -14,6 +14,8 @@ const Wishlist = ()=>{
 
     const {wishData} = useSelector((state)=>(state.favData));
 
+    const {token} = useSelector((state)=>(state.token));
+
     const navigate = useNavigate();
 
 
@@ -32,6 +34,10 @@ const Wishlist = ()=>{
      
     const add =(item)=>{
 
+      if(!token)
+      {
+        return navigate("/signin");
+      }
         dispatch(addtocart(item));
         showToast("add to cart!", <div><LocalMallIcon/></div> );
 
@@ -39,6 +45,10 @@ const Wishlist = ()=>{
 
      const addRemoveToFav = (product)=>{
 
+      if(!token)
+      {
+        return navigate("/signin");
+      }
 
         const isFound =  wishData.find((item)=>(item.id == product.id));
 

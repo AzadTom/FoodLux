@@ -19,7 +19,9 @@ const SearchPage = ()=>{
 
     const {wishData} = useSelector((state)=>(state.favData));
 
+    const {token} = useSelector((state)=>(state.token));
 
+    
     const showToast = (content,icon)=>
       {
  
@@ -33,6 +35,12 @@ const SearchPage = ()=>{
 
     const add =(item)=>{
 
+
+      if(!token)
+      {
+        return navigate("/signin");
+      }
+
       dispatch(addtocart(item));
       showToast("add to cart!", <div><LocalMallIcon/></div> );
 
@@ -40,6 +48,11 @@ const SearchPage = ()=>{
 
    const addRemoveToFav = (product)=>{
 
+
+      if(!token)
+      {
+        return navigate("/signin");
+      }
 
       const isFound =  wishData.find((item)=>(item.id == product.id));
 
