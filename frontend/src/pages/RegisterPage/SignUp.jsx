@@ -5,7 +5,7 @@ import { validateUserDetail } from '../../utils/validate.js';
 import {useDispatch ,useSelector} from 'react-redux';
 import { signUp ,setUserNull} from '../../reducers/userSlice.js';
 import { setToken } from '../../reducers/tokenSlice.js';
- 
+import {Loader} from '../../components/Others/Loading.jsx';
 
 
 function SignUp() {
@@ -187,7 +187,7 @@ function SignUp() {
               ))
             } 
           <div className='flex flex-col justify-center   gap-2 '>
-          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>{status == "loading"? "Loading...":"Sign Up"}</button>
+          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>{status == "loading"? <Loader/>:"Sign Up"}</button>
             <p className='text-center cursor-pointer' onClick={()=> navigate("/signin")}>Already have an account? LogIn</p>
           </div>
             <div className='flex  flex-col  justify-center text-center gap-2  '>

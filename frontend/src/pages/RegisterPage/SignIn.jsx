@@ -6,6 +6,8 @@ import {useDispatch ,useSelector} from 'react-redux';
 import { signIn ,setUserNull} from '../../reducers/userSlice.js';
 import { setToken } from '../../reducers/tokenSlice.js';
 
+import {Loader} from '../../components/Others/Loading.jsx';
+
 function SignIn() {
 
   const navigate = useNavigate();
@@ -111,7 +113,7 @@ function SignIn() {
               ))
             } 
           <div className='flex flex-col justify-center   gap-2 '>
-          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>{status == "loading"? "Loading...":"Sign In"}</button>
+          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>{status == "loading"? <Loader/>:"Sign In"}</button>
             <p className='text-center cursor-pointer' onClick={()=> navigate("/signup")}>Don't have an account? SignUp</p>
           </div>
             <div className='flex  flex-col  justify-center text-center gap-2  '>

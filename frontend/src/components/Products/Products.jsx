@@ -2,19 +2,14 @@ import ProductCard from "./ProductCard";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {useDispatch ,useSelector} from 'react-redux';
 import  {productsData} from '../../reducers/productSlice.js';
-import  { addTocart }from '../../reducers/cartSlice.js';
-import { useEffect } from "react";
+import  { addTocart, getCart ,setCartNull}from '../../reducers/cartSlice.js';
+import { useEffect, useState } from "react";
 import {addToFav,removeToFav} from '../../reducers/favSlice.js'
-
-import LocalMallIcon from '@mui/icons-material/LocalMall';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-
-import toast from "react-hot-toast";
+import Loading from '../Others/Loading.jsx';
 import { useNavigate } from "react-router-dom";
+
+
 const Products = ()=>{
-
-
-    
 
      const navigate = useNavigate();
       const dispatch = useDispatch();
@@ -23,13 +18,13 @@ const Products = ()=>{
 
       const {wishData} = useSelector((state)=>(state.favData));
 
-      const {token} = useSelector((state)=>(state.token));
-
-
+      const {cart} = useSelector((state)=>(state.cart));
 
       
 
+      const {token} = useSelector((state)=>(state.token));
 
+   
       const add =(item)=>{
 
          if(!token)
@@ -69,12 +64,15 @@ const Products = ()=>{
 
       useEffect(()=>{
         dispatch(productsData());
+        token && dispatch(getCart(token.token));
+        !token && dispatch(setCartNull());
+        
       },[])
 
 
       if(status==="loading")
       {
-        return ( <div className="w-full text-center h-8">Loading...</div> )
+        return ( <div className="w-full text-center h-8"><Loading/></div> )
       }
 
     return(

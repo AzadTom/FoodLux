@@ -23,3 +23,13 @@ const Loading =()=>{
 }
 
 export default Loading;
+
+export const Loader = ()=>{
+
+     return(
+        <button className="flex gap-2 px-4 py-2 flex-col justify-center items-center">
+                    <span className="animate-spin p-4 rounded-[50%] border-4 border-[#a2a2a2] border-t-white"></span>
+                    
+        </button>
+     )
+}

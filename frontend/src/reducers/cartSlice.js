@@ -20,38 +20,13 @@ const cartSlice = createSlice({
     initialState:initialState,
     reducers:{
 
-      //  addtocart:(state,action)=>{
+      
+      setCartNull:(state,action)=>{
 
-      //       state.cart.push(action.payload);
+        state.cart = [];
 
-      //  },
-
-      //  incrementDecrement:(state,action)=>{
-
-      //    const item =  state.cart.find((item)=> item.id == action.payload.id);
-
-      //    if(item)
-      //    {
-      //       const index = state.cart.indexOf(item);
-
-      //       state.cart[index] = action.payload;
-
-      //    }
-
-      //  },
-
-      //  removetocart:(state,action)=>{
-
-      //       state.cart = state.cart.filter((item)=> (item.id !== action.payload.id));
-
-      //  },
-
-      //  setStatus : (state,action)=>{
-
-
-      //   state.status = action.payload;
-
-      //  }
+      }
+       
 
   },
   extraReducers:(builder)=>{
@@ -88,6 +63,7 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer;
 
+export const {setCartNull} = cartSlice.actions;
 
 export const getCart = createAsyncThunk("/cart",async(token,ThunkApi)=>{
 

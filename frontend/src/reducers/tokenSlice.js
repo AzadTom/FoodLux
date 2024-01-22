@@ -9,7 +9,7 @@ const STATUS = Object.freeze({
 })
 
 const initialState = {
-    token:null,
+    token:"",
     status:STATUS.idle,
 }
 
@@ -21,15 +21,9 @@ const tokenSlice  = createSlice({
       setToken:(state,action)=>{
 
         state.status = STATUS.loading;
-        if(action.payload)
-        {
-          state.token = action.payload;
-        }
-        else
-        {
-          state.token = null;
-        }
+        state.token = action.payload;
         state.status = STATUS.idle;
+
       }  
 
     }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector ,useDispatch} from 'react-redux';
 import { setToken } from '../../reducers/tokenSlice.js';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,8 @@ function UserProfile() {
 
   const {token} = useSelector((state)=>(state.token));
 
-  const currentUser =  token.user;
+  const [currentUser,setCurrentUser]= useState(token.user);
+
 
   const dispatch = useDispatch();
 
@@ -15,8 +16,8 @@ function UserProfile() {
 
   const removeToken = (e)=>{
 
-      e.preventDefault();
-     dispatch(setToken());
+     e.preventDefault();
+     dispatch(setToken(""));
      navigate("/home");
 
   }

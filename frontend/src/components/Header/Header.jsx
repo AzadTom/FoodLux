@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SearchIcon from '@mui/icons-material/Search';
 import { useSelector ,useDispatch} from "react-redux";
 import {getFilter} from '../../reducers/filterSlice.js';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Favorite } from "@mui/icons-material";
+
+
 
 
 
@@ -25,8 +26,6 @@ const Header=()=>{
     const {products} = useSelector((state)=>(state.product));
 
 
-    
-    
     const goToHome = (e)=>{
 
          e.preventDefault();
@@ -63,6 +62,8 @@ const Header=()=>{
          
 
     }
+
+   
 
 
     return(
