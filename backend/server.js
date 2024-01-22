@@ -64,21 +64,26 @@ class Server {
 
       
 
-      //  global middleware
-       server.use(dateMethod)
-
-      //  convert into json form
-       server.use(express.json());
-
-       // cors & corsOption
+      // cors & corsOption
       const corsOptions = {
         origin: [process.env.FRONTEND,process.env.DEMO],
         methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
         credentials: true
       };
 
+      
+      server.use(cors());
+
+      //  global middleware
+       server.use(dateMethod)
+
+      //  convert into json form
+       server.use(express.json());
+
+       
+
      
-       server.use(cors(corsOptions));
+       
       
     }
 
