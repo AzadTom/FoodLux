@@ -2,7 +2,7 @@ import ProductCard from "./ProductCard";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {useDispatch ,useSelector} from 'react-redux';
 import  {productsData} from '../../reducers/productSlice.js';
-import  {addtocart}from '../../reducers/cartSlice.js';
+import  { addTocart }from '../../reducers/cartSlice.js';
 import { useEffect } from "react";
 import {addToFav,removeToFav} from '../../reducers/favSlice.js'
 
@@ -36,7 +36,8 @@ const Products = ()=>{
          {
            return navigate("/signin");
          }
-        dispatch(addtocart(item));
+
+        dispatch(addTocart({item,token:token.token}));
         
 
       }

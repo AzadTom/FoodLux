@@ -8,6 +8,7 @@ import { dateMethod } from './middleWare/dateMethod.js';
 // Routes
 import {productRoute} from './routes/productRoute.js';
 import {userRoute} from './routes/userRoute.js';
+import {cartRoute} from './routes/cartRouter.js';
 
 // Database
 import { mongodb } from './database/database.js';
@@ -76,6 +77,7 @@ class Server {
 
       server.use("/products",productRoute);
       server.use("/users",userRoute);
+      server.use("/carts",cartRoute);
 
     }
 

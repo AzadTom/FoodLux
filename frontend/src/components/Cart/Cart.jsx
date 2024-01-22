@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removetocart, setStatus } from '../../reducers/cartSlice.js';
+import { removeTocart ,getCart } from '../../reducers/cartSlice.js';
 import CartCard from './CartCard.jsx';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 
 
 import toast from "react-hot-toast";
+import { useEffect } from 'react';
 
 const Cart = () => {
 
@@ -14,6 +15,8 @@ const Cart = () => {
 
 
     const { cart} = useSelector((state) => (state.cart));
+
+    const {token} = useSelector((state)=>(state.token));
 
     const showToast = (content,icon)=>
      {
@@ -26,13 +29,20 @@ const Cart = () => {
      }
 
 
+     useEffect(()=>{
+
+       dispatch(getCart(token.token)); 
+
+     },[])
+
+
 
     const remove = (item) => {
 
 
        
-        dispatch(removetocart(item));
-         showToast("remove to cart!", <div><LocalMallIcon/></div> );
+        dispatch(removeTocart({item,token:token.token}));
+        showToast("remove to cart!", <div><LocalMallIcon/></div> );
        
 
     }

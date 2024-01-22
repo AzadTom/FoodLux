@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ServiceAddtocart ,ServiceRemovetocart,ServiceGetCart} from "../services/service.js";
 
 
 const STATUS = Object.freeze({
@@ -20,43 +20,89 @@ const cartSlice = createSlice({
     initialState:initialState,
     reducers:{
 
-       addtocart:(state,action)=>{
+      //  addtocart:(state,action)=>{
 
-            state.cart.push(action.payload);
+      //       state.cart.push(action.payload);
 
-       },
+      //  },
 
-       incrementDecrement:(state,action)=>{
+      //  incrementDecrement:(state,action)=>{
 
-         const item =  state.cart.find((item)=> item.id == action.payload.id);
+      //    const item =  state.cart.find((item)=> item.id == action.payload.id);
 
-         if(item)
-         {
-            const index = state.cart.indexOf(item);
+      //    if(item)
+      //    {
+      //       const index = state.cart.indexOf(item);
 
-            state.cart[index] = action.payload;
+      //       state.cart[index] = action.payload;
 
-         }
+      //    }
 
-       },
+      //  },
 
-       removetocart:(state,action)=>{
+      //  removetocart:(state,action)=>{
 
-            state.cart = state.cart.filter((item)=> (item.id !== action.payload.id));
+      //       state.cart = state.cart.filter((item)=> (item.id !== action.payload.id));
 
-       },
+      //  },
 
-       setStatus : (state,action)=>{
+      //  setStatus : (state,action)=>{
 
 
-        state.status = action.payload;
+      //   state.status = action.payload;
 
-       }
+      //  }
+
+  },
+  extraReducers:(builder)=>{
+
+     builder.addCase(getCart.pending,(state,action)=>{
+
+           state.status = STATUS.loading;
+     })
+     .addCase(getCart.fulfilled,(state,action)=>{
+
+         state.cart =  action.payload;
+         state.status = STATUS.idle;
+     })
+     .addCase(addTocart.fulfilled,(state,action)=>{
+
+       state.cart.push(action.payload);
+
+     })
+     .addCase(removeTocart.fulfilled,(state,action)=>{
+
+       state.cart = state.cart.filter((item)=> (item.id !== action.payload.id));
+
+     })
+     
 
   }
 })
 
-export const {addtocart,removetocart,incrementDecrement,setStatus} = cartSlice.actions;
+
 
 export default cartSlice.reducer;
 
+
+export const getCart = createAsyncThunk("/cart",async(token,ThunkApi)=>{
+
+      const data = await ServiceGetCart(token);
+
+      return data;
+})
+
+export const addTocart = createAsyncThunk("/cart/create",async(product,ThunkApi)=>{
+
+      const data = await ServiceAddtocart(product.item,product.token);
+
+      return data;
+})
+
+
+export const removeTocart = createAsyncThunk("/cart/remove",async(product,Thunkpi)=>{
+
+     const data = await ServiceRemovetocart(product.id,product.token);
+
+     return data;
+})

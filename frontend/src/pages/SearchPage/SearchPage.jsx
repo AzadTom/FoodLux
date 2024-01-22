@@ -1,6 +1,6 @@
 import { useSelector,useDispatch } from 'react-redux';
 import ProductCard from '../../components/Products/ProductCard.jsx';
-import {addtocart} from '../../reducers/cartSlice.js';
+import {addTocart} from '../../reducers/cartSlice.js';
 
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -43,7 +43,7 @@ const SearchPage = ()=>{
         return navigate("/signin");
       }
 
-      dispatch(addtocart(item));
+      dispatch(addTocart({item,token:token.token}));
       showToast("add to cart!", <div><LocalMallIcon/></div> );
 
     }
