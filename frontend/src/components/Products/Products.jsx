@@ -18,7 +18,7 @@ const Products = ()=>{
 
       const {wishData} = useSelector((state)=>(state.favData));
 
-      const {cart} = useSelector((state)=>(state.cart));
+      
 
       
 

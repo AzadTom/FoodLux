@@ -62,6 +62,8 @@ const cartSlice = createSlice({
 
        state.cart[index] = action.payload.singlecart;
        
+       console.log("cartSlice-incrementDecrement",action.payload.singlecart);
+
      })
      
 
