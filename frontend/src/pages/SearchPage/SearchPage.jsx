@@ -8,6 +8,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {addToFav,removeToFav} from '../../reducers/favSlice.js'
 
 import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 
 const SearchPage = ()=>{
 
@@ -16,7 +17,8 @@ const SearchPage = ()=>{
 
     const dispatch = useDispatch();
 
-
+    const navigate = useNavigate();
+    
     const {wishData} = useSelector((state)=>(state.favData));
 
     const {token} = useSelector((state)=>(state.token));
