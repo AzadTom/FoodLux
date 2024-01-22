@@ -70,7 +70,7 @@ class Server {
       };
 
      
-      server.use(cors());
+       server.use(cors());
 
       //  global middleware
        server.use(dateMethod)
