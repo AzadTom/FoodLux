@@ -103,6 +103,48 @@ export const ServiceIncrementDecrement = async(qty,token,productid)=>{
 }
 
 
+// Wishlist
+
+export const ServiceGetfav = async(token)=>{
+
+    const response = await axios.get(`${BASE_URL}/favs/`,{
+         
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response.data;
+}
+
+
+export const ServiceAddtofav =async(product,token)=>{
+
+    const response = await axios.post(`${BASE_URL}/favs/create`,product,{
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`,
+        },
+        
+        
+     })
+
+     return response.data;
+}
+
+
+export const ServiceRemovetofav = async(productid,token)=>{
+
+    const response  = await axios.delete(`${BASE_URL}/favs/${productid}`,{
+        headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},
+    })
+
+     return response.data;
+
+}
+
+
 
 
 

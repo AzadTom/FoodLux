@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../../components/Products/ProductCard';
-import { addToFav,removeToFav } from '../../reducers/favSlice';
+import { addTOfav,removeTofav } from '../../reducers/favSlice';
 import { addTocart } from '../../reducers/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
-import toast from "react-hot-toast";
+
+
 
 
 const Wishlist = ()=>{
@@ -21,15 +21,7 @@ const Wishlist = ()=>{
 
      const dispatch = useDispatch();
 
-     const showToast = (content,icon)=>
-     {
-
-        toast(content,{
-            icon:icon,
-            position:'top-center'
-        })
-
-     }
+   
 
      
     const add =(item)=>{
@@ -54,14 +46,14 @@ const Wishlist = ()=>{
 
         if(isFound)
         {
-           dispatch(removeToFav(product));
-           showToast("remove to wishlist!", <div><FavoriteIcon/></div> );
+           dispatch(removeTofav({id:product._id,token:token.token}));
+           
         }
         else
         {
 
-           dispatch(addToFav(product));
-           showToast("add to wishlist!", <div><FavoriteIcon/></div> );
+           dispatch(addTOfav({item:product,token:token.token}));
+           
         }
 
 

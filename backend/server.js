@@ -9,6 +9,7 @@ import { dateMethod } from './middleWare/dateMethod.js';
 import {productRoute} from './routes/productRoute.js';
 import {userRoute} from './routes/userRoute.js';
 import {cartRoute} from './routes/cartRouter.js';
+import {favRoute} from './routes/favRouter.js';
 
 // Database
 import { mongodb } from './database/database.js';
@@ -78,6 +79,7 @@ class Server {
       server.use("/products",productRoute);
       server.use("/users",userRoute);
       server.use("/carts",cartRoute);
+      server.use("/favs",favRoute);
 
     }
 

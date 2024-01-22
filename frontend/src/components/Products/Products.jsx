@@ -4,10 +4,10 @@ import {useDispatch ,useSelector} from 'react-redux';
 import  {productsData} from '../../reducers/productSlice.js';
 import  { addTocart, getCart ,setCartNull}from '../../reducers/cartSlice.js';
 import { useEffect, useState } from "react";
-import {addToFav,removeToFav} from '../../reducers/favSlice.js'
+import {addTOfav,getfavs,removeTofav ,setWishlistToNull} from '../../reducers/favSlice.js'
 import Loading from '../Others/Loading.jsx';
 import { useNavigate } from "react-router-dom";
-
+import {setToken} from '../../reducers/tokenSlice.js';
 
 const Products = ()=>{
 
@@ -48,13 +48,13 @@ const Products = ()=>{
 
         if(isFound)
         {
-           dispatch(removeToFav(product));
+           dispatch(removeTofav({id:product._id,token:token.token}));
            
         }
         else
         {
 
-           dispatch(addToFav(product));
+           dispatch(addTOfav({item:product,token:token.token}));
            
         }
 
@@ -65,7 +65,10 @@ const Products = ()=>{
       useEffect(()=>{
         dispatch(productsData());
         token && dispatch(getCart(token.token));
+        token && dispatch(getfavs());
         !token && dispatch(setCartNull());
+        !token && dispatch(setToken(""));
+        !token && dispatch(setWishlistToNull());
         
       },[])
 

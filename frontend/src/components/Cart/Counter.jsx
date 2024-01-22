@@ -31,7 +31,8 @@ const Counter = ({item})=>{
 
             if(product>1)
             {
-               dispatch(incrementDecrementCart({item:product,token:token.token}));
+               dispatch(incrementDecrementCart({item:product,token:token.token,id:item._id}));
+               console.log(product);
             }
 
          }, 1000);
