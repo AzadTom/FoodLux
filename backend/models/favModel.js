@@ -35,5 +35,5 @@ const favSchema = new mongoose.Schema({
 
 })
 
-export const cartModel = mongoose.model("favs",favSchema);
+export const favModel = mongoose.model("favs",favSchema);
 
