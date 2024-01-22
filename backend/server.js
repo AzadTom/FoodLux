@@ -20,15 +20,6 @@ const server = express();
 
 config({path:"./config.env"});
 
-// cors & corsOption
-const corsOptions = {
-  origin: [process.env.FRONTEND,process.env.DEMO],
-  methods: ["GET", "POST", "DELETE", "PUT", "PATCH"]
-};
-
-
-server.use(cors(corsOptions));
-
 
 
 class Server {
@@ -44,23 +35,18 @@ class Server {
       this.routes();
       this.listen();
       
-      
-
-
     }
 
 
     db(){
 
       mongodb();
-
-
     }
 
     init(){
 
 
-      server.get("/",async(req,res)=>{
+      server.get("/",(req,res)=>{
 
         res.json({api:"api is working!"});
         
@@ -73,7 +59,14 @@ class Server {
 
       
 
+      // cors & corsOption
+      const corsOptions = {
+        origin: [process.env.FRONTEND],
+        methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+        credentials: true
+      };
       
+      server.use(cors(corsOptions));
 
       //  global middleware
        server.use(dateMethod)
