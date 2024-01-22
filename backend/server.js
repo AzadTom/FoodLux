@@ -61,7 +61,7 @@ class Server {
 
       // cors & corsOption
       const corsOptions = {
-        origin: [process.env.FRONTEND,process.env.DEMO],
+        origin: [process.env.FRONTEND],
         methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
         credentials: true
       };
