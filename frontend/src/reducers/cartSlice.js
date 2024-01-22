@@ -62,17 +62,21 @@ const cartSlice = createSlice({
      })
      .addCase(getCart.fulfilled,(state,action)=>{
 
-         state.cart =  action.payload;
+         state.cart =  action.payload.cartData;
          state.status = STATUS.idle;
+
+         console.log("cartSlice-getcart",action.payload.cartData);
      })
      .addCase(addTocart.fulfilled,(state,action)=>{
 
-       state.cart.push(action.payload);
+       state.cart.push(action.payload.singlecart);
+       console.log("cartSlice-addtocart",action.payload.singlecart);
 
      })
      .addCase(removeTocart.fulfilled,(state,action)=>{
 
-       state.cart = state.cart.filter((item)=> (item.id !== action.payload.id));
+       state.cart = state.cart.filter((item)=> (item._id !== action.payload.singlecart._id));
+       console.log("cartSlice-removetocart",action.payload.singlecart);
 
      })
      

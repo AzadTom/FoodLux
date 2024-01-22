@@ -41,7 +41,7 @@ const Cart = () => {
 
 
        
-        dispatch(removeTocart({item,token:token.token}));
+        dispatch(removeTocart({id:item._id,token:token.token}));
         showToast("remove to cart!", <div><LocalMallIcon/></div> );
        
 
@@ -69,7 +69,7 @@ const Cart = () => {
                     </tr>
                 </thead>
                 <tbody  className='text-[var(--secondarytext)]'>
-                 {cart.map((item)=>(<CartCard item={item} key={item.id} remove={()=> remove(item)}/>))}
+                 {cart.map((item)=>(<CartCard item={item} key={item._id} remove={()=> remove(item)}/>))}
                 </tbody>
             </table>
         </>)
