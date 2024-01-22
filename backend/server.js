@@ -62,7 +62,15 @@ class Server {
     middleware(){
 
 
-      // cors & corsOption
+      
+
+      //  global middleware
+       server.use(dateMethod)
+
+      //  convert into json form
+       server.use(express.json());
+
+       // cors & corsOption
       const corsOptions = {
         origin: [process.env.FRONTEND,process.env.DEMO],
         methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
@@ -71,12 +79,6 @@ class Server {
 
      
        server.use(cors(corsOptions));
-
-      //  global middleware
-       server.use(dateMethod)
-
-      //  convert into json form
-       server.use(express.json());
       
     }
 
