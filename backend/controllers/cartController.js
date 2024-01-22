@@ -60,3 +60,18 @@ export const removetocart = async(req,res)=>{
         console.log(error.message);
     }
 }
+
+export const incrementDecrement = async(req,res)=>{
+
+     try {
+
+        const {qty} = req.body;
+        const singlecart = await cartModel.findByIdAndUpdate(req.params.id,{qty},{ new: true })
+        res.status(200).json({singlecart});
+
+     } catch (error) {
+        
+        res.status(400).json({message:"unAuthorized!"});
+        console.log(error.message);
+     }
+}

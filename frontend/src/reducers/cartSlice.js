@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ServiceAddtocart ,ServiceRemovetocart,ServiceGetCart} from "../services/service.js";
+import { ServiceAddtocart ,ServiceRemovetocart,ServiceGetCart, ServiceIncrementDecrement} from "../services/service.js";
 
 
 const STATUS = Object.freeze({
@@ -54,6 +54,15 @@ const cartSlice = createSlice({
        console.log("cartSlice-removetocart",action.payload.singlecart);
 
      })
+     .addCase(incrementDecrementCart.fulfilled,(state,action)=>{
+
+       const cartitem = state.cart.find((item)=> item._id == action.payload.singlecart._id);
+
+       const index  = state.cart.indexOf(cartitem);
+
+       state.cart[index] = action.payload.singlecart;
+       
+     })
      
 
   }
@@ -85,4 +94,11 @@ export const removeTocart = createAsyncThunk("/cart/remove",async(product,Thunkp
      const data = await ServiceRemovetocart(product.id,product.token);
 
      return data;
+})
+
+export const incrementDecrementCart = createAsyncThunk("/cart/incrementDecrement",async(product,ThunkApi)=>{
+
+    const data = await ServiceIncrementDecrement(product.item,product.token);
+
+    return data;
 })

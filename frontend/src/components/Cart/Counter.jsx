@@ -1,7 +1,8 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {incrementDecrementCart} from '../../reducers/cartSlice.js';
 
 
 const Counter = ({item})=>{
@@ -13,9 +14,10 @@ const Counter = ({item})=>{
 
 
 
+     const {token} = useSelector((state)=>(state.token));
+
+
     
-
-
     const increment = (e)=>{
 
         e.preventDefault();
@@ -25,6 +27,12 @@ const Counter = ({item})=>{
             ...prev,
             qty:prev.qty>=1? prev.qty+1:1,
          }))
+
+
+         setTimeout(() => {
+            
+            dispatch(incrementDecrementCart({item:product,token:token.token}));
+         }, 1000);
 
         
 
@@ -42,6 +50,11 @@ const Counter = ({item})=>{
             ...prev,
             qty: prev.qty<=1?1:prev.qty-1,
          }))
+
+         setTimeout(() => {
+            
+            dispatch(incrementDecrementCart({item:product,token:token.token}));
+         }, 1000);
 
          
 
