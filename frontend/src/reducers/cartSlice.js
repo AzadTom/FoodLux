@@ -100,7 +100,7 @@ export const removeTocart = createAsyncThunk("/cart/remove",async(product,Thunkp
 
 export const incrementDecrementCart = createAsyncThunk("/cart/incrementDecrement",async(product,ThunkApi)=>{
 
-    const data = await ServiceIncrementDecrement(product.item,product.token);
+    const data = await ServiceIncrementDecrement(product.item,product.token,product.id);
 
     return data;
 })

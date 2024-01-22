@@ -92,9 +92,9 @@ export const ServiceRemovetocart = async(productid,token)=>{
 }
 
 
-export const ServiceIncrementDecrement = async(product,token)=>{
+export const ServiceIncrementDecrement = async(qty,token,productid)=>{
 
-    const response  = await axios.post(`${BASE_URL}/carts/${product._id}`,{qty:product.qty}, {
+    const response  = await axios.post(`${BASE_URL}/carts/${productid}`,{qty:qty}, {
         headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},
     })
 

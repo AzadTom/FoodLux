@@ -8,14 +8,14 @@ import {incrementDecrementCart} from '../../reducers/cartSlice.js';
 const Counter = ({item})=>{
 
    
-    const [product,setProduct] = useState(item);
+    const [product,setProduct] = useState(1);
 
     const dispatch = useDispatch();
 
 
 
      const {token} = useSelector((state)=>(state.token));
-
+     
 
     
     const increment = (e)=>{
@@ -23,15 +23,17 @@ const Counter = ({item})=>{
         e.preventDefault();
          
 
-        setProduct((prev)=>({
-            ...prev,
-            qty:prev.qty>=1? prev.qty+1:1,
-         }))
+        setProduct((prev)=>(prev>=1? prev+1:1))
 
 
          setTimeout(() => {
             
-            dispatch(incrementDecrementCart({item:product,token:token.token}));
+
+            if(product>1)
+            {
+               dispatch(incrementDecrementCart({item:product,token:token.token}));
+            }
+
          }, 1000);
 
         
@@ -46,14 +48,15 @@ const Counter = ({item})=>{
 
          e.preventDefault();
 
-         setProduct((prev)=>({
-            ...prev,
-            qty: prev.qty<=1?1:prev.qty-1,
-         }))
+         setProduct((prev)=>(prev<=1?1:prev-1))
 
          setTimeout(() => {
             
-            dispatch(incrementDecrementCart({item:product,token:token.token}));
+             if(product>1)
+             {
+                dispatch(incrementDecrementCart({item:product,token:token.token,id:item._id}));
+             }
+            
          }, 1000);
 
          
@@ -66,7 +69,7 @@ const Counter = ({item})=>{
         <>
         <div className='flex gap-1 items-center justify-center border border-[var(--primarytext)] '>
             <button onClick={decrement}><RemoveIcon/></button>
-            <span>{product.qty}</span>
+            <span>{item.qty}</span>
             <button onClick={increment}><AddIcon/></button>
         </div>
         </>
