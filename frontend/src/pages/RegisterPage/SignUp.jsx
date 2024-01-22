@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Input from '../../components/Others/Input.jsx';
 import { validateUserDetail } from '../../utils/validate.js'; 
 import {useDispatch ,useSelector} from 'react-redux';
-import { signUp } from '../../reducers/userSlice.js';
+import { signUp ,setUserNull} from '../../reducers/userSlice.js';
+import { setToken } from '../../reducers/tokenSlice.js';
  
 
 
@@ -14,6 +15,7 @@ function SignUp() {
    const dispatch = useDispatch();
 
    const {status,user} = useSelector((state)=>(state.user))
+
 
 
     const [userDetails,setUserDetails] = useState({
@@ -96,6 +98,11 @@ function SignUp() {
 
 
 
+  useEffect(()=>{
+
+     dispatch(setUserNull());
+  },[])
+
   const onfocus =(e)=>{
 
     e.preventDefault();
@@ -120,8 +127,7 @@ function SignUp() {
       {
          
          dispatch(signUp(userDetails));
-         console.log(userDetails);
-         console.log(user);
+      
       }
       else
       {
@@ -134,24 +140,28 @@ function SignUp() {
   }
 
 
-   if(status=="loading")
-   {
+   
+    if(status=="error")
+    {
+        
+      return (<div className='flex justify-center items-center h-screen'>
+                 <div>{user}</div>
+           </div> )
+    }
+    else
+    {
+      if(user)
+      {
 
-      return(
-        <div className='w-full h-screen flex justify-center items-center'>
-            <span>Loading...</span>
-        </div>
-      )
-   }
+      console.log(user)
+      dispatch(setToken(user));
+      navigate("/home");
 
+      }
 
-   if(user)
-   {
+    }
 
-     console.log(user)
-     navigate("/home");
-
-   }
+   
 
 
 
@@ -177,7 +187,7 @@ function SignUp() {
               ))
             } 
           <div className='flex flex-col justify-center   gap-2 '>
-          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>Sign Up</button>
+          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>{status == "loading"? "Loading...":"Sign Up"}</button>
             <p className='text-center cursor-pointer' onClick={()=> navigate("/signin")}>Already have an account? LogIn</p>
           </div>
             <div className='flex  flex-col  justify-center text-center gap-2  '>

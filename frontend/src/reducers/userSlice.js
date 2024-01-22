@@ -16,12 +16,28 @@ const initialState = {
 const userSlice = createSlice({
     name:"users",
     initialState:initialState,
+    reducers:{
+
+     setUserNull:(state,action)=>{
+
+        state.user = null;
+        state.status = STATUS.idle;
+
+     }   
+
+    },
     extraReducers:(builder)=>{
 
        builder.addCase(signUp.pending,(state,action)=>{
 
           state.status = STATUS.loading;
 
+       })
+       .addCase(signUp.rejected,(state,action)=>{
+
+          state.status = STATUS.error;
+          state.user = action.error.message;
+            
        })
        .addCase(signUp.fulfilled,(state,action)=>{
 
@@ -35,6 +51,12 @@ const userSlice = createSlice({
             state.status = STATUS.loading;
 
         })
+        .addCase(signIn.rejected,(state,action)=>{
+
+            state.status = STATUS.error;
+            state.user = action.error.message;
+              
+         })
         .addCase(signIn.fulfilled,(state,action)=>{
 
         state.user = action.payload;
@@ -47,6 +69,8 @@ const userSlice = createSlice({
 })
 
 export default userSlice.reducer;
+
+export const {setUserNull} = userSlice.actions;
 
 export const signUp =  createAsyncThunk("/users",async(userDetail,ThunkApi)=>{
 

@@ -15,6 +15,9 @@ const Header=()=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+
+
+    const {token} = useSelector((state)=>(state.token));
     const {cart} = useSelector((state)=>(state.cart));
 
     const {wishData} = useSelector((state)=>(state.favData));
@@ -24,6 +27,21 @@ const Header=()=>{
 
     
     
+    const goToHome = (e)=>{
+
+         e.preventDefault();
+         
+
+        if(token)
+        {
+            navigate("/profile");
+        }
+        else
+        {
+            navigate("/signin");
+        }
+
+    }
 
 
     const searchPage = (e)=>{
@@ -65,7 +83,7 @@ const Header=()=>{
                     <LocalMallIcon/>
                     <span className="text-xs">{cart.length>0 ? (cart.length):("")}</span>
                    </button>
-                <button onClick={()=> navigate("/signin")}><AccountCircleIcon/></button>
+                <button onClick={goToHome}><AccountCircleIcon/></button>
             </div>
         </div>
        

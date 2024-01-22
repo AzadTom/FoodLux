@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Input from '../../components/Others/Input';
 
 import {useDispatch ,useSelector} from 'react-redux';
-import { signIn} from '../../reducers/userSlice.js';
+import { signIn ,setUserNull} from '../../reducers/userSlice.js';
+import { setToken } from '../../reducers/tokenSlice.js';
 
 function SignIn() {
 
@@ -52,6 +53,12 @@ function SignIn() {
       
   }
 
+  useEffect(()=>{
+
+    dispatch(setUserNull());
+
+ },[])
+
 
   const submitForm = (e)=>{
 
@@ -62,24 +69,29 @@ function SignIn() {
   }
 
 
-  if(status=="loading")
-  {
-
-     return(
-       <div className='w-full h-screen flex justify-center items-center'>
-           <span>Loading...</span>
-       </div>
-     )
-  }
+  
 
 
-  if(user)
-  {
+  if(status=="error")
+    {
+       console.log(user)
+        
+      return (<div className='flex justify-center items-center h-screen'>
+                 <div>{user}</div>
+           </div> )
+    }
+    else
+    {
+      if(user)
+      {
 
-    console.log(user)
-    navigate("/home");
+      console.log(user)
+      dispatch(setToken(user));
+      navigate("/home");
 
-  }
+      }
+
+    }
 
 
 
@@ -99,7 +111,7 @@ function SignIn() {
               ))
             } 
           <div className='flex flex-col justify-center   gap-2 '>
-          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>Sign In</button>
+          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>{status == "loading"? "Loading...":"Sign In"}</button>
             <p className='text-center cursor-pointer' onClick={()=> navigate("/signup")}>Don't have an account? SignUp</p>
           </div>
             <div className='flex  flex-col  justify-center text-center gap-2  '>

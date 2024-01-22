@@ -15,6 +15,7 @@ const Home  = lazy(()=> import("./pages/HomePage/Home"));
 const HomePage =  lazy(()=> import("./pages/HomePage/HomePage"));
 const SignUp = lazy(()=> import("./pages/RegisterPage/SignUp"));
 const SignIn = lazy(()=> import("./pages/RegisterPage/SignIn"));
+const UserProfile = lazy(()=> import("./pages/ProfilePage/UserProfile"));
 const Cart  = lazy(()=> import("./pages/CartPage/CartPage"));
 const SearchPage = lazy(()=>import("./pages/SearchPage/SearchPage"));
 const Wishlist = lazy(()=> import("./pages/WishlistPage/Wishlist"));
@@ -38,6 +39,7 @@ function App() {
       </Route>
       <Route path="/signup" element={<Suspense fallback={<Loading/>}><SignUp/></Suspense>}/>
       <Route path="/signin" element={<Suspense fallback={<Loading/>}><SignIn/></Suspense>}/>
+      <Route path="/profile" element={<Suspense fallback={<Loading/>}><UserProfile/></Suspense>}/>
       <Route path="/cart" element={<Suspense fallback={<Loading/>}><Cart/></Suspense>}/>
       <Route path="/search" element={<Suspense fallback={<Loading/>}><SearchPage/></Suspense>}/>
       <Route path="/fav" element={<Suspense fallback={<Loading/>}><Wishlist/></Suspense>}/>

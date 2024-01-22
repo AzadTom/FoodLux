@@ -4,7 +4,7 @@ import cartReducer from '../reducers/cartSlice.js';
 import filterReducer from '../reducers/filterSlice.js';
 import favReducer from "../reducers/favSlice.js";
 import userReducer from '../reducers/userSlice.js';
-import userSlice from "../reducers/userSlice.js";
+import tokenReducer from "../reducers/tokenSlice.js";
 
 const store = configureStore({
 
@@ -13,7 +13,8 @@ const store = configureStore({
         cart:cartReducer,
         filterData:filterReducer,
         favData:favReducer,
-        user:userSlice
+        user:userReducer,
+        token:tokenReducer
     }
 })
 
