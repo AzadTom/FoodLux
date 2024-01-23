@@ -101,6 +101,7 @@ function SignUp() {
   useEffect(()=>{
 
      dispatch(setUserNull());
+     
   },[])
 
   const onfocus =(e)=>{

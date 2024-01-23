@@ -8,6 +8,7 @@ import {addTOfav,getfavs,removeTofav ,setWishlistToNull} from '../../reducers/fa
 import Loading from '../Others/Loading.jsx';
 import { useNavigate } from "react-router-dom";
 import {setToken} from '../../reducers/tokenSlice.js';
+import { setUserNull} from '../../reducers/userSlice.js';
 
 const Products = ()=>{
 
@@ -69,12 +70,7 @@ const Products = ()=>{
       useEffect(()=>{
         dispatch(productsData());
         token && dispatch(getCart(token.token));
-        token && dispatch(getfavs(token.token));
-        !token && dispatch(setCartNull());
-        !token && dispatch(setWishlistToNull());
-        !token && dispatch(setToken(""));
-       
-        
+        token && dispatch(getfavs(token.token)); 
       },[])
 
 

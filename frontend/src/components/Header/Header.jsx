@@ -6,6 +6,8 @@ import {getFilter} from '../../reducers/filterSlice.js';
 import { useEffect, useState } from "react";
 import { Favorite } from "@mui/icons-material";
 
+import UserProfile from "../../pages/ProfilePage/UserProfile.jsx";
+
 
 
 
@@ -25,6 +27,9 @@ const Header=()=>{
 
     const {products} = useSelector((state)=>(state.product));
 
+    
+
+    const [profileState,setProfileState] = useState(false);
 
     const goToHome = (e)=>{
 
@@ -32,8 +37,11 @@ const Header=()=>{
          
 
         if(token)
-        {
-            navigate("/profile");
+        {             
+             
+             setProfileState((prev)=>(!prev));
+
+             console.log("inside Header",profileState);
         }
         else
         {
@@ -63,12 +71,20 @@ const Header=()=>{
 
     }
 
+    const closeProfile = ()=>{
+        
+        setProfileState(false);
+        console.log("close profile");
+    }
+
+   
+
    
 
 
     return(
         <>
-        <div className="flex justify-between p-4 items-center cursor-pointer ">
+        <div className="flex justify-between p-4 items-center cursor-pointer  sticky top-0 z-50 bg-[var(--primarycolor)]">
             <div onClick={()=> navigate("/home")}>
                 <h1 className="font-bold text-2xl">FoodLux</h1>
             </div>
@@ -87,7 +103,7 @@ const Header=()=>{
                 <button onClick={goToHome}><AccountCircleIcon/></button>
             </div>
         </div>
-       
+        {profileState && <UserProfile profileState={profileState} closeProfile={closeProfile}/>}
         </>
     )
 

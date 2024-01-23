@@ -16,6 +16,9 @@ function SignIn() {
 
   const {status,user} = useSelector((state)=>(state.user))
 
+  const[loader1,setLoader1] = useState(false);
+  const[loader2,setLoader2] = useState(false);
+
 
     const [userDetails,setUserDetails] = useState({
       email:"",
@@ -66,9 +69,27 @@ function SignIn() {
 
       e.preventDefault();
 
+       setLoader1(true);
+        
       dispatch(signIn(userDetails))
 
   }
+
+   const submitGuestUser = (e)=>{
+
+    
+      e.preventDefault();
+
+      setLoader2(true);
+
+      setUserDetails({
+        email:"kumarazad2918@gmail.com",
+        password:"Qwer1234",
+      });
+
+      dispatch(signIn({email:"kumarazad2918@gmail.com",password:"Qwer1234"}));
+
+   }
 
 
   
@@ -104,7 +125,7 @@ function SignIn() {
          <form className='max-w-[800px]  flex flex-col justify-center    p-[2rem] gap-4 rounded-md ' onSubmit={submitForm}>
 
                
-                <h2 className='text-xl  '>LogIn </h2>
+                <h2 className='text-xl'>LogIn </h2>
 
              
 
@@ -113,7 +134,10 @@ function SignIn() {
               ))
             } 
           <div className='flex flex-col justify-center   gap-2 '>
-          <button className='px-[20px] py-[10px] bg-black text-white rounded-md' type='submit'>{status == "loading"? <Loader/>:"Sign In"}</button>
+            <div className='flex flex-col gap-4'>
+            <button className='px-[20px] py-[10px] bg-black text-white rounded-md flex justify-center items-center' type='submit'>{loader1 ? <Loader/>:"Sign In"}</button>
+            <button className='px-[20px] py-[10px] bg-black text-white rounded-md flex justify-center items-center' onClick={submitGuestUser}>{loader2 ? <Loader/>:"Guest User"}</button>
+            </div>
             <p className='text-center cursor-pointer' onClick={()=> navigate("/signup")}>Don't have an account? SignUp</p>
           </div>
             <div className='flex  flex-col  justify-center text-center gap-2  '>

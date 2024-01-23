@@ -2,9 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeTocart ,getCart } from '../../reducers/cartSlice.js';
 import CartCard from './CartCard.jsx';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-
-
-import toast from "react-hot-toast";
 import { useEffect } from 'react';
 
 const Cart = () => {
