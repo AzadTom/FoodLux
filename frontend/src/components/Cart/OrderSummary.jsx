@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import Model from "./Model";
+import {useNavigate} from 'react-router-dom';
 
 const OrderSummary = () => {
 
@@ -11,6 +12,7 @@ const OrderSummary = () => {
 
   const subtotal = cart.reduce((acc, item) => ((item.price) * (item.qty)) + acc, 0);
 
+  const navigate  = useNavigate();
 
 
   const[model,setModel]= useState(false);
@@ -43,10 +45,10 @@ const OrderSummary = () => {
 
   const CoupanModel = (
      <Model closeModel={showCloseModel}>
-       <div onClick={(event)=> event.stopPropagation() }>
+       <div onClick={(event)=> event.stopPropagation() } className="bg-[var(--primarycolor)] text-[var(--primarytext)] p-4 rounded-lg">
             <h2 className="font-semibold">Apply Coupon</h2>
 
-      <div className="shadow-md p-2">
+      <div className="shadow-md p-2 ">
 
         <div className="flex gap-2">
         <input type="checkbox" name="check1" id="check1"   checked={coupan1} onChange={()=> setCoupan1((prev)=>(!prev))}/>
@@ -65,7 +67,7 @@ const OrderSummary = () => {
 
         <p>Get a refrsh discount of ₹50 on your orders! Brighten up your shopping.</p>
       </div>
-      <button onClick={closeModel} className="px-4 py-2 bg-black text-white w-full">Apply</button>
+      <button onClick={closeModel} className="px-4 py-2 bg-black text-white w-full rounded-lg">Apply</button>
        </div>
      </Model>
   );
@@ -115,7 +117,7 @@ const OrderSummary = () => {
           <span>Total</span>
           <span>{`Rs.${subtotal-coupans}`}</span>
         </div>
-        <button className="px-4 py-2 bg-[var(--border)] text-[var(--neutral)] ">Checkout</button>
+        <button className="px-4 py-2 bg-[var(--border)] text-[var(--neutral)] " onClick={()=> navigate("/checkout")}>Checkout</button>
       </div>
 
 

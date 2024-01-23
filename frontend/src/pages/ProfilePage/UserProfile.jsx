@@ -7,6 +7,8 @@ import { setWishlistToNull } from '../../reducers/favSlice.js';
 import { useNavigate } from 'react-router-dom';
 import Model from '../../components/Cart/Model.jsx';
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 function UserProfile({profileState,closeProfile}) {
 
   const {token} = useSelector((state)=>(state.token));
@@ -52,10 +54,11 @@ function UserProfile({profileState,closeProfile}) {
    const Profile  = (
      <Model closeModel={showCloseModel}>
         <div onClick={(event)=> event.stopPropagation() }>
-        <div className='flex flex-col gap-2 justify-center items-center'>
+        <div className='flex flex-col gap-2 justify-center items-center h-[200px] bg-[var(--primarycolor)] rounded-lg'>
+             <AccountCircleIcon/>
             <h2>{currentUser.name}</h2>
             <h2>{currentUser.email}</h2>
-            <button className="px-4 py-2 bg-green-600 text-white" onClick={removeToken}>Log Out</button>
+            <button className="px-4 py-1 bg-[var(--border)] text-[var(--primarycolor)] rounded-md" onClick={removeToken}>Log Out</button>
         </div>
      </div>
      </Model>

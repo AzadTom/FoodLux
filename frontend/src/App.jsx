@@ -16,6 +16,8 @@ const HomePage =  lazy(()=> import("./pages/HomePage/HomePage"));
 const SignUp = lazy(()=> import("./pages/RegisterPage/SignUp"));
 const SignIn = lazy(()=> import("./pages/RegisterPage/SignIn"));
 const Cart  = lazy(()=> import("./pages/CartPage/CartPage"));
+const Checkout = lazy(()=> import("./pages/CheckoutPage/Checkout"));
+const Success  = lazy(()=> import("./pages/CheckoutPage/Success"));
 const SearchPage = lazy(()=>import("./pages/SearchPage/SearchPage"));
 const Wishlist = lazy(()=> import("./pages/WishlistPage/Wishlist"));
 const NotFound = lazy(()=> import("./pages/NotFoundPage/NotFound"));
@@ -39,6 +41,8 @@ function App() {
       <Route path="/signup" element={<Suspense fallback={<Loading/>}><SignUp/></Suspense>}/>
       <Route path="/signin" element={<Suspense fallback={<Loading/>}><SignIn/></Suspense>}/>
       <Route path="/cart" element={<Suspense fallback={<Loading/>}><Cart/></Suspense>}/>
+      <Route path="/checkout" element={<Suspense fallback={<Loading/>}><Checkout/></Suspense>}/>
+      <Route path="/success" element={<Suspense fallback={<Loading/>}><Success/></Suspense>}/>
       <Route path="/search" element={<Suspense fallback={<Loading/>}><SearchPage/></Suspense>}/>
       <Route path="/fav" element={<Suspense fallback={<Loading/>}><Wishlist/></Suspense>}/>
       <Route path="*" element={<Suspense fallback={<Loading/>}><NotFound/></Suspense>}/>

@@ -122,9 +122,8 @@ body {
 }
 .modal {
 
-  background-color: white;
+
   padding: 1.25rem;
-  border-radius: 0.5rem;
   width: 25rem;
   margin: 1.2rem;
   display: flex;
