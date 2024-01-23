@@ -135,8 +135,8 @@ function SignIn() {
             } 
           <div className='flex flex-col justify-center   gap-2 '>
             <div className='flex flex-col gap-4'>
-            <button className='px-[20px] py-[10px] bg-black text-white rounded-md flex justify-center items-center' type='submit'>{loader1 ? <Loader/>:"Sign In"}</button>
-            <button className='px-[20px] py-[10px] bg-black text-white rounded-md flex justify-center items-center' onClick={submitGuestUser}>{loader2 ? <Loader/>:"Guest User"}</button>
+            <button className='px-[20px] py-[10px] bg-black text-white rounded-md flex justify-center items-center' type='submit'>{loader1 ? <Loader/>:"Log In"}</button>
+            <button className='px-[20px] py-[10px] bg-black text-white rounded-md flex justify-center items-center' onClick={submitGuestUser}>{loader2 ? <Loader/>:"LogIn As Guest"}</button>
             </div>
             <p className='text-center cursor-pointer' onClick={()=> navigate("/signup")}>Don't have an account? SignUp</p>
           </div>

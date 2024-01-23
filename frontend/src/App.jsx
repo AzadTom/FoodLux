@@ -41,7 +41,7 @@ function App() {
       <Route path="/signup" element={<Suspense fallback={<Loading/>}><SignUp/></Suspense>}/>
       <Route path="/signin" element={<Suspense fallback={<Loading/>}><SignIn/></Suspense>}/>
       <Route path="/cart" element={<Suspense fallback={<Loading/>}><Cart/></Suspense>}/>
-      <Route path="/checkout" element={<Suspense fallback={<Loading/>}><Checkout/></Suspense>}/>
+      <Route path="/checkout/:coupan1/:coupan2" element={<Suspense fallback={<Loading/>}><Checkout/></Suspense>}/>
       <Route path="/success" element={<Suspense fallback={<Loading/>}><Success/></Suspense>}/>
       <Route path="/search" element={<Suspense fallback={<Loading/>}><SearchPage/></Suspense>}/>
       <Route path="/fav" element={<Suspense fallback={<Loading/>}><Wishlist/></Suspense>}/>

@@ -117,7 +117,7 @@ const OrderSummary = () => {
           <span>Total</span>
           <span>{`Rs.${subtotal-coupans}`}</span>
         </div>
-        <button className="px-4 py-2 bg-[var(--border)] text-[var(--neutral)] " onClick={()=> navigate("/checkout")}>Checkout</button>
+        <button className="px-4 py-2 bg-[var(--border)] text-[var(--neutral)] " onClick={()=> navigate(`/checkout/${coupan1}/${coupan2}`)}>Checkout</button>
       </div>
 
 

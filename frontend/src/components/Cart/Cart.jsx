@@ -47,7 +47,7 @@ const Cart = () => {
     return (
         <>
           
-            <table class="table-auto text-[var(--secondarytext)]">
+            <table className="table-auto text-[var(--secondarytext)]">
                 <thead  className='text-[var(--primarytext)] font-semibold text-left'>
                     <tr>
                         <th className=" px-4 py-4">Product</th>
