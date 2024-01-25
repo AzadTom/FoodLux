@@ -1,17 +1,23 @@
 import axios from 'axios';
 import {BASE_URL} from '../services/service.js';
 
-export const razorPayHandler  = async(amount = 5000)=>{
+
+
+export const razorPayHandler  = async(token,amount)=>{
+
+
 
 
 
     const {data:{key}} = await axios.get(`${BASE_URL}/payment/getkey`,{
         headers:{"Content-Type":"application/json"},
+        "Authorization": `Bearer ${token}`
         
     });
 
     const {data:{order}} = await axios.post(`${BASE_URL}/payment/checkout`,{amount:amount},{
         headers:{"Content-Type":"application/json"},
+        "Authorization": `Bearer ${token}`
         
     });
 
