@@ -6,7 +6,7 @@ import './App.css'
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import store from './store/store.js';
-import { ThemeProvider } from './utils/ThemeProvider.jsx'
+import { ThemeProvider } from './components/Theme/ThemeProvider.jsx';
 
 
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import { razorPayHandler } from '../../utils/razoPayHandler.js';
 
 function Checkout() {
 
@@ -66,13 +67,7 @@ function Checkout() {
   const successToHome = ()=>{
 
 
-    navigate("/success");
-
-    setTimeout(()=>{
-
-      navigate("/home");
-
-    },2000);
+      razorPayHandler();
 
   }
 

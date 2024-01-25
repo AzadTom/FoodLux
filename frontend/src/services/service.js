@@ -1,7 +1,7 @@
 import axios from 'axios';
  
 
-const BASE_URL = "https://foodlux-backend.vercel.app";
+export const BASE_URL = "https://foodlux-backend.vercel.app";
 
 // Products
 

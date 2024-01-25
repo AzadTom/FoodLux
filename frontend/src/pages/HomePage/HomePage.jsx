@@ -13,7 +13,6 @@ const HomePage  = ()=>{
         <HeroSection/>
         <Products/>
         <Cta/>
-        <Blogs/>
         <Faq/>
         <Footer/>
         </>

@@ -10,6 +10,7 @@ import {productRoute} from './routes/productRoute.js';
 import {userRoute} from './routes/userRoute.js';
 import {cartRoute} from './routes/cartRouter.js';
 import {favRoute} from './routes/favRouter.js';
+import { paymentRoute } from './routes/paymentRouter.js';
 
 // Database
 import { mongodb } from './database/database.js';
@@ -80,6 +81,7 @@ class Server {
       server.use("/users",userRoute);
       server.use("/carts",cartRoute);
       server.use("/favs",favRoute);
+      server.use("/payment",paymentRoute);
 
     }
 

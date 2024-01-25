@@ -19,14 +19,6 @@ const Faq=()=>{
           question: "Can I track my order in real-time?",
           answer: "Yes, you can track your order in real-time using the tracking feature on our website or mobile app. Once your order is confirmed, you'll receive updates on its status, and you can monitor the delivery progress."
         },
-        {
-          question: "Is there a minimum order amount for delivery?",
-          answer: "The minimum order amount for delivery may vary depending on your location and the restaurant. You can find this information on the restaurant's page during the ordering process."
-        },
-        {
-          question: "Can I modify or cancel my order after it's placed?",
-          answer: "Unfortunately, once an order is confirmed, it cannot be modified or canceled. Please double-check your order before confirming the purchase. If you encounter any issues, contact our customer support for assistance."
-        }
       ];
 
     return(
@@ -45,9 +37,9 @@ const Faq=()=>{
                 </div>
             </div>
             <div className="text-[var(--primarycolortext)] flex flex-col gap-4  mt-4 max-w-[320px] sm:max-w-[600px]">
-              {faqData.map((item)=>(
+              {faqData.map((item,index)=>(
 
-                  <Question {...item} key={item.id}/>
+                  <Question {...item} key={item.id} index={index} />
 
               ))}
                 
