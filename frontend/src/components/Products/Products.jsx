@@ -76,7 +76,7 @@ const Products = ()=>{
 
       if(status==="loading")
       {
-        return ( <div className="w-full text-center h-8"><Loading/></div> )
+        return ( <div className="w-full text-center h-16  bg-white"><Loading/></div> )
       }
 
     return(

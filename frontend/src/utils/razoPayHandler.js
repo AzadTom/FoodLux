@@ -5,9 +5,15 @@ export const razorPayHandler  = async(amount = 5000)=>{
 
 
 
-    const {data:{key}} = await axios.get(`${BASE_URL}/payment/getkey`);
+    const {data:{key}} = await axios.get(`${BASE_URL}/payment/getkey`,{
+        headers:{"Content-Type":"application/json"},
+        
+    });
 
-    const {data:{order}} = await axios.post(`${BASE_URL}/payment/checkout`,{amount:amount});
+    const {data:{order}} = await axios.post(`${BASE_URL}/payment/checkout`,{amount:amount},{
+        headers:{"Content-Type":"application/json"},
+        
+    });
 
     const options = {
         key: key, // Enter the Key ID generated from the Dashboard

@@ -69,6 +69,8 @@ function Checkout() {
 
       razorPayHandler();
 
+      console.log("OrderPayment!");
+
   }
 
 
