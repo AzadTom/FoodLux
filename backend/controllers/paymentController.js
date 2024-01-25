@@ -1,7 +1,7 @@
 import Razorpay  from 'razorpay';
 import crypto from 'crypto';
 
-const  instance = new Razorpay({ key_id: process.env.RAZOR_API_KEY, key_secret: process.env.KEY_SECRET })
+const  instance = new Razorpay({ key_id: `${process.env.RAZOR_API_KEY}`, key_secret: `${process.env.KEY_SECRET}` })
 
 
 export const getRazorPayApiKey = async(req,res)=>{
@@ -48,7 +48,7 @@ export const paymentVerification  = async(req,res)=>{
 
 
          // then redirect to frontend!
-         res.redirect(`${process.env.FRONTEND}paymentsuccess?reference=${razorpay_payment_id}`);
+         res.redirect(`${process.env.FRONTEND}/paymentsuccess?reference=${razorpay_payment_id}`);
     }
 
     else
