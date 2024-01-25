@@ -3,20 +3,16 @@ import {BASE_URL} from '../services/service.js';
 
 
 
-export const razorPayHandler  = async(amount)=>{
+export const razorPayHandler  = async(amount =5000)=>{
 
 
 
      console.log(amount);
 
 
-    const {data:{key}} = await axios.get(`${BASE_URL}/payment/getkey`,{
-        headers:{"Content-Type":"application/json"},
-    });
+    const {data:{key}} = await axios.get(`${BASE_URL}/payment/getkey`);
 
-    const {data:{order}} = await axios.post(`${BASE_URL}/payment/checkout`,{amount:amount},{
-        headers:{"Content-Type":"application/json"},        
-    });
+    const {data:{order}} = await axios.post(`${BASE_URL}/payment/checkout`,{amount:amount});
 
     const options = {
         key: key, // Enter the Key ID generated from the Dashboard

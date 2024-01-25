@@ -42,6 +42,9 @@ export const paymentVerification  = async(req,res)=>{
 
     const  isAuthentic  = expectedSignature === razorpay_signature;
 
+
+    console.log(isAuthentic);
+
     if(isAuthentic)
     {
          //Database comes here
@@ -49,6 +52,7 @@ export const paymentVerification  = async(req,res)=>{
 
          // then redirect to frontend!
          res.redirect(`${process.env.FRONTEND}/paymentsuccess?reference=${razorpay_payment_id}`);
+
     }
 
     else
