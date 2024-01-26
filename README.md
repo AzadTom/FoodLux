@@ -1,7 +1,10 @@
-# FoodLux
+# react-starter-code
 
-### FrontEnd 
-* [FrontEnd Live](https://foodlux-frontend.vercel.app/)
+## React vite set up  with Tailwindcss
 
-### BackEnd
-* [BackEnd Live](https://foodlux-backend.vercel.app/)
+* Materual Ui
+* Axios
+* TailwindCss
+* Jsonwebtoken
+* React-hot-toast
+* React-router-dom
