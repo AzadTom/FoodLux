@@ -22,7 +22,13 @@ export const razorPayHandler  = async(amount =5000)=>{
         description: "Test Transaction",
         image: "https://pbs.twimg.com/profile_images/1712013937737445376/4gjg_BmM_400x400.jpg",
         order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the previous step
-        callback_url:`${BASE_URL}/payment/verification`,        
+        handler:async(response)=>{
+
+            const verify  = await axios.post(`${BASE_URL}/payment/verification`,response);
+
+            console.log(verify);
+
+        },        
         prefill: {
             name: "Gaurav Kumar",
             email: "gaurav.kumar@example.com",
