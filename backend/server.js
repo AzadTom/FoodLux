@@ -71,6 +71,7 @@ class Server {
 
       //  convert into json form
        server.use(express.json());
+       server.use(express.urlencoded({extended:true}));
 
       
     }

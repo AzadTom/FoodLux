@@ -31,21 +31,16 @@ export const checkout  = async(req,res)=>{
 export const paymentVerification  = async(req,res)=>{
 
 
-    const {razorpay_payment_id, razorpay_order_id ,razorpay_signature} = req.body;
+    const { razorpay_order_id , razorpay_payment_id, razorpay_signature} = req.body;
 
     const body  = razorpay_order_id + "|" +razorpay_payment_id;
 
-    const expectedSignature  = crypto.createHmac("sha256",process.env.RAZOR_API_KEY)
+    const expectedSignature  = crypto.createHmac("sha256",`${process.env.KEY_SECRET}`)
                                      .update(body.toString())
                                      .digest("hex");
                                      
 
     const  isAuthentic  = expectedSignature === razorpay_signature;
-
-
-    return res.redirect(`${process.env.FRONTEND}/paymentsuccess?reference=${razorpay_payment_id}`);
-
-    console.log(isAuthentic);
 
     if(isAuthentic)
     {
