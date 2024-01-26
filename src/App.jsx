@@ -24,6 +24,9 @@ const Wishlist = lazy(()=> import("./pages/WishlistPage/Wishlist"));
 const NotFound = lazy(()=> import("./pages/NotFoundPage/NotFound"));
 
 
+const CartOrderPage  = lazy(()=> import("./pages/CartOrderPage/CartOrderPage"));
+const OrderPage  = lazy(()=> import("./pages/OrderPage/OrderPage"));
+
 
 
 
@@ -41,7 +44,10 @@ function App() {
       </Route>
       <Route path="/signup" element={<Suspense fallback={<Loading/>}><SignUp/></Suspense>}/>
       <Route path="/signin" element={<Suspense fallback={<Loading/>}><SignIn/></Suspense>}/>
-      <Route path="/cart" element={<Suspense fallback={<Loading/>}><Cart/></Suspense>}/>
+      <Route path="/cart" element={ <Suspense fallback={<Loading/>}><CartOrderPage/></Suspense>}>
+          <Route path="cartpage" element={<Suspense fallback={<Loading/>}><Cart/></Suspense>} />
+          <Route path="orderpage" element={<Suspense fallback={<Loading/>}><OrderPage/></Suspense>} />
+      </Route>
       <Route path="/checkout/:coupan1/:coupan2" element={<Suspense fallback={<Loading/>}><Checkout/></Suspense>}/>
       <Route path="/paymentsuccess" element={<Suspense fallback={<Loading/>}><Success/></Suspense>}/>
       <Route path="/paymentfailure" element={<Suspense fallback={<Loading/>}><Failed/></Suspense>}/>

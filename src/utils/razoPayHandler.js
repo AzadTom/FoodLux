@@ -49,7 +49,7 @@ export const razorPayHandler  = async(amount,openSucessage,openFailure)=>{
             address: "Razorpay Corporate Office"
         },
         theme: {
-            color: "#3399cc"
+            color: "#228b22"
         }
     };
 
