@@ -20,7 +20,7 @@ function Success() {
 
   return (
     <div className='flex justify-center items-center w-full h-screen'>
-        <div className='w-[100px] h-[100px] rounded-full bg-green-600 text-white flex flex-col justify-center items-center'>
+        <div className='w-[250px] h-[250px] rounded-full bg-green-600 text-white flex flex-col justify-center items-center'>
             <h2>Order Successful!</h2>
         </div>
     </div>
