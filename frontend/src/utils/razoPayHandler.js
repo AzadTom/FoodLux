@@ -3,7 +3,7 @@ import {BASE_URL} from '../services/service.js';
 
 
 
-export const razorPayHandler  = async(amount =5000)=>{
+export const razorPayHandler  = async(amount,openSucessage,openFailure)=>{
 
 
 
@@ -21,7 +21,25 @@ export const razorPayHandler  = async(amount =5000)=>{
         name: "AzadTom",
         description: "Test Transaction",
         image: "https://pbs.twimg.com/profile_images/1712013937737445376/4gjg_BmM_400x400.jpg",
-        order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the previous step,        
+        order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the previous step, 
+        handler:async(response)=>{
+
+            const verify  = await axios.post(`${BASE_URL}/payment/verification`,response);
+
+            if(verify.status == 200)
+            {
+                    openSucessage();
+
+                    console.log("success!");
+            }
+            else
+            {
+                 openFailure();
+
+                 console.log("failure");
+            }
+
+        },       
         prefill: {
             name: "Gaurav Kumar",
             email: "gaurav.kumar@example.com",
