@@ -2,13 +2,12 @@ import ProductCard from "./ProductCard";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {useDispatch ,useSelector} from 'react-redux';
 import  {productsData} from '../../reducers/productSlice.js';
-import  { addTocart, getCart ,setCartNull}from '../../reducers/cartSlice.js';
+import  { addTocart, getCart}from '../../reducers/cartSlice.js';
 import { useEffect, useState } from "react";
 import {addTOfav,getfavs,removeTofav ,setWishlistToNull} from '../../reducers/favSlice.js'
 import Loading from '../Others/Loading.jsx';
 import { useNavigate } from "react-router-dom";
-import {setToken} from '../../reducers/tokenSlice.js';
-import { setUserNull} from '../../reducers/userSlice.js';
+
 
 const Products = ()=>{
 
@@ -76,7 +75,7 @@ const Products = ()=>{
 
       if(status==="loading")
       {
-        return ( <div className="w-full text-center h-16  bg-white"><Loading/></div> )
+        return ( <div className="w-full text-center h-16  "><Loading/></div> )
       }
 
     return(
