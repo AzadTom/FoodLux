@@ -48,7 +48,9 @@ export const paymentVerification  = async(req,res)=>{
 
 
          // then redirect to frontend!
-         res.redirect(`${process.env.FRONTEND}/paymentsuccess`);
+        
+
+         res.status(200).json({success:true});
 
     }
 
