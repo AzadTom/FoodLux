@@ -52,12 +52,12 @@ export const paymentVerification  = async(req,res)=>{
 
          const cart  = await cartModel.find({user:req.userid});
 
-         const subtotal = cart.reduce((acc, item) => ((item.price) * (item.qty)) + acc, 0);
+        //  const subtotal = cart.reduce((acc, item) => ((item.price) * (item.qty)) + acc, 0);
 
          const order = await OrderModel.create({
             user:req.userid,
             items:cart,
-            price: subtotal,
+            price: 5000,
             paymentDetail:{
                 username: name,
                 useremail:email,
