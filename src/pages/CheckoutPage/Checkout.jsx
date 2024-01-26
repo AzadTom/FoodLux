@@ -10,6 +10,7 @@ function Checkout() {
     const {coupan1,coupan2} = useParams();
 
     
+    const navigate = useNavigate();
 
     const getDiscount = ()=>{
 
@@ -58,22 +59,20 @@ function Checkout() {
       ];
 
   const {cart} = useSelector((state)=>(state.cart));
-  const {token} = useSelector((state)=>(state.token));
 
   const subtotal = cart.reduce((acc, item) => ((item.price) * (item.qty)) + acc, 0);
+
+  const openSuccessPage = ()=> navigate("/paymentsuccess");
+   const openFailurePage = ()=> navigate("/paymentfailure");
 
   const successToHome = ()=>{
 
 
       const amount  = subtotal - getDiscount();
-
       // razorPay
-      razorPayHandler(amount,token.token);
-
-      console.log("OrderPayment!");
+      razorPayHandler(amount,openSuccessPage,openFailurePage);
 
   }
-
 
   const[address,setAddress] = useState( {
     name:"",

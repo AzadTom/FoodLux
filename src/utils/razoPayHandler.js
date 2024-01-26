@@ -3,7 +3,7 @@ import {BASE_URL} from '../services/service.js';
 
 
 
-export const razorPayHandler  = async(amount =5000)=>{
+export const razorPayHandler  = async(amount,openSucessage,openFailure)=>{
 
 
 
@@ -26,7 +26,18 @@ export const razorPayHandler  = async(amount =5000)=>{
 
             const verify  = await axios.post(`${BASE_URL}/payment/verification`,response);
 
-            console.log(verify);
+            if(verify.status == 200)
+            {
+                    openSucessage();
+
+                    console.log("success!");
+            }
+            else
+            {
+                 openFailure();
+
+                 console.log("failure");
+            }
 
         },        
         prefill: {
