@@ -66,7 +66,7 @@ export const paymentVerification  = async(req,res)=>{
          })
 
 
-         const deleteCartItems = await cartModel.deleteOne({user:user});
+         const deleteCartItems = await cartModel.deleteOne({user:req.userid});
 
          if(order && deleteCartItems){
 
@@ -96,6 +96,7 @@ export const paymentVerification  = async(req,res)=>{
 
 
 }
+
 
 
 
