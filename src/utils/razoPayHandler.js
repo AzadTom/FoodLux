@@ -25,9 +25,10 @@ export const razorPayHandler  = async(token,amount,openSucessage,openFailure)=>{
         handler:async(response)=>{
 
             const verify  = await axios.post(`${BASE_URL}/payment/verification`,response,{
+         
                 headers:{
                     "Content-Type":"application/json",
-                    "Authorization":`Bearer ${token}`,
+                    "Authorization": `Bearer ${token}`
                 }
             });
 
