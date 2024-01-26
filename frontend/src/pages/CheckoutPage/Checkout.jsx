@@ -67,6 +67,7 @@ function Checkout() {
 
       const amount  = subtotal - getDiscount();
 
+      // razorPay
       razorPayHandler(amount,token.token);
 
       console.log("OrderPayment!");

@@ -48,7 +48,7 @@ export const paymentVerification  = async(req,res)=>{
 
 
          // then redirect to frontend!
-         res.redirect(`${process.env.FRONTEND}/paymentsuccess?reference=${razorpay_payment_id}`);
+         res.redirect(`${process.env.FRONTEND}/paymentsuccess`);
 
     }
 
