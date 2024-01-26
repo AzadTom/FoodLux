@@ -59,6 +59,8 @@ function Checkout() {
       ];
 
   const {cart} = useSelector((state)=>(state.cart));
+  const {token} = useSelector((state)=>(state.token));
+
 
   const subtotal = cart.reduce((acc, item) => ((item.price) * (item.qty)) + acc, 0);
 
@@ -70,7 +72,7 @@ function Checkout() {
 
       const amount  = subtotal - getDiscount();
       // razorPay
-      razorPayHandler(amount,openSuccessPage,openFailurePage);
+      razorPayHandler(token.token,amount,openSuccessPage,openFailurePage);
 
   }
 
