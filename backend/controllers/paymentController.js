@@ -100,6 +100,18 @@ export const paymentVerification  = async(req,res)=>{
 
 
 
+export const orderHistory = async(req,res)=>{
+
+
+    const ordershistory = await OrderModel.find({user:req.userid});
+
+    return res.status(200).json({orders:ordershistory});
+
+}
+
+
+
+
 
 
 
