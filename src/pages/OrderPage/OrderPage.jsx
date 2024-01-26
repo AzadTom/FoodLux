@@ -1,18 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import OrderItem from '../../components/Order/OrderItem'
+import {ServiceOrders} from '../../services/service.js';
+import { useSelector } from 'react-redux';
+
 
 function OrderPage() {
 
    
-    
-   const Orders  = Array.from({length:12},(_,index)=>{
-      <OrderItem/>
-   }) 
 
+
+    const {token} = useSelector((state)=>(state.token));
+
+    const [orders,setOrder] = useState([]);
+
+
+    const getOrders  = async()=>{
+
+
+      const data  = await ServiceOrders(token.token);
+
+      setOrder(data.orders);
+
+      console.log(data);
+
+    }
+
+    useEffect(()=>{
+
+     
+      getOrders();
+
+    },[]);
+    
+   
   return (
     <>
-    <div>OrderPage</div>
-     {Orders}
+    <div className='flex justify-center items-center'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 max-w-[1000px] w-full'>
+     {orders.map((item)=>(<OrderItem item={item}/>))}
+     </div>
+
+    </div>
     </>
     
   )

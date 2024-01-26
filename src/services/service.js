@@ -148,6 +148,21 @@ export const ServiceRemovetofav = async(productid,token)=>{
 
 }
 
+// Orders
+
+
+export const ServiceOrders = async(token)=>{
+
+
+    const response  = await axios.get(`${BASE_URL}/payment/orders`,{
+        headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},
+    })
+
+
+    return response.data;
+
+}
+
 
 
 
