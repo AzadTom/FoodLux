@@ -1,5 +1,8 @@
 import Razorpay  from 'razorpay';
 import crypto from 'crypto';
+import {OrderModel} from '../models/orderModel.js';
+import {cartModel}  from '../models/cartModel.js';
+import { userModel} from '../models/userModel.js';
 
 const  instance = new Razorpay({ key_id: `${process.env.RAZOR_API_KEY}`, key_secret: `${process.env.KEY_SECRET}` })
 
@@ -44,13 +47,41 @@ export const paymentVerification  = async(req,res)=>{
 
     if(isAuthentic)
     {
-         //Database comes here
+         //Database comes here 
+         const  {name,email}  = await userModel.findById(req.userid);
+
+         const cart  = await cartModel.find({user:req.userid});
+
+         const subtotal = cart.reduce((acc, item) => ((item.price) * (item.qty)) + acc, 0);
+
+         const order = await OrderModel.create({
+            user:req.userid,
+            items:cart,
+            price: subtotal,
+            paymentDetail:{
+                username: name,
+                useremail:email,
+                product_id:razorpay_payment_id
+            }
+         })
 
 
-         // then redirect to frontend!
+         const deleteCartItems = await cartModel.deleteOne({user:user});
+
+         if(order && deleteCartItems){
+
+             // then redirect to frontend!
+            res.status(200).json({success:true});
+         }
+         else
+         {
+
+            res.status(400).json({success:false});
+
+         }
+
+ 
         
-
-         res.status(200).json({success:true});
 
     }
 
