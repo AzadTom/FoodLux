@@ -66,7 +66,7 @@ export const paymentVerification  = async(req,res)=>{
          })
 
 
-         const deleteCartItems = await cartModel.deleteOne({user:req.userid});
+         const deleteCartItems = await cartModel.deleteMany({user:req.userid});
 
          if(order && deleteCartItems){
 
