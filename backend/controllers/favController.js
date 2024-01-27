@@ -50,7 +50,7 @@ export const removetofav = async(req,res)=>{
 
         
 
-        const singlefav =  await favModel.findByIdAndDelete(req.params.id);
+        const singlefav =  await favModel.findOneAndDelete({id:req.params.id});
 
         res.status(200).json({singlefav});
         
