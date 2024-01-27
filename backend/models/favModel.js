@@ -9,7 +9,8 @@ const favSchema = new mongoose.Schema({
     },
 
     id:{
-        type:Number,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"dishes",
         required:true
     },
     name:{
