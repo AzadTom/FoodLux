@@ -7,8 +7,6 @@ import { useEffect } from 'react';
 
 
 
-
-
 const Wishlist = ()=>{
 
 
@@ -65,8 +63,8 @@ const Wishlist = ()=>{
      useEffect(()=>{
 
        dispatch(getfavs(token.token));
-
-     },[wishData])
+       
+     },[])
 
 
      if(wishData.length==0)

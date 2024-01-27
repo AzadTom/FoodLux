@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import {addTOfav,getfavs,removeTofav ,setWishlistToNull} from '../../reducers/favSlice.js'
 import Loading from '../Others/Loading.jsx';
 import { useNavigate } from "react-router-dom";
-import {setToken} from '../../reducers/tokenSlice.js';
-import { setUserNull} from '../../reducers/userSlice.js';
 
 const Products = ()=>{
 
@@ -26,14 +24,18 @@ const Products = ()=>{
       const {token} = useSelector((state)=>(state.token));
 
    
-      const add =(item)=>{
+      const add =(product)=>{
 
          if(!token)
          {
            return navigate("/signin");
          }
 
-        dispatch(addTocart({item,token:token.token}));
+         const data  = {id:product._id ,name:product.name,img:product.img,category:product.category,price:product.price,qty:product.qty}
+
+         console.log(data);
+
+        dispatch(addTocart({item : data,token:token.token}));
         
 
       }
@@ -47,9 +49,10 @@ const Products = ()=>{
 
         
 
-        const isFound =  wishData.find((item)=>(item._id === product._id));
+  
 
-        console.log(isFound);
+         const isFound =  wishData.find((item)=>(item.id == product._id));
+
 
         if(isFound)
         {
@@ -59,7 +62,10 @@ const Products = ()=>{
         else
         {
 
-           dispatch(addTOfav({item:product,token:token.token}));
+           const data = {id:product._id ,name:product.name,img:product.img,category:product.category,price:product.price,qty:product.qty}
+
+           console.log(data);
+           dispatch(addTOfav({item:data,token:token.token}));
            
         }
 
@@ -69,8 +75,6 @@ const Products = ()=>{
 
       useEffect(()=>{
         dispatch(productsData());
-        token && dispatch(getCart(token.token));
-        token && dispatch(getfavs(token.token)); 
       },[])
 
 

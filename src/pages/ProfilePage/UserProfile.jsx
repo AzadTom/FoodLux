@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector ,useDispatch} from 'react-redux';
-import { setToken } from '../../reducers/tokenSlice.js';
+import { setRemoveToken  } from '../../reducers/tokenSlice.js';
 import { setUserNull} from '../../reducers/userSlice.js';
 import { setCartNull } from '../../reducers/cartSlice.js';
 import { setWishlistToNull } from '../../reducers/favSlice.js';
@@ -31,12 +31,12 @@ function UserProfile({profileState,closeProfile}) {
 
      closeProfile();
     
-    dispatch(setToken(""));
+    dispatch(setRemoveToken());
     dispatch(setUserNull());
     dispatch(setCartNull());
     dispatch(setWishlistToNull());
     
-     navigate("/home");
+    navigate("/home");
      
 
   }

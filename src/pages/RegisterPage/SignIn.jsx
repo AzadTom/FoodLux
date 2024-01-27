@@ -93,14 +93,26 @@ function SignIn() {
 
 
   
+   const openSignin = ()=>{
+
+    dispatch(setUserNull());
+    setUserDetails({
+      email:"",
+      password:"",
+      
+    })
+    
+    
+   }
 
 
   if(status=="error")
     {
        console.log(user)
         
-      return (<div className='flex justify-center items-center h-screen'>
+      return (<div className='flex flex-col justify-center items-center h-screen'>
                  <div>{user}</div>
+                 <button className='px-4 py-2 rounded-md bg-green-600 text-white' onClick={()=> openSignin()}>SignIn</button>
            </div> )
     }
     else
@@ -108,7 +120,8 @@ function SignIn() {
       if(user)
       {
 
-      console.log(user)
+      const token  = JSON.stringify(user); 
+      localStorage.setItem("token",token);
       dispatch(setToken(user));
       navigate("/home");
 

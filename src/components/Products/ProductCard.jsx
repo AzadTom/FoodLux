@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { Favorite } from '@mui/icons-material';
 
 
-const ProductCard = ({id,name,img,category,price,add,addRemoveToFav})=>{
+const ProductCard = ({_id,name,img,category,price,add,addRemoveToFav})=>{
 
 
+
+   
     
     const navigate = useNavigate();
      
@@ -19,9 +21,9 @@ const ProductCard = ({id,name,img,category,price,add,addRemoveToFav})=>{
 
 
 
-     const isMatch = cart && cart.find((item)=> (item.id === id));
+     const isMatch = cart && cart.find((item)=> (item.id === _id));
 
-     const isFavMatch = wishData && wishData.find((item)=> (item.id === id));
+     const isFavMatch = wishData && wishData.find((item)=> (item.id === _id));
 
 
 
@@ -43,7 +45,7 @@ const ProductCard = ({id,name,img,category,price,add,addRemoveToFav})=>{
             </div>
             
            
-            <img src={img} alt="demo"  id={id} className=" w-full h-[300px]   bg-center bg-cover object-cover rounded-t-2xl " loading='lazy'/>
+            <img src={img} alt="demo"  id={_id} className=" w-full h-[300px]   bg-center bg-cover object-cover rounded-t-2xl " loading='lazy'/>
            
             <div className=" px-2 sm:px-4 py-4 sm:py-8  flex flex-col  gap-4   ">
 

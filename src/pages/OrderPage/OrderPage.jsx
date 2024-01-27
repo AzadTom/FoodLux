@@ -18,10 +18,8 @@ function OrderPage() {
 
 
       const data  = await ServiceOrders(token.token);
-
+      
       setOrder(data.orders);
-
-      console.log(data);
 
     }
 

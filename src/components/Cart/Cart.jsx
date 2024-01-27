@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeTocart ,getCart } from '../../reducers/cartSlice.js';
 import CartCard from './CartCard.jsx';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-import { useEffect } from 'react';
+
 
 const Cart = () => {
 
@@ -16,14 +16,6 @@ const Cart = () => {
     const {token} = useSelector((state)=>(state.token));
 
     
-
-
-     useEffect(()=>{
-
-       dispatch(getCart(token.token)); 
-
-     },[])
-
 
 
     const remove = (item) => {

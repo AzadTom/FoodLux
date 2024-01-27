@@ -35,6 +35,7 @@ const initialState = {
         })
         .addCase(getfavs.fulfilled,(state,action)=>{
 
+
             state.wishData =  action.payload;
             state.status = STATUS.idle;
             
@@ -45,8 +46,10 @@ const initialState = {
         })
         .addCase(removeTofav.fulfilled,(state,action)=>{
 
-             
-            state.wishData = state.wishData.filter((item)=>(item._id !== action.payload._id));
+
+               console.log(action.payload.singlefav._id);
+
+            state.wishData = state.wishData.filter((item)=>(item._id !== action.payload.singlefav._id));
         })
 
     }
@@ -67,6 +70,9 @@ const initialState = {
  })
 
  export const addTOfav = createAsyncThunk("/fav/add",async(product,ThunkApi)=>{
+
+     
+    
 
      const data  = await ServiceAddtofav(product.item,product.token);
 

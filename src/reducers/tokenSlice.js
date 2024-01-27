@@ -21,14 +21,24 @@ const tokenSlice  = createSlice({
       setToken:(state,action)=>{
 
         state.status = STATUS.loading;
-        state.token = action.payload;
+
+        const localData  =  localStorage.getItem("token");
+        const token  = JSON.parse(localData);
+        state.token = token;
         state.status = STATUS.idle;
 
-      }  
+      },
+
+      setRemoveToken:(state,action)=>{
+
+          localStorage.removeItem("token");
+          state.token = "";
+ 
+      }
 
     }
 })
 
-export const {setToken} = tokenSlice.actions;
+export const {setToken ,setRemoveToken} = tokenSlice.actions;
 
 export default tokenSlice.reducer;

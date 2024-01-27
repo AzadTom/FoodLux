@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import {useSelector} from 'react-redux';
+import React, { useState,useEffect } from 'react'
+import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { razorPayHandler } from '../../utils/razoPayHandler.js';
+import { getCart } from '../../reducers/cartSlice.js';
 
 function Checkout() {
 
@@ -11,6 +12,8 @@ function Checkout() {
 
     
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const getDiscount = ()=>{
 
@@ -67,6 +70,7 @@ function Checkout() {
   const openSuccessPage = ()=> navigate("/paymentsuccess");
    const openFailurePage = ()=> navigate("/paymentfailure");
 
+
   const successToHome = ()=>{
 
 
@@ -93,6 +97,13 @@ function Checkout() {
      setAddress(item);
 
    }
+
+
+   useEffect(()=>{
+
+     dispatch(getCart(token.token));
+     
+   },[])
 
   return (
     <div className='flex  flex-col justify-center  items-center '>

@@ -1,4 +1,4 @@
-import { Suspense ,lazy} from "react";
+import { Suspense ,lazy, useEffect} from "react";
 import { Routes,Route } from "react-router-dom";
 
 
@@ -6,6 +6,8 @@ import { Routes,Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Loading from "./components/Others/Loading";
 import ThemeButton from './components/Theme/ThemeButton';
+import { useDispatch } from "react-redux";
+import { setToken } from "./reducers/tokenSlice";
 
 
 
@@ -33,6 +35,13 @@ const OrderPage  = lazy(()=> import("./pages/OrderPage/OrderPage"));
 function App() {
 
   
+  const dispatch  = useDispatch();
+
+  useEffect(()=>{
+
+     dispatch(setToken());
+
+  },[])
 
   return (
     <>

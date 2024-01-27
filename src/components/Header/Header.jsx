@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { Favorite } from "@mui/icons-material";
 
 import UserProfile from "../../pages/ProfilePage/UserProfile.jsx";
+import { getCart } from "../../reducers/cartSlice.js";
+import { getfavs } from "../../reducers/favSlice.js";
 
 
 
@@ -77,6 +79,9 @@ const Header=()=>{
         console.log("close profile");
     }
 
+
+
+    
    
 
    

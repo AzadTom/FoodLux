@@ -85,6 +85,7 @@ export const getCart = createAsyncThunk("/cart",async(token,ThunkApi)=>{
 
 export const addTocart = createAsyncThunk("/cart/create",async(product,ThunkApi)=>{
 
+     
       const data = await ServiceAddtocart(product.item,product.token);
 
       return data;
