@@ -44,23 +44,21 @@ const Wishlist = ()=>{
 
           console.log(item.id);
 
-          return item.id === product._id;
+          return item.id === product.id;
         });
 
         console.log(isFound);
-        console.log(product._id);
+       
 
         if(isFound)
         {
-           dispatch(removeTofav({id:product._id,token:token.token}));
+           dispatch(removeTofav({id:product.id,token:token.token}));
            
         }
         else
         {
 
-            const {_id,...rest} = product;
-
-           dispatch(addTOfav({item:{...rest,id:_id},token:token.token}));
+           dispatch(addTOfav({item:product,token:token.token}));
            
         }
 
