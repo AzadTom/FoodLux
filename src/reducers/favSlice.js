@@ -47,9 +47,9 @@ const initialState = {
         .addCase(removeTofav.fulfilled,(state,action)=>{
 
 
-               console.log(action.payload.singlefav._id);
+               console.log(action.payload);
 
-            state.wishData = state.wishData.filter((item)=>(item._id !== action.payload.singlefav._id));
+            state.wishData = state.wishData.filter((item)=>(item.id !== action.payload.singlefav.id));
         })
 
     }

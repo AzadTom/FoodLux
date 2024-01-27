@@ -40,9 +40,15 @@ const Wishlist = ()=>{
         return navigate("/signin");
       }
 
-        const isFound =  wishData.find((item)=>(item._id === product._id));
+        const isFound =  wishData.find((item)=>{
+
+          console.log(item.id);
+
+          return item.id === product._id;
+        });
 
         console.log(isFound);
+        console.log(product._id);
 
         if(isFound)
         {
@@ -52,7 +58,9 @@ const Wishlist = ()=>{
         else
         {
 
-           dispatch(addTOfav({item:product,token:token.token}));
+            const {_id,...rest} = product;
+
+           dispatch(addTOfav({item:{...rest,id:_id},token:token.token}));
            
         }
 
@@ -77,7 +85,7 @@ const Wishlist = ()=>{
         <>
          <section className="flex flex-col gap-4 justify-center items-center p-2">
          <div className="grid grid-cols-1   sm:grid-cols-2  md:grid-cols-3  gap-2 sm:gap-4 justify-between   items-center max-w-[1000px]">
-         {wishData.map((item)=>(<ProductCard {...item} key={item._id} add={()=>add(item)} addRemoveToFav={()=> addRemoveToFav(item)}/>))}
+         {wishData.map((item)=>(<ProductCard {...item}  index={item.id} key={item._id} add={()=>add(item)} addRemoveToFav={()=> addRemoveToFav(item)}/>))}
          </div>
 
         </section>

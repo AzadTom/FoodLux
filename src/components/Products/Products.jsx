@@ -64,7 +64,7 @@ const Products = ()=>{
 
            const data = {id:product._id ,name:product.name,img:product.img,category:product.category,price:product.price,qty:product.qty}
 
-           console.log(data);
+           
            dispatch(addTOfav({item:data,token:token.token}));
            
         }
@@ -91,7 +91,7 @@ const Products = ()=>{
         </div>
         <section className="flex flex-col gap-4 justify-center items-center p-2">
          <div className="grid grid-cols-1   sm:grid-cols-2  md:grid-cols-3  gap-2 sm:gap-4 justify-between   items-center max-w-[1000px]">
-         {products.map((item)=>(<ProductCard {...item} key={item._id} add={()=>add(item)} addRemoveToFav={()=> addRemoveToFav(item)}/>))}
+         {products.map((item)=>(<ProductCard {...item} index={item._id} key={item._id} add={()=>add(item)} addRemoveToFav={()=> addRemoveToFav(item)}/>))}
          </div>
 
         </section>
