@@ -108,7 +108,7 @@ function SignIn() {
 
   if(status=="error")
     {
-       console.log(user)
+      
         
       return (<div className='flex flex-col justify-center items-center h-screen'>
                  <div>{user}</div>

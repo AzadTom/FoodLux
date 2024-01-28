@@ -12,26 +12,37 @@ function OrderPage() {
     const {token} = useSelector((state)=>(state.token));
 
     const [orders,setOrder] = useState([]);
+    const [loading,setLoading] = useState(false);
 
 
-    const getOrders  = async()=>{
-
-
-      const data  = await ServiceOrders(token.token);
-      
-      setOrder(data.orders);
-
-    }
+   
 
     useEffect(()=>{
 
      
+
+      const getOrders  = async()=>{
+
+
+        setLoading(true);
+        const data  = await ServiceOrders(token.token);
+        setOrder(data.orders);
+        setLoading(false);
+  
+      }
+
+
       getOrders();
 
       
 
     },[]);
 
+
+    if(loading)
+    {
+         return ( <div className='flex h-[80vh] justify-center items-center'> <h2>Loading...</h2></div> )
+    }
 
     if(orders.length==0)
     {
