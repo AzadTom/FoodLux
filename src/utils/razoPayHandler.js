@@ -32,18 +32,18 @@ export const razorPayHandler  = async(token,amount,openSucessage,openFailure)=>{
                 }
             });
 
-            if(verify.status == 200)
-            {
+            if (verify) {
+                if (verify.status === 200) {
                     openSucessage();
-
-                    console.log("success!");
+                } else {
+                    openFailure();
+                }
+            } else {
+                openFailure();
             }
-            else
-            {
-                 openFailure();
+            
 
-                 console.log("failure");
-            }
+            
 
         },        
         prefill: {
@@ -59,7 +59,14 @@ export const razorPayHandler  = async(token,amount,openSucessage,openFailure)=>{
         }
     };
 
+
+
     const razor  = new window.Razorpay(options);
     razor.open();
 
 }
+
+
+
+
+
