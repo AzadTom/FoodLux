@@ -1,6 +1,33 @@
 import mongoose from 'mongoose';
 
-import { FoodSchema } from './productModel.js';
+const  OrderItemSchema =  new mongoose.Schema({
+    id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"dishes",
+        required:true
+    },
+    name:{
+        type:String,
+        required:true
+    },
+    img:{
+        type:String,
+        required:true
+    },
+    price:{
+        type:Number,
+        required:true
+    },
+    qty:{
+        type:Number,
+        required:true
+    },
+    category:{
+        type:String,
+        required:true
+    }
+ 
+ }) 
 
 const OrderSchema  = new mongoose.Schema({
 
@@ -11,7 +38,7 @@ const OrderSchema  = new mongoose.Schema({
         required:true
 
     },
-    items:[FoodSchema],
+    items:[OrderItemSchema],
     totalPrice:{
         type:Number,
         required:true
