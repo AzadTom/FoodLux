@@ -1,19 +1,34 @@
 import axios from 'axios';
 import {BASE_URL} from '../services/service.js';
 
-
+  /*script function */
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => {
+                resolve(true);
+            };
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    }
 
 export const razorPayHandler  = async(amount,openSucessage,openFailure)=>{
 
-
-
-     console.log(amount);
-
-
     const {data:{key}} = await axios.get(`${BASE_URL}/payment/getkey`);
-
     const {data:{order}} = await axios.post(`${BASE_URL}/payment/checkout`,{amount:amount});
+     
+    const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+     /*if razorpay fails to load */
+     if (!res) {
+            alert('Razorpay SDK failed to load. Are you online?');
+            return;
+     }
 
+    
     const options = {
     key: key,
     amount: order.amount,
@@ -42,33 +57,10 @@ export const razorPayHandler  = async(amount,openSucessage,openFailure)=>{
     },
     theme: {
         color: "#3399cc"
-    },
-    method: {
-        upi: true, // Enable UPI
-        card: false,
-        netbanking: false,
-        wallet: false,
-    },
-    config: {
-        display: {
-            blocks: {
-                upi: {
-                    name: "UPI Options",
-                    instruments: [
-                        {
-                            method: "upi",
-                            flows: ["intent"] // <- Enables UPI Intent (Google Pay, PhonePe, etc.)
-                        }
-                    ]
-                }
-            },
-            sequence: ["upi"], // Prioritize UPI
-            preferences: {
-                show_default_blocks: false
-            }
-        }
     }
+    // Removed custom config to allow Razorpay to show all UPI options
 };
+ 
 
     const razor  = new window.Razorpay(options);
     razor.open();
