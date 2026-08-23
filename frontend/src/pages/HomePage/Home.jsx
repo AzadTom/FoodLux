@@ -1,35 +1,33 @@
-import Mobile from '../../components/Header/Mobile';
+import Mobile from "../../components/Header/Mobile";
+import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUserData } from "@/reducers/userSlice";
 
+const Home = () => {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-import { Outlet, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+  useEffect(() => {
+    if (token) {
+      dispatch(
+        setUserData({
+          token: token,
+        }),
+      );
 
+      navigate("/home", { replace: true });
+    }
+  }, [token, dispatch, navigate]);
 
-const Home = ()=>{
-
-
-   const navigate =  useNavigate();
-
-
-   useEffect(()=>{
-
-    navigate("/home");
-
-   },[])
-
-
-
-   
-    return(
-       <>
-       <Mobile/>
-       <Outlet/>
-       </>
-      )
-
-
-}
+  return (
+    <>
+      <Mobile />
+      <Outlet />
+    </>
+  );
+};
 
 export default Home;
-
-

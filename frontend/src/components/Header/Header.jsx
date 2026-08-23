@@ -5,12 +5,7 @@ import { useSelector ,useDispatch} from "react-redux";
 import {getFilter} from '../../reducers/filterSlice.js';
 import { useEffect, useState } from "react";
 import { Favorite } from "@mui/icons-material";
-
 import UserProfile from "../../pages/ProfilePage/UserProfile.jsx";
-
-
-
-
 
 const Header=()=>{
 
@@ -18,13 +13,9 @@ const Header=()=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
-
-    const {token} = useSelector((state)=>(state.token));
+    const {isLogin} = useSelector((state)=>(state.user));
     const {cart} = useSelector((state)=>(state.cart));
-
     const {wishData} = useSelector((state)=>(state.favData));
-
     const {products} = useSelector((state)=>(state.product));
 
     
@@ -32,16 +23,10 @@ const Header=()=>{
     const [profileState,setProfileState] = useState(false);
 
     const goToHome = (e)=>{
-
          e.preventDefault();
-         
-
-        if(token)
+        if(isLogin)
         {             
-             
              setProfileState((prev)=>(!prev));
-
-             console.log("inside Header",profileState);
         }
         else
         {

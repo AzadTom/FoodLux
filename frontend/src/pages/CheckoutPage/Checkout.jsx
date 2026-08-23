@@ -155,7 +155,7 @@ function Checkout() {
         </div>
         )}
 
-         <button className='px-4 py-2 bg-[var(--border)] text-[var(--primarycolor)] w-full mt-4' onClick={successToHome}>Place Order</button>
+         <button className='px-4 py-2 bg-[var(--app-border)] text-[var(--primarycolor)] w-full mt-4' onClick={successToHome}>Place Order</button>
 
 
         </div>
@@ -194,7 +194,7 @@ const AddressItem  = ({address , onClick})=>{
 
     return (
         <>
-         <div className='flex items-center py-2 px-4 justify-between bg-[var(--secondarycolor)] hover:bg-[var(--border)] hover:text-[var(--primarycolor)] text-[var(--primarytext)] sm:max-w-auto w-full' onClick={()=>onClick()}>
+         <div className='flex items-center py-2 px-4 justify-between bg-[var(--secondarycolor)] hover:bg-[var(--app-border)] hover:text-[var(--primarycolor)] text-[var(--primarytext)] sm:max-w-auto w-full' onClick={()=>onClick()}>
             <input type="radio"  value={address.name} checked={value === address.name}  onChange={handleOptionChange} onBlur={()=> setValue("")}/>
             <div>
                <h2 className='text-xl font-semibold'>{address.name}</h2>

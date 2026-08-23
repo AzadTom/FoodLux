@@ -6,6 +6,8 @@ import { Routes,Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Loading from "./components/Others/Loading";
 import ThemeButton from './components/Theme/ThemeButton';
+import AdminPage from "./pages/AdminPage/AdminPage";
+import { Toaster } from "./components/ui/toast";
 
 
 
@@ -47,6 +49,7 @@ function App() {
       <Route path="/paymentfailure" element={<Suspense fallback={<Loading/>}><Failed/></Suspense>}/>
       <Route path="/search" element={<Suspense fallback={<Loading/>}><SearchPage/></Suspense>}/>
       <Route path="/fav" element={<Suspense fallback={<Loading/>}><Wishlist/></Suspense>}/>
+      <Route path="/admin-panel" element={<Suspense fallback={<Loading/>}><AdminPage/></Suspense>}/>
       <Route path="*" element={<Suspense fallback={<Loading/>}><NotFound/></Suspense>}/>
     </Routes>
     <ThemeButton/>
