@@ -15,7 +15,8 @@ const NewProductItem2 = ({
   onAddToCart,
   onToggleWishlist,
   isWishlisted = false,
-  className=""
+  className = "",
+  vertical=false
 }) => {
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -46,7 +47,12 @@ const NewProductItem2 = ({
   return (
     <article className="group w-full min-w-0">
       {/* Image Card */}
-      <div className={cn("relative overflow-hidden rounded-2xl bg-gray-100 aspect-[4/3]",className)}>
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-2xl bg-gray-100 aspect-[4/3]",
+          className,
+        )}
+      >
         {/* Food Image */}
         <img
           src={image}
@@ -61,6 +67,10 @@ const NewProductItem2 = ({
             ease-out
             group-hover:scale-105
           "
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src =`https://placehold.co/${vertical? "720X1280":"600x600"}?text=Food+Image`;
+          }}
         />
 
         {/* Dark overlay on hover */}
@@ -82,9 +92,7 @@ const NewProductItem2 = ({
         <button
           type="button"
           onClick={handleWishlist}
-          aria-label={
-            isWishlisted ? "Remove from wishlist" : "Add to wishlist"
-          }
+          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
           className="
             absolute
             right-3
@@ -192,7 +200,6 @@ const NewProductItem2 = ({
                 <circle cx="10" cy="20" r="1" />
                 <circle cx="18" cy="20" r="1" />
               </svg>
-
               Add to Cart
             </button>
           </div>
@@ -201,9 +208,7 @@ const NewProductItem2 = ({
         {/* Out of stock */}
         {isOutOfStock && (
           <div className="absolute inset-x-0 bottom-0 bg-black/70 px-4 py-3 text-center">
-            <span className="text-sm font-medium text-white">
-              Out of Stock
-            </span>
+            <span className="text-sm font-medium text-white">Out of Stock</span>
           </div>
         )}
       </div>
@@ -225,11 +230,7 @@ const NewProductItem2 = ({
         <div className="mt-1 flex items-center gap-1.5">
           <span className="flex items-center gap-1 text-sm font-medium text-gray-700">
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-600 text-white">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="h-3 w-3"
-              >
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3">
                 <path d="M12 2l2.8 6.2 6.7.7-5 4.5 1.5 6.6L12 16.7 6 20l1.5-6.6-5-4.5 6.7-.7L12 2z" />
               </svg>
             </span>

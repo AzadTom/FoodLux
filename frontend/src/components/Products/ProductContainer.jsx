@@ -74,7 +74,7 @@ const ProductItemContainer = ({
     enabled: inView && !parentLoading,
   });
 
-  const iamloading = isLoading || parentLoading;
+  const iamloading = parentLoading || isLoading;
 
   if (carasouel) {
     return (
@@ -113,6 +113,7 @@ const ProductItemContainer = ({
                     <NewProductItem2
                       key={item.id}
                       {...item}
+                      vertical={coloum === 4 ? false:true}
                       className={coloum === 4 ? "" : "aspect-[9/16]"}
                     />
                   </SwiperSlide>

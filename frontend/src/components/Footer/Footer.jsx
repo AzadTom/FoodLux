@@ -15,7 +15,7 @@ const Footer =()=>{
 
     return(
         <>
-        <footer className="bg-[var(--neutal)] text-[var(--primarytext)]  py-4 px-4 grid  gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 overflow-hidden">
+        <footer className="bg-white dark:bg-black text-[var(--primarytext)]  py-8 px-4 grid  gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 overflow-hidden">
             <div>
                 <h2 className="text-xl font-semibold pb-2">Our useful links</h2>
                 <ul className="text-[var(--secondarytext)] text-sm font-medium flex flex-col gap-4 " >
@@ -71,7 +71,7 @@ const Footer =()=>{
                 </ul>
             </div>
         </footer>
-        <div className="flex justify-center items-center w-full cursor-pointer  py-4"  onClick={()=> goToTop()}>
+        <div className="bg-white dark:bg-black flex justify-center items-center w-full cursor-pointer  py-4"  onClick={()=> goToTop()}>
        <span className="text-2xl cursor-pointer rotate-[270deg]"><PlayArrowIcon/> </span>
         </div>
         </>
