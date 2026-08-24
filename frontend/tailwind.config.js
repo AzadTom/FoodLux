@@ -12,6 +12,19 @@ export default {
       },
     },
     extend: {
+      keyframes: {
+        marquee: {
+          "0%": {
+            transform: "translateX(0%)",
+          },
+          "100%": {
+            transform: "translateX(-50%)",
+          },
+        },
+      },
+      animation: {
+        marquee: "marquee linear infinite",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

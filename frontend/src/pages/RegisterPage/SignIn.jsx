@@ -3,7 +3,7 @@ import Input from "../../components/Others/Input";
 import { Loader } from "../../components/Others/Loading.jsx";
 import { SigninFormData } from "./utils";
 import { useSignin } from "./hook";
-import { Auth } from "@/services/service";
+import { BASE_URL2 } from "@/services/service";
 
 function SignIn() {
 
@@ -60,7 +60,7 @@ function SignIn() {
           <span className="text-sm text-gray-400">OR</span>
           <button className="px-[20px] py-[10px] bg-black text-white rounded-md flex max-w-[500px] w-full mx-auto justify-center  gap-1 ">
             {" "}
-            <Link to={`${Auth}/auth/google`}>
+            <Link to={`${BASE_URL2}/auth/google`}>
             <img
               src="https://cdn-icons-png.flaticon.com/128/300/300221.png"
               alt="google"

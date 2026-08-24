@@ -5,13 +5,17 @@ import Blogs from '../../components/Blogs/Blogs';
 import Faq from '../../components/Faq/Faq';
 import HeroSection from '../../components/HeroSection/HeroSection';
 import Footer from '../../components/Footer/Footer';
+import CategoryList from '@/components/Category/CategoryList';
+import ProductContainer from '@/components/Products/ProductContainer';
 
 const HomePage  = ()=>{
 
     return(
         <>
         <HeroSection/>
-        <Products/>
+        <CategoryList/>
+        {/* <Products/> */}
+        <ProductContainer/>
         <Cta/>
         <Faq/>
         <Footer/>

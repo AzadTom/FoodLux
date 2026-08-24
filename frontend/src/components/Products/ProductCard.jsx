@@ -7,29 +7,11 @@ import { Favorite } from '@mui/icons-material';
 
 
 const ProductCard = ({id,name,img,category,price,add,addRemoveToFav})=>{
-
-
-    
     const navigate = useNavigate();
-     
      const {cart} = useSelector((state)=>(state.cart));
-
      const {wishData} = useSelector((state)=>(state.favData));
-
-
-
-
      const isMatch = cart && cart.find((item)=> (item.id === id));
-
      const isFavMatch = wishData && wishData.find((item)=> (item.id === id));
-
-
-
-
-    
-     
-
-
     return(
         <>
          <div className="border border-[var(--secondarycolor)] rounded-2xl shadow-md hover:shadow-lg relative">

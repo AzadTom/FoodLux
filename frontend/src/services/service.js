@@ -1,14 +1,18 @@
 import axios from 'axios';
 
-
 const Local = "http://localhost:5000";
 const Live = "https://foodlux-backend.vercel.app";
 export const BASE_URL = Live;
 
 
 
-// export const Auth = "https://nestjsserver.vercel.app";
-export const Auth = "http://localhost:3000";
+const Local2 = "http://localhost:3000";
+const Live2 = "https://nestjsserver.vercel.app";
+export const BASE_URL2 = Local2;
+
+const Local3 = "http://localhost:3001";
+const Live3 = "https://nestjsserver.vercel.app";
+export const BASE_URL3 = Local3;
 
 
 
@@ -24,6 +28,33 @@ export const Serviceproducts = async () => {
     return response.data;
 }
 
+export const SeriviceCategoryList = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL3}/product/categories`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("Something went wrong!");
+    } catch (error) {
+        console.error(error);
+        throw new error;
+    }
+}
+
+export const SeriviceEachCategoryList = async (id) => {
+    try {
+        const response = await axios.get(`${BASE_URL3}/product/categories/${id}`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("Something went wrong!");
+    } catch (error) {
+        console.error(error);
+        throw new error;
+    }
+}
+
+
 
 // Users
 export const ServiceSignup = async ({ name, email, password }) => {
@@ -36,7 +67,7 @@ export const ServiceSignup = async ({ name, email, password }) => {
             "productName": "foodlux",
         }
 
-        const response = await axios.post(`${Auth}/auth/signup`, payload, {
+        const response = await axios.post(`${BASE_URL2}/auth/signup`, payload, {
             headers: { "Content-Type": "application/json" },
 
         });
@@ -62,7 +93,7 @@ export const ServiceSignin = async ({ email, password }) => {
             password
         };
 
-        const response = await axios.post(`${Auth}/auth/signin`, payload, {
+        const response = await axios.post(`${BASE_URL2}/auth/signin`, payload, {
             headers: { "Content-Type": "application/json" },
 
         })
@@ -82,21 +113,9 @@ export const ServiceSignin = async ({ email, password }) => {
 
 }
 
-export const ServiceUserProfile = async () => {
-
-    const response = await axios.get(`${BASE_URL}/users/profile`, {
-        headers: { "Content-Type": "application/json" },
-
-
-    })
-
-    return response.data;
-}
-
-
 // UserInfo
 const api = axios.create({
-    baseURL: Auth,
+    baseURL: BASE_URL2,
 });
 
 api.interceptors.request.use((config) => {
@@ -114,7 +133,7 @@ export const getUserProfile = async () => {
 }
 
 export const getNewAccessToken = async () => {
-    const response = await api.get(Auth + '/auth/refresh-token');
+    const response = await api.get(BASE_URL2 + '/auth/refresh-token');
     return response.data;
 }
 
