@@ -56,7 +56,7 @@ function Faq() {
               >
                 <div className="flex items-center gap-6 py-5 px-1">
                   {/* Number with animated circle */}
-                  <div className="relative flex items-center justify-center w-10 h-10 text-white">
+                  <div className="relative flex items-center justify-center w-10 h-10">
                     <motion.div
                       className="absolute inset-0 rounded-full bg-foreground"
                       initial={false}
@@ -83,7 +83,7 @@ function Faq() {
                       className="relative z-10 text-sm font-medium tracking-wide"
                       animate={{
                         color: isActive
-                          ? "var(--primary-foreground)"
+                          ? "var(--faq-color)"
                           : "var(--muted-foreground)",
                       }}
                       transition={{ duration: 0.2 }}

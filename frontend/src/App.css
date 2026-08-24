@@ -20,6 +20,7 @@
   --neutral:#FFFFFF;
 
    --app-border :#000000;
+    --faq-color:#fff;
   
 }
 
@@ -35,9 +36,7 @@
   --neutral:#000000;
 
   --app-border :#FFFFFF;
-
-
-
+  --faq-color:#000;
   }
 
   
@@ -55,6 +54,7 @@
   --neutral:#FFFFFF;
 
   --app-border :#000000;
+  --faq-color:#fff;
 
   }
  
@@ -75,6 +75,7 @@
           --neutral:#000000;
 
           --app-border :#FFFFFF;
+          --faq-color:#000;
 
         
 
