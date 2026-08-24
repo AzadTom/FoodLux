@@ -1,6 +1,7 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
-const NewProductItem = ({
+const NewProductItem2 = ({
   id,
   name,
   heading,
@@ -14,6 +15,7 @@ const NewProductItem = ({
   onAddToCart,
   onToggleWishlist,
   isWishlisted = false,
+  className=""
 }) => {
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -44,7 +46,7 @@ const NewProductItem = ({
   return (
     <article className="group w-full min-w-0">
       {/* Image Card */}
-      <div className="relative overflow-hidden rounded-2xl bg-gray-100 aspect-[4/3]">
+      <div className={cn("relative overflow-hidden rounded-2xl bg-gray-100 aspect-[4/3]",className)}>
         {/* Food Image */}
         <img
           src={image}
@@ -61,7 +63,7 @@ const NewProductItem = ({
           "
         />
 
-        {/* Dark overlay - appears on hover */}
+        {/* Dark overlay on hover */}
         <div
           className="
             absolute inset-0
@@ -76,7 +78,7 @@ const NewProductItem = ({
           "
         />
 
-        {/* Wishlist */}
+        {/* Wishlist - hidden until hover */}
         <button
           type="button"
           onClick={handleWishlist}
@@ -97,8 +99,18 @@ const NewProductItem = ({
             bg-white/95
             shadow-sm
             backdrop-blur-sm
+
+            opacity-0
+            translate-y-[-6px]
+            pointer-events-none
+
             transition-all
             duration-300
+
+            group-hover:translate-y-0
+            group-hover:opacity-100
+            group-hover:pointer-events-auto
+
             hover:scale-110
             hover:bg-white
           "
@@ -120,7 +132,7 @@ const NewProductItem = ({
           </svg>
         </button>
 
-        {/* Add to Cart */}
+        {/* Add to Cart - hidden until hover */}
         {!isOutOfStock && (
           <div
             className="
@@ -129,12 +141,17 @@ const NewProductItem = ({
               left-4
               right-4
               z-10
-              translate-y-3
+
+              translate-y-4
               opacity-0
+              pointer-events-none
+
               transition-all
               duration-300
+
               group-hover:translate-y-0
               group-hover:opacity-100
+              group-hover:pointer-events-auto
             "
           >
             <button
@@ -160,7 +177,6 @@ const NewProductItem = ({
                 active:scale-[0.98]
               "
             >
-              {/* Cart icon */}
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -243,4 +259,4 @@ const NewProductItem = ({
   );
 };
 
-export default NewProductItem;
+export default NewProductItem2;

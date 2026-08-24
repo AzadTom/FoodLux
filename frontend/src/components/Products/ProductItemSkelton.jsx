@@ -1,8 +1,10 @@
-const ProductItemSkeleton = () => {
+import { cn } from "@/lib/utils";
+
+const ProductItemSkeleton = ({className=""}) => {
   return (
     <div className="w-full">
       {/* Image skeleton */}
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-200">
+      <div className={cn("relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-200",className)}>
         {/* Shimmer */}
         <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/60 to-transparent" />
 

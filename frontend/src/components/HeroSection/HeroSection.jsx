@@ -37,10 +37,10 @@ const HeroSection = () => {
        <section>
 
             <HeroVideo/>
-            <h2 className='text-2xl font-semibold my-8 mx-4 flex flex-col gap-2 justify-center items-center'><span>Popular Food Item</span> <span className='text-xs font-thin bg-green-600 px-2 py-1 text-white'>This month</span></h2>
+            {/* <h2 className='text-2xl font-semibold my-8 mx-4 flex flex-col gap-2 justify-center items-center'><span>Popular Food Item</span> <span className='text-xs font-thin bg-green-600 px-2 py-1 text-white'>This month</span></h2>
             <div className="flex   overflow-x-scroll w-full sm:p-8 sm:gap-4  sm:mx-0  rm-scroll">
             {images.map((item)=>(<SlideCard item={item} curr={curr} prev={()=> prev()} next={()=> next()}/>))}
-            </div>
+            </div> */}
 
        </section>
     )
