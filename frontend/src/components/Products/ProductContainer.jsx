@@ -142,7 +142,7 @@ const ProductItemContainer = ({
         ) : (
           <>
             {data?.data?.map((item) => (
-              <NewProductItem key={item.id} {...item} />
+              <NewProductItem2 key={item.id} {...item} />
             ))}
           </>
         )}
