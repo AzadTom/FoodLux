@@ -75,6 +75,9 @@ const ProductItemContainer = ({
   });
 
   const iamloading = parentLoading || isLoading;
+  const getClass = () => (coloum === 4 ? "" : "aspect-[9/16]");
+  const getRow = () => (coloum === 4 ? 2 : 1);
+  const getVertical = () => (coloum === 4 ? false : true);
 
   if (carasouel) {
     return (
@@ -85,7 +88,7 @@ const ProductItemContainer = ({
         />
         <SwiperUtils2
           showDots={false}
-          rows={coloum === 4 ? 1 : 2}
+          rows={getRow}
           breakpoints={{
             640: {
               slidesPerView: coloum,
@@ -100,10 +103,7 @@ const ProductItemContainer = ({
               <>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
                   <SwiperSlide>
-                    <ProductItemSkeleton
-                      key={item}
-                      className={coloum === 4 ? "" : "aspect-[9/16]"}
-                    />
+                    <ProductItemSkeleton key={item} className={getClass} />
                   </SwiperSlide>
                 ))}
               </>
@@ -114,8 +114,8 @@ const ProductItemContainer = ({
                     <NewProductItem2
                       key={item.id}
                       {...item}
-                      vertical={coloum === 4 ? false : true}
-                      className={coloum === 4 ? "" : "aspect-[9/16]"}
+                      vertical={getVertical}
+                      className={getClass}
                     />
                   </SwiperSlide>
                 ))}
