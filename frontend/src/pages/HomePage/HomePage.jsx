@@ -18,8 +18,8 @@ const HomePage  = ()=>{
         {/* <Products/> */}
         <ProductContainer/>
         <Cta/>
-        <TestimonialsSection/>
         <Faq/>
+        <TestimonialsSection/>
         <Footer/>
         </>
     )

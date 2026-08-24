@@ -15,7 +15,7 @@ export type ProductResponse<T> = {
 export class ProductService {
 
 
-   constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
   async create(
     createProductDto: CreateProductDto,
   ): Promise<ProductResponse<Product>> {
@@ -39,8 +39,12 @@ export class ProductService {
     }
   }
 
-  async findAllCategories(){
-    const categories = await this.prisma.category.findMany();
+  async findAllCategories() {
+    const categories = await this.prisma.category.findMany({
+      orderBy: {
+        id: "desc"
+      }
+    });
     return {
       status: 200,
       message: 'Categories fetched successfully',
@@ -48,10 +52,13 @@ export class ProductService {
     };
   }
 
-  async findAllCategoryList(id:string):Promise<ProductResponse<Product[]>>{
+  async findAllCategoryList(id: string): Promise<ProductResponse<Product[]>> {
     const categories = await this.prisma.product.findMany({
-      where:{
-        categoryId:id
+      orderBy: {
+        createdAt: "desc"
+      },
+      where: {
+        categoryId: id,
       }
     });
 
