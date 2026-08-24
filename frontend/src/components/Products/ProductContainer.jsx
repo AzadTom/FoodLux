@@ -5,11 +5,10 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import TopHeading from "../Category/TopHeading";
 import { useInView } from "react-intersection-observer";
-import NewProductItem from "./NewProductItem";
 import ProductItemSkeleton from "./ProductItemSkelton";
-import SwiperUtils from "./SwiperUtils/SwiperUtils";
 import { SwiperSlide } from "swiper/react";
 import NewProductItem2 from "./NewProductItem2";
+import SwiperUtils2 from "./SwiperUtils/SwiperUtils2";
 
 const CarasouelArr = [0, 1, 2, 5, 7, 8, 9];
 const ColumnArr = [2, 7, 8];
@@ -24,6 +23,7 @@ const ProductContainer = () => {
   });
 
   function getCarasouel(index) {
+    return true;
     if (CarasouelArr.includes(index)) {
       return true;
     }
@@ -83,8 +83,9 @@ const ProductItemContainer = ({
           heading={`${name} You'll Love`}
           subHeading={`Explore our selection of ${name.toLowerCase()} dishes, carefully chosen for flavor, quality, and a great dining experience.`}
         />
-        <SwiperUtils
+        <SwiperUtils2
           showDots={false}
+          rows={coloum === 4 ? 1 : 2}
           breakpoints={{
             640: {
               slidesPerView: coloum,
@@ -113,7 +114,7 @@ const ProductItemContainer = ({
                     <NewProductItem2
                       key={item.id}
                       {...item}
-                      vertical={coloum === 4 ? false:true}
+                      vertical={coloum === 4 ? false : true}
                       className={coloum === 4 ? "" : "aspect-[9/16]"}
                     />
                   </SwiperSlide>
@@ -121,7 +122,7 @@ const ProductItemContainer = ({
               </>
             )}
           </div>
-        </SwiperUtils>
+        </SwiperUtils2>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 .swiper-button-next,
 .swiper-rtl .swiper-button-prev {
      --swiper-navigation-color: #000000;
-    top: 37% !important;
+    top: 45% !important;
     right: 0;
      width: 40px !important;
     height: 40px !important;
@@ -12,7 +12,7 @@
 .swiper-button-prev,
 .swiper-rtl .swiper-button-next {
      --swiper-navigation-color: #000000;
-    top: 37% !important;
+    top: 45% !important;
     left: 0;
     width: 40px !important;
     height: 40px !important;

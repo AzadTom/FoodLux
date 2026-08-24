@@ -4,7 +4,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import React, { useId } from "react";
 import { Swiper } from "swiper/react";
-import { Autoplay, Mousewheel, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Mousewheel, Pagination, Navigation, Grid } from "swiper/modules";
 
 const SwiperUtils = ({
   children,
@@ -33,10 +33,13 @@ const SwiperUtils = ({
         centeredSlidesBounds={true}
         watchOverflow={false}
         pagination={
-          showDots
-            ? { el: `#${paginationId}`, clickable: true }
-            : false
+          showDots ? { el: `#${paginationId}`, clickable: true } : false
         }
+        grid={{
+          rows: 2,
+          fill: "row",
+
+        }}
         autoplay={
           enableAutoplay
             ? {
@@ -48,7 +51,7 @@ const SwiperUtils = ({
         }
         breakpoints={breakpoints}
         navigation={enableNavigation}
-        modules={[Pagination, Mousewheel, Navigation, Autoplay]}
+        modules={[Pagination, Mousewheel, Navigation, Autoplay,Grid]}
         mousewheel={{ forceToAxis: true }}
         className={`swiper-mobile-peek ${className}`.trim()}
       >
