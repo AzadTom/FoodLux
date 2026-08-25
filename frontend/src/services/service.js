@@ -1,62 +1,26 @@
 import axios from 'axios';
 
-const Local = "http://localhost:5000";
-const Live = "https://foodlux-backend.vercel.app";
-export const BASE_URL = Live;
-
-
-
-const Local2 = "http://localhost:3000";
-const Live2 = "https://nestjsserver.vercel.app";
-export const BASE_URL2 = Local2;
+export const AUTHBASEURL = "https://nestjsserver.vercel.app";
 
 const Local3 = "http://localhost:3001";
 const Live3 = "https://nestjsserver.vercel.app";
 export const BASE_URL3 = Local3;
 
 
-
-// Products
-
-export const Serviceproducts = async () => {
-
-    const response = await axios.get(`${BASE_URL}/products`, {
-        headers: { "Content-Type": "application/json" },
-
-    })
-
-    return response.data;
-}
-
-export const SeriviceCategoryList = async () => {
-    try {
-        const response = await axios.get(`${BASE_URL3}/product/categories`);
-        if (response.status === 200) {
-            return response.data;
-        }
-        throw new Error("Something went wrong!");
-    } catch (error) {
-        console.error(error);
-        throw new error;
-    }
-}
-
-export const SeriviceEachCategoryList = async (id) => {
-    try {
-        const response = await axios.get(`${BASE_URL3}/product/categories/${id}`);
-        if (response.status === 200) {
-            return response.data;
-        }
-        throw new Error("Something went wrong!");
-    } catch (error) {
-        console.error(error);
-        throw new error;
-    }
-}
-
-
-
 // Users
+const api = axios.create({
+    baseURL: AUTHBASEURL,
+});
+
+api.interceptors.request.use((config) => {
+    const accessToken = localStorage.getItem('accesstoken');
+    if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+}, (error) => Promise.reject(error));
+
+
 export const ServiceSignup = async ({ name, email, password }) => {
 
     try {
@@ -67,7 +31,7 @@ export const ServiceSignup = async ({ name, email, password }) => {
             "productName": "foodlux",
         }
 
-        const response = await axios.post(`${BASE_URL2}/auth/signup`, payload, {
+        const response = await api.post(`/auth/signup`, payload, {
             headers: { "Content-Type": "application/json" },
 
         });
@@ -93,7 +57,7 @@ export const ServiceSignin = async ({ email, password }) => {
             password
         };
 
-        const response = await axios.post(`${BASE_URL2}/auth/signin`, payload, {
+        const response = await api.post(`/auth/signin`, payload, {
             headers: { "Content-Type": "application/json" },
 
         })
@@ -113,33 +77,18 @@ export const ServiceSignin = async ({ email, password }) => {
 
 }
 
-// UserInfo
-const api = axios.create({
-    baseURL: BASE_URL2,
-});
 
-api.interceptors.request.use((config) => {
-    const accessToken = localStorage.getItem('accesstoken');
-    if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-    return config;
-}, (error) => Promise.reject(error));
-
-
+export const getNewAccessToken = async () => {
+    const response = await api.get('/auth/refresh-token');
+    return response.data;
+}
 
 export const getUserProfile = async () => {
     const response = await api.get('/auth/user/me');
     return response.data;
 }
 
-export const getNewAccessToken = async () => {
-    const response = await api.get(BASE_URL2 + '/auth/refresh-token');
-    return response.data;
-}
-
-
-// Cart
+// Products & Categories
 const api2 = axios.create({
     baseURL: BASE_URL3,
 });
@@ -152,6 +101,35 @@ api2.interceptors.request.use((config) => {
     return config;
 }, (error) => Promise.reject(error));
 
+
+export const SeriviceCategoryList = async () => {
+    try {
+        const response = await api2.get(`/product/categories`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("Something went wrong!");
+    } catch (error) {
+        console.error(error);
+        throw new error;
+    }
+}
+
+export const SeriviceEachCategoryList = async (id) => {
+    try {
+        const response = await api2.get(`/product/categories/${id}`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("Something went wrong!");
+    } catch (error) {
+        console.error(error);
+        throw new error;
+    }
+}
+
+
+// Cart
 export const Service2GetCart = async () => {
     try {
         const response = await api2.get('/cart/byuser');
@@ -211,57 +189,6 @@ export const Service2IncrementDecrement = async (productId, quantity = 1) => {
 }
 
 
-export const ServiceGetCart = async (token) => {
-
-    const response = await axios.get(`${BASE_URL}/carts/`, {
-
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    return response.data;
-}
-
-
-export const ServiceAddtocart = async (product, token) => {
-
-    const response = await axios.post(`${BASE_URL}/carts/create`, product, {
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-        },
-
-
-    })
-
-    return response.data;
-}
-
-
-export const ServiceRemovetocart = async (productid, token) => {
-
-    const response = await axios.delete(`${BASE_URL}/carts/${productid}`, {
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-    })
-
-    return response.data;
-
-}
-
-
-export const ServiceIncrementDecrement = async (qty, token, productid) => {
-
-    const response = await axios.post(`${BASE_URL}/carts/${productid}`, { qty: qty }, {
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-    })
-
-    return response.data;
-
-}
-
-
 // Wishlist
 
 export const Service2Getfav = async () => {
@@ -276,47 +203,6 @@ export const Service2Removetofav = async (productid) => {
     const response = await api2.delete(`/cart/favs/${productid}`)
     return response.data;
 }
-
-
-export const ServiceGetfav = async (token) => {
-
-    const response = await axios.get(`${BASE_URL}/favs/`, {
-
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    return response.data;
-}
-
-
-export const ServiceAddtofav = async (product, token) => {
-
-    const response = await axios.post(`${BASE_URL}/favs/create`, product, {
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-        },
-
-
-    })
-
-    return response.data;
-}
-
-
-export const ServiceRemovetofav = async (productid, token) => {
-
-    const response = await axios.delete(`${BASE_URL}/favs/${productid}`, {
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-    })
-
-    return response.data;
-
-}
-
 
 
 

@@ -3,10 +3,9 @@ import Input from "../../components/Others/Input";
 import { Loader } from "../../components/Others/Loading.jsx";
 import { SigninFormData } from "./utils";
 import { useSignin } from "./hook";
-import { BASE_URL2 } from "@/services/service";
+import { AUTHBASEURL } from "@/services/service";
 
 function SignIn() {
-
   const navigate = useNavigate();
   const {
     userDetails,
@@ -14,7 +13,7 @@ function SignIn() {
     submitFormHandler,
     submitGuestUserHandler,
     loader1,
-    loader2
+    loader2,
   } = useSignin();
 
   return (
@@ -56,22 +55,28 @@ function SignIn() {
           </p>
         </div>
       </form>
-       <div className="flex flex-col  justify-center text-center gap-2 w-full px-6">
-          <span className="text-sm text-gray-400">OR</span>
-          <button className="px-[20px] py-[10px] bg-black text-white rounded-md flex max-w-[500px] w-full mx-auto justify-center  gap-1 ">
-            {" "}
-            <Link to={`${BASE_URL2}/auth/google`}>
+      <div className="flex flex-col  justify-center text-center gap-2 w-full px-6">
+        <span className="text-sm text-gray-400">OR</span>
+        <button className="px-[20px] py-[10px] bg-black text-white rounded-md flex max-w-[500px] w-full mx-auto justify-center  gap-1 ">
+          {" "}
+          <Link
+            to={`${AUTHBASEURL}/auth/google?${isLocal(window.location.hostname)}`}
+          >
             <img
               src="https://cdn-icons-png.flaticon.com/128/300/300221.png"
               alt="google"
               width={24}
               height={24}
             />
-            </Link>
-          </button>
-        </div>
+          </Link>
+        </button>
+      </div>
     </div>
   );
 }
 
 export default SignIn;
+
+export const isLocal = (host) => {
+  return `product=${"foodlux"}&clientUrl=${host === "localhost" ? "local" : "production"}`;
+};

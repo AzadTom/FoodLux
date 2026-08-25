@@ -2,12 +2,21 @@ import { useNavigate } from "react-router-dom";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useSelector, useDispatch } from "react-redux";
-import { getFilter } from "../../reducers/filterSlice.js";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { Favorite } from "@mui/icons-material";
 import UserProfile from "../../pages/ProfilePage/UserProfile.jsx";
-import { SeriviceEachCategoryList } from "@/services/service.js";
-import { useQuery } from "@tanstack/react-query";
+
+function debounce(func, wait = 0) {
+  let timeoutID = null;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(function () {
+      timeoutID = null;
+      func.apply(context, args);
+    }, wait);
+  };
+}
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,14 +25,6 @@ const Header = () => {
   const { isLogin } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
   const { wishData } = useSelector((state) => state.favData);
-
-  const { data} = useQuery({
-    queryKey: ["3a841c23-fd5d-42be-8480-d07fc61998b9"],
-    queryFn: () => SeriviceEachCategoryList("3a841c23-fd5d-42be-8480-d07fc61998b9"),
-    refetchOnWindowFocus: false,
-  });
-
-  const products = data?.data;
 
   const [profileState, setProfileState] = useState(false);
 
@@ -36,16 +37,17 @@ const Header = () => {
     }
   };
 
+  const debouncedNavigate = useMemo(
+    () =>
+      debounce((value) => {
+        navigate(`/search?query=${encodeURIComponent(value)}`);
+      }, 500),
+    [navigate],
+  );
+
   const searchPage = (e) => {
     e.preventDefault();
-    const filtered = products.filter((product) => {
-      const productName = product.name.toLowerCase();
-      return productName.includes(e.target.value.toLowerCase());
-    });
-
-    console.log("searchfilter",filtered);
-    dispatch(getFilter(filtered));
-    navigate("/search");
+    debouncedNavigate(e.target.value);
   };
 
   const closeProfile = () => {

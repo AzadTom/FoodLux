@@ -1,7 +1,5 @@
 import React from 'react'
-import Products from '../../components/Products/Products';
 import Cta from '../../components/Cta/Cta';
-import Blogs from '../../components/Blogs/Blogs';
 import HeroSection from '../../components/HeroSection/HeroSection';
 import Footer from '../../components/Footer/Footer';
 import CategoryList from '@/components/Category/CategoryList';
@@ -15,7 +13,6 @@ const HomePage  = ()=>{
         <>
         <HeroSection/>
         <CategoryList/>
-        {/* <Products/> */}
         <ProductContainer/>
         <Cta/>
         <Faq/>

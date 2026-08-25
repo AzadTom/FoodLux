@@ -12,8 +12,22 @@ import { QueryClientProvider,QueryClient } from "@tanstack/react-query";
 
 const queryClient  = new QueryClient();
 
+// ReactDOM.createRoot(document.getElementById("root")).render(
+//   <React.StrictMode>
+//     <Provider store={store}>
+//       <BrowserRouter>
+//         <QueryClientProvider client={queryClient}>
+//           <ThemeProvider>
+//             <App />
+//             <Toaster />
+//           </ThemeProvider>
+//         </QueryClientProvider>
+//       </BrowserRouter>
+//     </Provider>
+//   </React.StrictMode>,
+// );
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
@@ -24,5 +38,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </QueryClientProvider>
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  ,
 );

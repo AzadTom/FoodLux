@@ -12,10 +12,9 @@ const CartPage = () => {
   const { cart } = useSelector((state) => state.cart);
 
   useEffect(() => {
+    if (cart.length > 0) return;
     dispatch(getCart());
-  },[]);
-
-
+  }, []);
 
   if (cart.length === 0) {
     return (
@@ -32,8 +31,6 @@ const CartPage = () => {
       </div>
     );
   }
-
- 
 
   return (
     <section className="flex justify-center items-center">

@@ -30,8 +30,17 @@ export class ProductService {
     };
   }
 
-  async findAll(): Promise<ProductResponse<Product[]>> {
-    const products = await this.prisma.product.findMany();
+  async findAll(page: number, offset: number, search?: string): Promise<ProductResponse<Product[]>> {
+    const products = await this.prisma.product.findMany({
+      where: search ? {
+        name: {
+          contains: search,
+          mode: "insensitive",
+        },
+      } : undefined,
+      skip: (page - 1) * offset,
+      take: offset,
+    });
     return {
       status: 200,
       message: 'Products fetched successfully',

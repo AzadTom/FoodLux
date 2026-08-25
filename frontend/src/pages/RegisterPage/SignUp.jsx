@@ -3,7 +3,8 @@ import Input from "../../components/Others/Input.jsx";
 import { Loader } from "../../components/Others/Loading.jsx";
 import { useSignUp } from "./hook.js";
 import { SignUpFormData } from "./utils.js";
-import {BASE_URL2 } from "@/services/service.js";
+import {AUTHBASEURL} from "@/services/service.js";
+import { isLocal } from "./SignIn.jsx";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ function SignUp() {
       <div className="flex flex-col text-center gap-2 px-6 w-full">
         <span className="text-sm text-gray-400">OR</span>
         <button className="px-[20px] py-[10px] bg-black text-white rounded-md flex  justify-center gap-1 max-w-[480px] w-full mx-auto">
-          <Link to={BASE_URL2 + "/auth/google"}>
+          <Link to={AUTHBASEURL + `/auth/google?${isLocal(window.location.hostname)}`}>
             <img
               src="https://cdn-icons-png.flaticon.com/128/300/300221.png"
               alt="google"

@@ -1,7 +1,6 @@
 import {
   SeriviceCategoryList,
   SeriviceEachCategoryList,
-  Service2AddCart,
 } from "@/services/service";
 import { useQuery } from "@tanstack/react-query";
 import TopHeading from "../Category/TopHeading";
@@ -11,15 +10,14 @@ import { SwiperSlide } from "swiper/react";
 import NewProductItem2 from "./NewProductItem2";
 import SwiperUtils2 from "./SwiperUtils/SwiperUtils2";
 import { useDispatch } from "react-redux";
-import { addTocart, getCart } from "@/reducers/cartSlice";
-import { useEffect } from "react";
-import { addTOfav, getfavs, removeTofav } from "@/reducers/favSlice";
+import { addTocart} from "@/reducers/cartSlice";
+import { addTOfav,removeTofav } from "@/reducers/favSlice";
 
-const CarasouelArr = [0, 1, 2, 5, 7, 8, 9];
 const ColumnArr = [2, 7, 8];
+const getColumn = (index) => (ColumnArr.includes(index) ? 5 : 4);
 
 const ProductContainer = () => {
-  const dispatch = useDispatch();
+
   const { data, isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: () => SeriviceCategoryList(),
@@ -28,34 +26,16 @@ const ProductContainer = () => {
     gcTime: 1000 * 60 * 30,
   });
 
-  function getCarasouel(index) {
-    return true;
-    if (CarasouelArr.includes(index)) {
-      return true;
-    }
-    return false;
-  }
-
-  function getColumn(index) {
-    if (ColumnArr.includes(index)) {
-      return 5;
-    }
-    return 4;
-  }
-
-  useEffect(() => {
-    dispatch(getCart());
-    dispatch(getfavs());
-  }, []);
+  const categorylist = data?.data;
 
   return (
     <section>
-      {data?.data?.map((item, index) => (
+      {categorylist?.map((item, index) => (
         <ProductItemContainer
           key={item.id}
           {...item}
           parentLoading={isLoading}
-          carasouel={getCarasouel(index)}
+          carasouel={true}
           coloum={getColumn(index)}
         />
       ))}
@@ -83,6 +63,8 @@ const ProductItemContainer = ({
     queryFn: () => SeriviceEachCategoryList(id),
     refetchOnWindowFocus: false,
     enabled: inView && !parentLoading,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
   });
 
   const iamloading = parentLoading || isLoading;
@@ -100,7 +82,7 @@ const ProductItemContainer = ({
         />
         <SwiperUtils2
           showDots={false}
-          rows={getRow}
+          rows={getRow()}
           breakpoints={{
             640: {
               slidesPerView: coloum,
@@ -115,7 +97,7 @@ const ProductItemContainer = ({
               <>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
                   <SwiperSlide>
-                    <ProductItemSkeleton key={item} className={getClass} />
+                    <ProductItemSkeleton key={item} className={getClass()} />
                   </SwiperSlide>
                 ))}
               </>
@@ -126,10 +108,14 @@ const ProductItemContainer = ({
                     <NewProductItem2
                       key={item.id}
                       {...item}
-                      vertical={getVertical}
-                      className={getClass}
+                      vertical={getVertical()}
+                      className={getClass()}
                       onAddToCart={({ id }) => dispatch(addTocart({ id }))}
-                      onToggleWishlist={({ id, isWishlisted }) => isWishlisted ? dispatch(removeTofav({ id })): dispatch(addTOfav({ id }))}
+                      onToggleWishlist={({ id, isWishlisted }) =>
+                        isWishlisted
+                          ? dispatch(removeTofav({ id }))
+                          : dispatch(addTOfav({ id }))
+                      }
                     />
                   </SwiperSlide>
                 ))}
@@ -151,7 +137,7 @@ const ProductItemContainer = ({
       <div className="grid grid-cols-1 px-4 gap-6 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2">
         {iamloading ? (
           <>
-            {[1, 2, 3, 4, 5, 6, 7, 8, , 9].map((item) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
               <ProductItemSkeleton key={item} />
             ))}
           </>
@@ -162,7 +148,11 @@ const ProductItemContainer = ({
                 key={item.id}
                 {...item}
                 onAddToCart={({ id }) => dispatch(addTocart({ id }))}
-                onToggleWishlist={({ id, isMatch }) =>isMatch? dispatch(removeTofav({ id })): dispatch(addTOfav({ id }))}
+                onToggleWishlist={({ id, isMatch }) =>
+                  isMatch
+                    ? dispatch(removeTofav({ id }))
+                    : dispatch(addTOfav({ id }))
+                }
               />
             ))}
           </>
