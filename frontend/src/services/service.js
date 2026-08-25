@@ -2,11 +2,6 @@ import axios from 'axios';
 
 export const AUTHBASEURL = "https://nestjsserver.vercel.app";
 
-const Local3 = "http://localhost:3001";
-const Live3 = "https://nestjsserver.vercel.app";
-export const BASE_URL3 = Local3;
-
-
 // Users
 const api = axios.create({
     baseURL: AUTHBASEURL,
@@ -89,6 +84,12 @@ export const getUserProfile = async () => {
 }
 
 // Products & Categories
+
+const Local3 = "http://localhost:3001";
+const Live3 = "https://nestjsserver.vercel.app";
+export const BASE_URL3 = Local3;
+
+
 const api2 = axios.create({
     baseURL: BASE_URL3,
 });
