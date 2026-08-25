@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setToken } from "../../reducers/tokenSlice.js";
 import { setUserNull } from "../../reducers/userSlice.js";
 import { setCartNull } from "../../reducers/cartSlice.js";
 import { setWishlistToNull } from "../../reducers/favSlice.js";
@@ -15,8 +14,7 @@ import { Loader } from "@/components/Others/Loading.jsx";
 function UserProfile({ profileState, closeProfile }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.token);
-  const access_token = token?.data?.access_token;
+  const {access_token} = useSelector((state) => state.user);
 
   const { data, isLoading } = useQuery({
     queryKey: [access_token],
@@ -31,7 +29,6 @@ function UserProfile({ profileState, closeProfile }) {
   const removeToken = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    dispatch(setToken(""));
     dispatch(setUserNull());
     dispatch(setCartNull());
     dispatch(setWishlistToNull());

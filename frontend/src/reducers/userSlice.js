@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { ServiceSignup, ServiceSignin } from "../services/service.js";
-import { Satellite } from "lucide-react";
 
 const STATUS = Object.freeze({
     idle: "idle",

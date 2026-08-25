@@ -97,7 +97,7 @@ const OrderSummary = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 px-4 py-2  bg-[var(--primarycolor)] max-w-[360px] w-full">
+      <div className="flex flex-col gap-4 px-4 py-2  bg-[var(--primarycolor)] md:max-w-[360px] w-full">
         <h2 className="font-semibold text-3xl">Order summary</h2>
         <h1 className="font-semibold cursor-pointer" onClick={showCloseModel}>
           Apply coupan

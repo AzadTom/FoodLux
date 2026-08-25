@@ -7,13 +7,12 @@ import NewProductItem2 from "@/components/Products/NewProductItem2";
 
 const Wishlist = () => {
   const { wishData } = useSelector((state) => state.favData);
-  const { token } = useSelector((state) => state.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (wishData?.length > 0) return;
-    dispatch(getfavs(token.token));
+    dispatch(getfavs());
   }, [wishData]);
 
   if (wishData.length == 0) {

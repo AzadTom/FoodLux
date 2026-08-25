@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ServiceAddtocart, ServiceRemovetocart, ServiceGetCart, ServiceIncrementDecrement, Service2GetCart, Service2AddCart, Service2RemoveFromCart, Service2IncrementDecrement } from "../services/service.js";
+import {Service2GetCart, Service2AddCart, Service2RemoveFromCart, Service2IncrementDecrement } from "../services/service.js";
 
 
 const STATUS = Object.freeze({

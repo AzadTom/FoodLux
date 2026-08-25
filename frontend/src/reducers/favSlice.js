@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ServiceAddtofav,ServiceRemovetofav,ServiceGetfav, Service2Getfav, Service2Addtofav, Service2Removetofav} from '../services/service.js';
+import {Service2Getfav, Service2Addtofav, Service2Removetofav} from '../services/service.js';
 
 
 const STATUS = Object.freeze({
