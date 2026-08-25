@@ -12,7 +12,7 @@ const Counter = ({ item }) => {
     setProduct((prev) => (prev >= 1 ? prev + 1 : 1));
     setTimeout(() => {
       if (product > 1) {
-        dispatch(incrementDecrementCart({ id: item.id, qty: product }));
+        dispatch(incrementDecrementCart({ id: item.productId, qty: product }));
         console.log(product);
       }
     }, 1000);
@@ -23,7 +23,7 @@ const Counter = ({ item }) => {
     setProduct((prev) => (prev <= 1 ? 1 : prev - 1));
     setTimeout(() => {
       if (product > 1) {
-        dispatch(incrementDecrementCart({ id: item.id, qty: product }));
+        dispatch(incrementDecrementCart({ id: item.productId, qty: product }));
       }
     }, 1000);
   };

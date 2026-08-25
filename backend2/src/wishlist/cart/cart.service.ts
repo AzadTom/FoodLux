@@ -73,7 +73,7 @@ export class CartService {
 
   async update(userId: string, productId: string, updateCartDto: UpdateCartDto) {
 
-    const cartitem = this.prisma.cart.update({
+    const cartitem = await this.prisma.cart.update({
       data: {
         quantity: updateCartDto.quantity
       },

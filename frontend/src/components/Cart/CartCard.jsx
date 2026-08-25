@@ -15,7 +15,7 @@ const CartCard = ({ item, remove }) => {
             src={image}
             onError={(e) => {
               e.currentTarget.onerror = null;
-              e.currentTarget.src = `https://placehold.co/${vertical ? "720X1280" : "600x600"}?text=Food+Image`;
+              e.currentTarget.src = `https://placehold.co/600x600?text=Food+Image`;
             }}
             alt="demo"
             className="w-[65px]   sm:w-[100px] sm:h-[100px] bg-cover bg-center object-cover"
@@ -25,7 +25,7 @@ const CartCard = ({ item, remove }) => {
           </div>{" "}
         </td>
         <td className=" px-4 py-2">{name}</td>
-        <td className=" px-4 py-2">{`$.${price}`}</td>
+        <td className=" px-4 py-2">{`$${price}`}</td>
         <td className=" px-4 py-2 hidden sm:block">
           <Counter item={item} />
         </td>

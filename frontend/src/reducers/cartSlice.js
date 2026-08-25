@@ -47,15 +47,16 @@ const cartSlice = createSlice({
       })
       .addCase(removeTocart.fulfilled, (state, action) => {
 
-        state.cart = state.cart.filter((item) => (item._id !== action.payload.productId));
+        state.cart = state.cart.filter((item) => (item.id !== action.payload.id));
         console.log("cartSlice-removetocart", action.payload);
 
       })
       .addCase(incrementDecrementCart.fulfilled, (state, action) => {
 
         const cartitem = state.cart.find((item) => item.id == action.payload.id);
+        console.log("cartitem",cartitem);
         const index = state.cart.indexOf(cartitem);
-        state.cart[index] = action.payload.singlecart;
+        state.cart[index] = action.payload;
         console.log("cartSlice-incrementDecrement", action.payload);
       })
 
