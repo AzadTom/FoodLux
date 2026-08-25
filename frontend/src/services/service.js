@@ -127,6 +127,7 @@ api.interceptors.request.use((config) => {
 }, (error) => Promise.reject(error));
 
 
+
 export const getUserProfile = async () => {
     const response = await api.get('/auth/user/me');
     return response.data;
@@ -139,6 +140,76 @@ export const getNewAccessToken = async () => {
 
 
 // Cart
+const api2 = axios.create({
+    baseURL: BASE_URL3,
+});
+
+api2.interceptors.request.use((config) => {
+    const accessToken = localStorage.getItem('accesstoken');
+    if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+}, (error) => Promise.reject(error));
+
+export const Service2GetCart = async () => {
+    try {
+        const response = await api2.get('/cart/byuser');
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("something wrong in getCartlist!");
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const Service2AddCart = async (productId, quantity = 1) => {
+    try {
+        const payload = {
+            productId: productId,
+            quantity: quantity
+        }
+        const response = await api2.post('/cart/create', payload);
+        if (response.status === 201) {
+            return response.data;
+        }
+        throw new Error("something wrong in addCartlist!");
+    } catch (error) {
+        throw error;
+    }
+
+}
+
+export const Service2RemoveFromCart = async (productId) => {
+    try {
+
+        const response = await api2.delete(`/cart/remove/${productId}`,);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("something wrong in addCartlist!");
+    } catch (error) {
+        throw error;
+    }
+
+}
+
+export const Service2IncrementDecrement = async (productId, quantity = 1) => {
+    try {
+
+        const payload = {
+            productId: productId,
+            quantity: quantity
+        }
+        const response = await api2.patch(`/cart/update/${productId}`, payload);
+        return response.data;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 export const ServiceGetCart = async (token) => {
 
@@ -192,6 +263,20 @@ export const ServiceIncrementDecrement = async (qty, token, productid) => {
 
 
 // Wishlist
+
+export const Service2Getfav = async () => {
+    const response = await api2.get("/cart/favs/byuser");
+    return response.data;
+}
+export const Service2Addtofav = async (productId) => {
+    const response = await api2.post(`/cart/favs/create`,{productId});
+    return response.data;
+}
+export const Service2Removetofav = async (productid) => {
+    const response = await api2.delete(`/cart/favs/${productid}`)
+    return response.data;
+}
+
 
 export const ServiceGetfav = async (token) => {
 

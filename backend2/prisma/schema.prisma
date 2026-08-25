@@ -23,6 +23,8 @@ model Product {
   status ProductStatus @default(ACTIVE)
   categoryId String @db.Uuid
   category Category @relation(fields: [categoryId], references: [id])
+  carts Cart[]
+  wishlists  Wishlist[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -43,6 +45,36 @@ model Category {
   image    String @default("")
   products Product[]
 
+  @@schema("ecommerce")
+}
+
+model Cart {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  productId String   @db.Uuid
+  quantity  Int      @default(1)
+
+  product   Product  @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@schema("ecommerce")
+}
+
+model Wishlist {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  productId String   @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, productId])
+  @@index([userId])
   @@schema("ecommerce")
 }
 

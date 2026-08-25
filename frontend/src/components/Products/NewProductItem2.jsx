@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
-import React from "react";
+import { getCart } from "@/reducers/cartSlice";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const NewProductItem2 = ({
   id,
@@ -14,10 +16,15 @@ const NewProductItem2 = ({
   status,
   onAddToCart,
   onToggleWishlist,
-  isWishlisted = false,
   className = "",
-  vertical=false
+  vertical = false,
 }) => {
+  const { isLogin, user } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
+  const { wishData } = useSelector((state) => state.favData);
+  const isWishlisted = wishData && wishData.find((item) => item.productId === id);
+  const isMatch = cart && cart.find((item) => item.productId === id);
+
   const handleAddToCart = (e) => {
     e.stopPropagation();
 
@@ -29,6 +36,7 @@ const NewProductItem2 = ({
       price,
       image,
       stock,
+      isMatch,
     });
   };
 
@@ -39,6 +47,7 @@ const NewProductItem2 = ({
       id,
       name,
       image,
+      isWishlisted,
     });
   };
 
@@ -69,7 +78,7 @@ const NewProductItem2 = ({
           "
           onError={(e) => {
             e.currentTarget.onerror = null;
-            e.currentTarget.src =`https://placehold.co/${vertical? "720X1280":"600x600"}?text=Food+Image`;
+            e.currentTarget.src = `https://placehold.co/${vertical ? "720X1280" : "600x600"}?text=Food+Image`;
           }}
         />
 
@@ -165,6 +174,7 @@ const NewProductItem2 = ({
             <button
               type="button"
               onClick={handleAddToCart}
+              disabled={isMatch}
               className="
                 flex
                 w-full
@@ -200,7 +210,7 @@ const NewProductItem2 = ({
                 <circle cx="10" cy="20" r="1" />
                 <circle cx="18" cy="20" r="1" />
               </svg>
-              Add to Cart
+              {isMatch ? "Go to Cart" : "Add to Cart"}
             </button>
           </div>
         )}

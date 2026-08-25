@@ -1,6 +1,7 @@
 import {
   SeriviceCategoryList,
   SeriviceEachCategoryList,
+  Service2AddCart,
 } from "@/services/service";
 import { useQuery } from "@tanstack/react-query";
 import TopHeading from "../Category/TopHeading";
@@ -9,11 +10,16 @@ import ProductItemSkeleton from "./ProductItemSkelton";
 import { SwiperSlide } from "swiper/react";
 import NewProductItem2 from "./NewProductItem2";
 import SwiperUtils2 from "./SwiperUtils/SwiperUtils2";
+import { useDispatch } from "react-redux";
+import { addTocart, getCart } from "@/reducers/cartSlice";
+import { useEffect } from "react";
+import { addTOfav, getfavs, removeTofav } from "@/reducers/favSlice";
 
 const CarasouelArr = [0, 1, 2, 5, 7, 8, 9];
 const ColumnArr = [2, 7, 8];
 
 const ProductContainer = () => {
+  const dispatch = useDispatch();
   const { data, isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: () => SeriviceCategoryList(),
@@ -36,6 +42,11 @@ const ProductContainer = () => {
     }
     return 4;
   }
+
+  useEffect(() => {
+    dispatch(getCart());
+    dispatch(getfavs());
+  }, []);
 
   return (
     <section>
@@ -78,6 +89,7 @@ const ProductItemContainer = ({
   const getClass = () => (coloum === 4 ? "" : "aspect-[9/16]");
   const getRow = () => (coloum === 4 ? 2 : 1);
   const getVertical = () => (coloum === 4 ? false : true);
+  const dispatch = useDispatch();
 
   if (carasouel) {
     return (
@@ -116,6 +128,8 @@ const ProductItemContainer = ({
                       {...item}
                       vertical={getVertical}
                       className={getClass}
+                      onAddToCart={({ id }) => dispatch(addTocart({ id }))}
+                      onToggleWishlist={({ id, isWishlisted }) => isWishlisted ? dispatch(removeTofav({ id })): dispatch(addTOfav({ id }))}
                     />
                   </SwiperSlide>
                 ))}
@@ -144,7 +158,12 @@ const ProductItemContainer = ({
         ) : (
           <>
             {data?.data?.map((item) => (
-              <NewProductItem2 key={item.id} {...item} />
+              <NewProductItem2
+                key={item.id}
+                {...item}
+                onAddToCart={({ id }) => dispatch(addTocart({ id }))}
+                onToggleWishlist={({ id, isMatch }) =>isMatch? dispatch(removeTofav({ id })): dispatch(addTOfav({ id }))}
+              />
             ))}
           </>
         )}
