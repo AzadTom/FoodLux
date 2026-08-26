@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+export const BASE_URL = "https://foodlux-backend.vercel.app";
 export const AUTHBASEURL = "https://nestjsserver.vercel.app";
 
 // Users

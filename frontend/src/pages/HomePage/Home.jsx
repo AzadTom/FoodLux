@@ -17,9 +17,8 @@ const Home = () => {
           token: token,
         }),
       );
-
-      navigate("/home", { replace: true });
     }
+    navigate("/home", { replace: true });
   }, [token, dispatch, navigate]);
 
   return (

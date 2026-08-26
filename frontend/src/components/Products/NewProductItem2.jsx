@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import { getCart } from "@/reducers/cartSlice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "../ui/spinner";
 
 const NewProductItem2 = ({
   id,
@@ -20,15 +22,22 @@ const NewProductItem2 = ({
   vertical = false,
 }) => {
   const { isLogin, user } = useSelector((state) => state.user);
-  const { cart } = useSelector((state) => state.cart);
-  const { wishData } = useSelector((state) => state.favData);
-  const isWishlisted = wishData && wishData.find((item) => item.productId === id);
+  const { cart, addToCartId } = useSelector((state) => state.cart);
+  const { wishData, id: currentFavId } = useSelector((state) => state.favData);
+  const isWishlisted =
+    wishData && wishData.find((item) => item.productId === id);
   const isMatch = cart && cart.find((item) => item.productId === id);
+  const navigate = useNavigate();
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
 
     if (stock <= 0 || status !== "ACTIVE") return;
+
+    if (isMatch) {
+      navigate("/cart");
+      return;
+    }
 
     onAddToCart?.({
       id,
@@ -100,6 +109,7 @@ const NewProductItem2 = ({
         {/* Wishlist - hidden until hover */}
         <button
           type="button"
+          disabled={currentFavId === id}
           onClick={handleWishlist}
           aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
           className="
@@ -132,21 +142,27 @@ const NewProductItem2 = ({
             hover:bg-white
           "
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill={isWishlisted ? "currentColor" : "none"}
-            stroke="currentColor"
-            strokeWidth="1.8"
-            className={`h-5 w-5 ${
-              isWishlisted ? "text-red-500" : "text-gray-700"
-            }`}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
-            />
-          </svg>
+          {currentFavId === id ? (
+            <div className="flex">
+              <Spinner className="size-3" />
+            </div>
+          ) : (
+            <svg
+              viewBox="0 0 24 24"
+              fill={isWishlisted ? "currentColor" : "none"}
+              stroke="currentColor"
+              strokeWidth="1.8"
+              className={`h-5 w-5 ${
+                isWishlisted ? "text-red-500" : "text-gray-700"
+              }`}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+              />
+            </svg>
+          )}
         </button>
 
         {/* Add to Cart - hidden until hover */}
@@ -174,7 +190,7 @@ const NewProductItem2 = ({
             <button
               type="button"
               onClick={handleAddToCart}
-              disabled={isMatch}
+              disabled={addToCartId === id}
               className="
                 flex
                 w-full
@@ -195,22 +211,30 @@ const NewProductItem2 = ({
                 active:scale-[0.98]
               "
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="h-5 w-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6"
-                />
-                <circle cx="10" cy="20" r="1" />
-                <circle cx="18" cy="20" r="1" />
-              </svg>
-              {isMatch ? "Go to Cart" : "Add to Cart"}
+              {addToCartId === id ? (
+                <div className="flex  items-center gap-2">
+                  <Spinner className="size-3" /> {"Loading..."}
+                </div>
+              ) : (
+                <div className="flex gap-5">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="h-5 w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6"
+                    />
+                    <circle cx="10" cy="20" r="1" />
+                    <circle cx="18" cy="20" r="1" />
+                  </svg>
+                  {isMatch ? "Go to Cart" : "Add to Cart"}
+                </div>
+              )}
             </button>
           </div>
         )}

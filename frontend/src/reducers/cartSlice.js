@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {Service2GetCart, Service2AddCart, Service2RemoveFromCart, Service2IncrementDecrement } from "../services/service.js";
+import { Service2GetCart, Service2AddCart, Service2RemoveFromCart, Service2IncrementDecrement } from "../services/service.js";
 
 
 const STATUS = Object.freeze({
@@ -11,6 +11,9 @@ const STATUS = Object.freeze({
 const initialState = {
   cart: [],
   status: STATUS.idle,
+  addToCartId: "",
+  removeToCartId: "",
+  incrementDecrementCartId: ""
 }
 
 
@@ -37,27 +40,35 @@ const cartSlice = createSlice({
       .addCase(getCart.fulfilled, (state, action) => {
         state.cart = action.payload;
         state.status = STATUS.idle;
-        console.log("cartSlice-getcart", action.payload);
+      })
+      .addCase(addTocart.pending, (state, action) => {
+        state.addToCartId = action.meta.arg.id;
       })
       .addCase(addTocart.fulfilled, (state, action) => {
-
         state.cart.push(action.payload);
-        console.log("cartSlice-addtocart", action.payload);
+        state.addToCartId = "";
+      }).
+      addCase(removeTocart.pending, (state, action) => {
+
+        state.removeToCartId = action.meta.arg.id;
 
       })
       .addCase(removeTocart.fulfilled, (state, action) => {
 
         state.cart = state.cart.filter((item) => (item.id !== action.payload.id));
-        console.log("cartSlice-removetocart", action.payload);
+        state.removeToCartId = "";
 
+      })
+      .addCase(incrementDecrementCart.pending, (state, action) => {
+        state.incrementDecrementCartId = action.meta.arg.id;
       })
       .addCase(incrementDecrementCart.fulfilled, (state, action) => {
 
         const cartitem = state.cart.find((item) => item.id == action.payload.id);
-        console.log("cartitem",cartitem);
         const index = state.cart.indexOf(cartitem);
         state.cart[index] = action.payload;
-        console.log("cartSlice-incrementDecrement", action.payload);
+        state.incrementDecrementCartId = "";
+
       })
 
 

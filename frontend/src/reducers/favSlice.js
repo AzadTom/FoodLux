@@ -11,6 +11,7 @@ const STATUS = Object.freeze({
 const initialState = {
     wishData:[],
     status:STATUS.idle,
+    id:"",
 }
 
  const favSlice = createSlice({
@@ -27,8 +28,6 @@ const initialState = {
     },
 
     extraReducers:(builder)=>{
-
-
         builder.addCase(getfavs.pending,(state,action)=>{
 
             state.status = STATUS.loading;
@@ -38,12 +37,19 @@ const initialState = {
             state.wishData =  action.payload;
             state.status = STATUS.idle;
         })
+        .addCase(addTOfav.pending,(state,action)=>{
+            state.id = action.meta.arg.id;
+        })
         .addCase(addTOfav.fulfilled,(state,action)=>{
             state.wishData.push(action.payload);
+             state.id = "";
+        })
+        .addCase(removeTofav.pending,(state,action)=>{
+         state.id = action.meta.arg.id;
         })
         .addCase(removeTofav.fulfilled,(state,action)=>{
-             console.log(action.payload);
             state.wishData = state.wishData.filter((item)=>(item.id !== action.payload.id));
+            state.id = "";
         })
 
     }
