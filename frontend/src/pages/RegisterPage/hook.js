@@ -3,7 +3,6 @@ import { validateUserDetail } from "./utils";
 import { setUserNull, signIn, signUp } from "../../reducers/userSlice";
 import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/toast";
-import { setToken } from "@/reducers/tokenSlice";
 import { useNavigate } from "react-router-dom";
 
 export const useSignUp = () => {
@@ -89,7 +88,6 @@ export const useSignUp = () => {
         }
         if (status === "success") {
             showSuccessToast();
-            dispatch(setToken(user));
             navigate("/home");
             return;
         }
@@ -193,7 +191,6 @@ export const useSignin = () => {
             setLoader1(false);
             setLoader2(false);
             showSuccessToast();
-            dispatch(setToken(user));
             navigate("/home");
             return;
         }
