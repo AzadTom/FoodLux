@@ -59,8 +59,6 @@ function Checkout() {
       ];
 
   const {cart} = useSelector((state)=>(state.cart));
-  const {token} = useSelector((state)=>(state.token));
-
   const subtotal = cart.reduce((acc, item) => ((item.price) * (item.qty)) + acc, 0);
 
    const openSuccessPage = ()=> navigate("/paymentsuccess");
@@ -101,14 +99,14 @@ function Checkout() {
     <div className='flex  flex-col justify-center  items-center '>
 
           <h2 className='text-2xl font-semibold text-center'><ShoppingBasketIcon/></h2>
-      <div className='flex w-full sm:max-w-[1000px]  flex-col sm:flex-row  items-center sm:items-start  justify-center '>
+      <div className='flex sm:max-w-[1000px] w-full  flex-col sm:flex-row  items-center sm:items-start  justify-center '>
 
-      <div className='flex flex-col gap-2  px-4  py-4 justify-center items-center   max-w-[350px] w-full '>
+      <div className='flex flex-col gap-2  px-4  py-4 justify-center items-center  w-full '>
          <h2 className='text-xl font-semibold text-center '>Select Address</h2>
         {randomAddresses.map((item)=>(<AddressItem address={item} key={item._id} onClick={ ()=> selectAddress(item)}/> ))}
       </div> 
 
-         <div className='sm:max-w-[300px] w-full px-4 py-4 '>
+         <div className='w-full px-4 py-4 '>
 
          <h2 className='text-xl font-semibold text-center bg-[var(--secondarycolor)] py-4'>Order Details</h2>
         {cart.map((item)=>(<CheckoutItem item={item} key={item._id}/> ))}

@@ -34,7 +34,7 @@ const CartPage = () => {
 
   return (
     <section className="flex justify-center items-center">
-      <div className="max-w-[1200px] w-full flex flex-col gap-8 sm:flex-row">
+      <div className="max-w-[1200px] w-full flex flex-col gap-8 sm:flex-row ">
         <Cart />
         <OrderSummary />
       </div>
