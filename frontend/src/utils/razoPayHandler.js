@@ -36,11 +36,16 @@ export const razorPayHandler = async (amount, openSucessage, openFailure) => {
         image: "https://pbs.twimg.com/profile_images/1712013937737445376/4gjg_BmM_400x400.jpg",
         order_id: order.id,
         handler: async (response) => {
-            const verify = await axios.post(`${BASE_URL}/payment/verification`, response);
-            if (verify.status === 200) {
-                openSucessage();
-                console.log("success!");
-            } else {
+            try {
+                const verify = await axios.post(`${BASE_URL}/payment/verification`, response);
+                if (verify.status === 200) {
+                    openSucessage();
+                    console.log("success!");
+                } else {
+                    openFailure();
+                    console.log("failure");
+                }
+            } catch (error) {
                 openFailure();
                 console.log("failure");
             }
