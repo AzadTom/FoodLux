@@ -6,16 +6,78 @@ import { getCart } from "@/reducers/cartSlice";
 import { useEffect } from "react";
 import { ServicegetOrderByUser } from "@/services/service";
 
+
+import { useRef, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { useQuery } from "@tanstack/react-query";
+
+export default function CartOrderTabs() {
+  const [activeTab, setActiveTab] = useState(0);
+  const contentSwiper = useRef(null);
+
+  const changeTab = (index) => {
+    setActiveTab(index);
+    contentSwiper.current?.slideTo(index);
+  };
+
+  return (
+    <div className="w-full">
+      {/* Tabs */}
+      <div className="flex border-b">
+        <button
+          onClick={() => changeTab(0)}
+          className={`flex-1 py-3 text-center ${
+            activeTab === 0
+              ? 'border-b-2 border-black font-semibold'
+              : 'text-gray-500'
+          }`}
+        >
+          Cart
+        </button>
+
+        <button
+          onClick={() => changeTab(1)}
+          className={`flex-1 py-3 text-center ${
+            activeTab === 1
+              ? 'border-b-2 border-black font-semibold'
+              : 'text-gray-500'
+          }`}
+        >
+          Orders
+        </button>
+      </div>
+
+      {/* Swipeable Content */}
+      <Swiper
+        onSwiper={(swiper) => {
+          contentSwiper.current = swiper;
+        }}
+        onSlideChange={(swiper) => {
+          setActiveTab(swiper.activeIndex);
+        }}
+        spaceBetween={20}
+        slidesPerView={1}
+      >
+        <SwiperSlide>
+          <CartPage />
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <OrderPage />
+        </SwiperSlide>
+      </Swiper>
+    </div>
+  );
+}
+
 const CartPage = () => {
+  const { cart } = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { cart } = useSelector((state) => state.cart);
-
   useEffect(() => {
-
-    ServicegetOrderByUser();
-    
     if (cart.length > 0) return;
     dispatch(getCart());
   }, []);
@@ -48,4 +110,21 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+
+
+
+function OrderPage() {
+
+  const {
+    data,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey:["order"],
+    queryFn:()=> ServicegetOrderByUser(),
+    refetchOnWindowFocus:false,
+  })
+
+
+  return <div className="p-6">Orders content</div>;
+}
