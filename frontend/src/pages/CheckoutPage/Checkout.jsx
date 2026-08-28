@@ -57,7 +57,37 @@ function Checkout() {
 
   const successToHome = () => {
     const amount = subtotal - getDiscount();
-    razorPayHandler(amount, openSuccessPage, openFailurePage);
+
+    //     export class CreateOrderItemDto {
+    //     @IsUUID()
+    //     productId!: string;
+    //     @IsUUID()
+    //     orderId!: string
+    //     @IsNumber()
+    //     quantity!: number;
+    // }
+
+    // export class CreateOrderDto {
+    //     @IsNumber()
+    //     totalAmount!: number;
+
+    //     @IsString()
+    //     paymentId!: string;
+
+    //     @IsArray()
+    //     @ValidateNested({ each: true })
+    //     @Type(() => CreateOrderItemDto)
+    //     items!: CreateOrderItemDto[];
+    // }
+    const payload = {
+      totalAmount: amount,
+      items: cart.map((item)=>({
+        productId:item.productId,
+        quantity:item.quantity,
+      })),
+    };
+
+    razorPayHandler(payload, openSuccessPage, openFailurePage);
   };
 
   const [address, setAddress] = useState({

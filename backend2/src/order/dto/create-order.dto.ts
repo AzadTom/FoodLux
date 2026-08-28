@@ -11,8 +11,6 @@ import { Type } from 'class-transformer';
 export class CreateOrderItemDto {
     @IsUUID()
     productId!: string;
-    @IsUUID()
-    orderId!: string
     @IsNumber()
     quantity!: number;
 }
@@ -22,7 +20,7 @@ export class CreateOrderDto {
     totalAmount!: number;
 
     @IsString()
-    paymentId!: string;
+    paymentId?: string;
 
     @IsArray()
     @ValidateNested({ each: true })

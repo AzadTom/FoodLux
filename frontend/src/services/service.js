@@ -205,6 +205,13 @@ export const Service2Removetofav = async (productid) => {
     return response.data;
 }
 
+// Order
+
+export const ServicegetOrderByUser =  async()=>{
+    const response = await api2.get(`/order/byuser`);
+    return response.data;
+}
+
 
 
 

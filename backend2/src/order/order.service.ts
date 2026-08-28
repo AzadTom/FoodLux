@@ -7,10 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class OrderService {
   constructor(private readonly prisma:PrismaService){}
   async create(userId:string,createOrderDto: CreateOrderDto) {
-     
     const createdOrderDetails = await this.prisma.order.createMany({
       data:createOrderDto.items.map((item)=>({
-        paymentId:createOrderDto.paymentId,
         totalAmount:createOrderDto.totalAmount,
         userId:userId,
         items:item,

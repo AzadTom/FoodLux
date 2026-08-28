@@ -4,6 +4,7 @@ import OrderSummary from "../../components/Cart/OrderSummary";
 import { useNavigate } from "react-router-dom";
 import { getCart } from "@/reducers/cartSlice";
 import { useEffect } from "react";
+import { ServicegetOrderByUser } from "@/services/service";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,9 @@ const CartPage = () => {
   const { cart } = useSelector((state) => state.cart);
 
   useEffect(() => {
+
+    ServicegetOrderByUser();
+    
     if (cart.length > 0) return;
     dispatch(getCart());
   }, []);
