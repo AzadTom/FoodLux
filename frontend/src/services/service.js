@@ -211,6 +211,11 @@ export const ServicegetOrderByUser = async () => {
     return response.data;
 }
 
+export const ServicegetOrderDetailsByUser = async (id) => {
+    const response = await api2.get(`/order/byuser/${id}`);
+    return response.data;
+}
+
 export const ServiceOrderCreatedByUser = async (payload) => {
     try {
         const response = await api2.post(`order/byuser`, payload);

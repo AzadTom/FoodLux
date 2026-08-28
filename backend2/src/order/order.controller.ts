@@ -48,17 +48,17 @@ export class OrderController {
     }
   }
 
-  @Get(':id')
+  @Get('/byuser/:id')
   findOne(@Param('id') id: string) {
-    return this.orderService.findOne(+id);
+    return this.orderService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('/byuser/:id')
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     return this.orderService.update(+id, updateOrderDto);
   }
 
-  @Delete(':id')
+  @Delete('/byuser/:id')
   remove(@Param('id') id: string) {
     return this.orderService.remove(+id);
   }

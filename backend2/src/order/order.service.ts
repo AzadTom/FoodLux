@@ -48,8 +48,19 @@ export class OrderService {
     return { orderDetails };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string) {
+
+    const orderdetails = await this.prisma.orderItem.findMany({
+      where: {
+        orderId: id,
+      },
+      include: {
+        product: true,
+        order:true
+      }
+    });
+
+    return {orderdetails}
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
