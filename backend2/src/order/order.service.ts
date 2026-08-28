@@ -20,11 +20,17 @@ export class OrderService {
       },
       include: {
         items: {
-          include:{
-            product:true
+          include: {
+            product: true
           }
         },
       },
+    });
+
+    await this.prisma.cart.deleteMany({
+      where: {
+        userId: userId,
+      }
     });
 
     return {
