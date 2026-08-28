@@ -43,16 +43,13 @@ export const razorPayHandler = async (payload, openSucessage, openFailure) => {
                 const orderResponse = await ServiceOrderCreatedByUser(payload);
                 const status = orderResponse.status;
                 // const verify = await axios.post(`${BASE_URL}/payment/verification`, response);
-                if (status === 200) {
+                if (status) {
                     openSucessage();
-                    console.log("success!");
                 } else {
                     openFailure();
-                    console.log("failure");
                 }
             } catch (error) {
                 openFailure();
-                console.log("failure");
             }
         },
         prefill: {
