@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { razorPayHandler } from "../../utils/razoPayHandler.js";
+import { setCartNull } from "@/reducers/cartSlice.js";
 
 const randomAddresses = [
   {
@@ -33,6 +34,7 @@ const randomAddresses = [
 
 function Checkout() {
   const { coupan1, coupan2 } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getDiscount = () => {
@@ -52,7 +54,10 @@ function Checkout() {
     2,
   );
 
-  const openSuccessPage = () => navigate("/paymentsuccess");
+  const openSuccessPage = () => {
+    dispatch(setCartNull());
+    navigate("/paymentsuccess");
+  };
   const openFailurePage = () => navigate("/paymentfailure");
 
   const successToHome = () => {
