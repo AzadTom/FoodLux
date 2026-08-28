@@ -8,15 +8,17 @@ import { CartModule } from './wishlist/cart/cart.module';
 import { WishlistService } from './wishlist/wishlist.service';
 import { CartMiddleware } from './wishlist/cart/cart.middleware';
 import { CartController } from './wishlist/cart/cart.controller';
+import { OrderModule } from './order/order.module';
+import { OrderController } from './order/order.controller';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, ProductModule, CartModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, ProductModule, CartModule, OrderModule],
   controllers: [AppController],
   providers: [AppService, WishlistService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(CartMiddleware)
-      .forRoutes(CartController);
+      .forRoutes(CartController,OrderController);
   }
 }
