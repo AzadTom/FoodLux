@@ -5,14 +5,26 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly prisma:PrismaService){}
-  async create(userId:string,createOrderDto: CreateOrderDto) {
-    const createdOrderDetails = await this.prisma.order.createMany({
-      data:createOrderDto.items.map((item)=>({
-        totalAmount:createOrderDto.totalAmount,
-        userId:userId,
-        items:item,
-      }))
+  constructor(private readonly prisma: PrismaService) { }
+  async create(userId: string, createOrderDto: CreateOrderDto) {
+    const createdOrderDetails = await this.prisma.order.create({
+      data: {
+        userId: userId,
+        totalAmount: createOrderDto.totalAmount,
+        items: {
+          create: createOrderDto.items.map((item) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+          })),
+        },
+      },
+      include: {
+        items: {
+          include:{
+            product:true
+          }
+        },
+      },
     });
 
     return {
@@ -20,14 +32,14 @@ export class OrderService {
     }
   }
 
-  async findAll(userId:string) {
-    
+  async findAll(userId: string) {
+
     const orderDetails = await this.prisma.order.findMany({
-      where:{
-        userId:userId
+      where: {
+        userId: userId
       }
     });
-    return {orderDetails};
+    return { orderDetails };
   }
 
   findOne(id: number) {

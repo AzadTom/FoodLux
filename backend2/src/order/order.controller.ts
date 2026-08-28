@@ -8,7 +8,7 @@ import type { Request, Response } from 'express';
 export class OrderController {
   constructor(private readonly orderService: OrderService) { }
 
-  @Post()
+  @Post('/byuser')
   async create(@Body() createOrderDto: CreateOrderDto, @Res() res: Response, @Req() req: Request) {
     try {
 
@@ -23,7 +23,7 @@ export class OrderController {
     } catch (error) {
       return res.status(400).json({
         status: 400,
-        message: "",
+        message: {error},
         data: null
       });
     }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from '../services/service.js';
+import { BASE_URL, ServiceOrderCreatedByUser } from '../services/service.js';
 
 function loadScript() {
     return new Promise((resolve) => {
@@ -15,10 +15,12 @@ function loadScript() {
     });
 }
 
-export const razorPayHandler = async (amount, openSucessage, openFailure) => {
+export const razorPayHandler = async (payload, openSucessage, openFailure) => {
+
+    const { totalAmount } = payload;
 
     const { data: { key } } = await axios.get(`${BASE_URL}/payment/getkey`);
-    const { data: { order } } = await axios.post(`${BASE_URL}/payment/checkout`, { amount: amount });
+    const { data: { order } } = await axios.post(`${BASE_URL}/payment/checkout`, { amount: totalAmount });
 
     const res = await loadScript();
     if (!res) {
@@ -37,8 +39,11 @@ export const razorPayHandler = async (amount, openSucessage, openFailure) => {
         order_id: order.id,
         handler: async (response) => {
             try {
-                const verify = await axios.post(`${BASE_URL}/payment/verification`, response);
-                if (verify.status === 200) {
+
+                const orderResponse = await ServiceOrderCreatedByUser(payload);
+                const status = orderResponse.status;
+                // const verify = await axios.post(`${BASE_URL}/payment/verification`, response);
+                if (status === 200) {
                     openSucessage();
                     console.log("success!");
                 } else {

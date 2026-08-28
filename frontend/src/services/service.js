@@ -197,7 +197,7 @@ export const Service2Getfav = async () => {
     return response.data;
 }
 export const Service2Addtofav = async (productId) => {
-    const response = await api2.post(`/cart/favs/create`,{productId});
+    const response = await api2.post(`/cart/favs/create`, { productId });
     return response.data;
 }
 export const Service2Removetofav = async (productid) => {
@@ -206,10 +206,24 @@ export const Service2Removetofav = async (productid) => {
 }
 
 // Order
-
-export const ServicegetOrderByUser =  async()=>{
+export const ServicegetOrderByUser = async () => {
     const response = await api2.get(`/order/byuser`);
     return response.data;
+}
+
+export const ServiceOrderCreatedByUser = async (payload) => {
+    try {
+        const response = await api2.post(`order/byuser`, payload);
+        return {
+            status: true,
+            data: response.data
+        };
+    } catch (error) {
+        return {
+            status: false,
+            data: { error }
+        }
+    }
 }
 
 

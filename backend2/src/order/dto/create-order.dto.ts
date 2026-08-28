@@ -1,6 +1,7 @@
 import {
     IsArray,
     IsNumber,
+    IsOptional,
     IsString,
     IsUUID,
     ValidateNested,
@@ -19,6 +20,7 @@ export class CreateOrderDto {
     @IsNumber()
     totalAmount!: number;
 
+    @IsOptional()
     @IsString()
     paymentId?: string;
 
