@@ -24,6 +24,10 @@ export class CreateOrderDto {
     @IsString()
     paymentId?: string;
 
+    @IsOptional()
+    @IsString()
+    image?: string;
+
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateOrderItemDto)

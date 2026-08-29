@@ -3,12 +3,81 @@ import HeroVideo from "./HeroVideo";
 import SwiperUtils2 from "../Products/SwiperUtils/SwiperUtils2";
 import { SwiperSlide } from "swiper/react";
 import TopHeading from "../Category/TopHeading";
+import { CategoryItem } from "../Category/CategoryList";
 
-const images = [
-  "https://images.unsplash.com/photo-1605926637412-b0cd5a3e3543?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D",
-  "https://images.unsplash.com/photo-1510195429239-8a5c0222144a?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fHx8",
-  "https://images.unsplash.com/photo-1605926637412-b0cd5a3e3543?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D",
-  "https://images.unsplash.com/photo-1510195429239-8a5c0222144a?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fHx8",
+const popularFoods = [
+  {
+    id: 1,
+    name: "Pizza",
+    image:
+      "https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 2,
+    name: "Sushi",
+    image:
+      "https://images.pexels.com/photos/357756/pexels-photo-357756.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 3,
+    name: "Tacos",
+    image:
+      "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 4,
+    name: "Burger",
+    image:
+      "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 5,
+    name: "Pasta",
+    image:
+      "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 6,
+    name: "Ramen",
+    image:
+      "https://images.pexels.com/photos/884600/pexels-photo-884600.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 7,
+    name: "Biryani",
+    image:
+      "https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 8,
+    name: "Paella",
+    image:
+      "https://images.pexels.com/photos/12419160/pexels-photo-12419160.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 9,
+    name: "Pad Thai",
+    image:
+      "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 10,
+    name: "Croissant",
+    image:
+      "https://images.pexels.com/photos/2135/food-france-morning-breakfast.jpg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 11,
+    name: "Dim Sum",
+    image:
+      "https://images.pexels.com/photos/955137/pexels-photo-955137.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
+  {
+    id: 12,
+    name: "Peking Duck",
+    image:
+      "https://images.pexels.com/photos/6646077/pexels-photo-6646077.jpeg?auto=compress&cs=tinysrgb&w=1280",
+  },
 ];
 
 const HeroSection = () => {
@@ -23,10 +92,10 @@ const HeroSection = () => {
       <SwiperUtils2
         showDots={false}
         rows={1}
-        slidesPerView={1}
+        slidesPerView={1.2}
         breakpoints={{
           640: {
-            slidesPerView: 1,
+            slidesPerView: 4.5,
             spaceBetween: 16,
             centeredSlides: false,
             centeredSlidesBounds: false,
@@ -34,11 +103,9 @@ const HeroSection = () => {
         }}
       >
         <div className="w-full">
-          {images.map((item) => (
+          {popularFoods.map((item) => (
             <SwiperSlide>
-              <SlideCard
-                item={item}
-              />
+              <CategoryItem {...item} heading="Popular Food" />
             </SwiperSlide>
           ))}
         </div>

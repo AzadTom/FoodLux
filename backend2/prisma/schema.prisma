@@ -85,6 +85,7 @@ model Order {
   status      OrderStatus  @default(PENDING)
   totalAmount Decimal      @db.Decimal(10, 2)
   paymentId   String       @default("")
+  image       String       @default("")
 
   items       OrderItem[]
   createdAt   DateTime     @default(now())

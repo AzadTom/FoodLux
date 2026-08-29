@@ -64,10 +64,11 @@ const CategoryList = () => {
 
 export default CategoryList;
 
-const CategoryItem = ({
+export const CategoryItem = ({
   id,
   name,
   image = "https://images.pexels.com/photos/33987719/pexels-photo-33987719.jpeg?width=1280&height=720",
+  heading="Category"
 }) => {
   return (
     <div id={id} className="shrink-0 w-[350px] p-2">
@@ -87,7 +88,7 @@ const CategoryItem = ({
           {/* Category name */}
           <div>
             <p className="text-white/70 text-xs uppercase tracking-widest mb-1">
-              Category
+              {heading}
             </p>
 
             <h3 className="text-white text-xl font-semibold capitalize">

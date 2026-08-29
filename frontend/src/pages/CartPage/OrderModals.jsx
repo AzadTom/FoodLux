@@ -37,7 +37,7 @@ const OrderModals = ({ isOpen, onClose, children }) => {
           <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex min-h-full items-start justify-center p-4 md:p-10">
               <motion.div
-                className="relative w-full max-w-4xl overflow-hidden rounded-xl bg-zinc-900 text-white"
+                className="relative w-full max-w-4xl overflow-hidden rounded-xl border  bg-white text-black dark:bg-zinc-900 dark:text-white"
                 initial={{
                   opacity: 0,
                   scale: 0.85,
@@ -61,7 +61,7 @@ const OrderModals = ({ isOpen, onClose, children }) => {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white text-black"
+                  className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border bg-white text-black"
                   aria-label="Close modal"
                 >
                   <X/>

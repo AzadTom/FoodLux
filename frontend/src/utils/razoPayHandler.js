@@ -38,9 +38,9 @@ export const razorPayHandler = async (payload, openSucessage, openFailure) => {
         image: "https://pbs.twimg.com/profile_images/1712013937737445376/4gjg_BmM_400x400.jpg",
         order_id: order.id,
         handler: async (response) => {
-            try {
-
-                const orderResponse = await ServiceOrderCreatedByUser(payload);
+            try { 
+                const finalPayload = {...payload,paymentId:response.razorpay_payment_id,image:payload.items[0].product.image};  
+                const orderResponse = await ServiceOrderCreatedByUser(finalPayload);
                 const status = orderResponse.status;
                 // const verify = await axios.post(`${BASE_URL}/payment/verification`, response);
                 if (status) {

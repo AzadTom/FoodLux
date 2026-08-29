@@ -11,6 +11,8 @@ export class OrderService {
       data: {
         userId: userId,
         totalAmount: createOrderDto.totalAmount,
+        image: createOrderDto.image,
+        paymentId: createOrderDto.paymentId,
         items: {
           create: createOrderDto.items.map((item) => ({
             productId: item.productId,
@@ -43,6 +45,13 @@ export class OrderService {
     const orderDetails = await this.prisma.order.findMany({
       where: {
         userId: userId
+      },
+      include: {
+        _count: {
+          select: {
+            items: true
+          }
+        }
       }
     });
     return { orderDetails };
@@ -56,11 +65,11 @@ export class OrderService {
       },
       include: {
         product: true,
-        order:true
+        order: true
       }
     });
 
-    return {orderdetails}
+    return { orderdetails }
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
