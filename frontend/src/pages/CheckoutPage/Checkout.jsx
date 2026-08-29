@@ -64,6 +64,7 @@ function Checkout() {
     const amount = subtotal - getDiscount();
     const payload = {
       totalAmount: amount,
+      image:cart.items[0].product.image,
       items: cart.map((item)=>({
         productId:item.productId,
         quantity:item.quantity,

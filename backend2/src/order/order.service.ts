@@ -23,7 +23,8 @@ export class OrderService {
       include: {
         items: {
           include: {
-            product: true
+            product: true,
+            order:true,
           }
         },
       },
