@@ -64,7 +64,7 @@ function Checkout() {
     const amount = subtotal - getDiscount();
     const payload = {
       totalAmount: amount,
-      image:cart.items[0].product.image,
+      image:cart[0]?.product?.image,
       items: cart.map((item)=>({
         productId:item.productId,
         quantity:item.quantity,
@@ -164,7 +164,7 @@ function Checkout() {
 
           <button
             className="px-4 bg-[var(--app-border)] text-[var(--primarycolor)] w-full py-4"
-            onClick={successToHome}
+            onClick={()=>successToHome()}
           >
             Place Order
           </button>
