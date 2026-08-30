@@ -1,8 +1,10 @@
 import ProductFilterItem, {
   CheckboxFilter,
+  CheckboxFilterProps,
   RadioFilter,
   RangeFilter,
 } from "./ProductFilterItem";
+import RatingFilter from "./RatingFilter";
 import useSearchParam from "./useSearchParams";
 
 export const categoryFilter: CheckboxFilter = {
@@ -39,7 +41,6 @@ export const ratingFilter: CheckboxFilter = {
   label: "Ratings",
   type: "checkbox",
   defaultOpen: true,
-
   options: [
     {
       value: "5",
@@ -62,6 +63,7 @@ export const ratingFilter: CheckboxFilter = {
       label: "1 star",
     },
   ],
+  render: (props:CheckboxFilterProps) => <RatingFilter {...props}/>,
 };
 
 export const sortFilter: RadioFilter = {
@@ -99,7 +101,7 @@ const ProductFilter = () => {
   const sortFilterValue = getParam(sortFilter.id);
 
   return (
-    <section className="px-4 fixed top-20 left-0 max-w-[250px] w-full border p-4">
+    <section className="px-4 fixed top-20 left-0 max-w-[280px] w-full border p-4">
       <div className="flex justify-between items-center">
         <p className="text-xl font-semibold">Filters</p>
         <button className="border p-2 rounded text-base" onClick={clearParams}>

@@ -1,4 +1,4 @@
-import { useId, useState, type ChangeEvent } from "react";
+import { ReactNode, useId, useState, type ChangeEvent } from "react";
 
 /* =========================================================
    Common Types
@@ -21,6 +21,7 @@ export type CheckboxFilter = {
   type: "checkbox";
   defaultOpen?: boolean;
   options: FilterOption[];
+  render?: (props: CheckboxFilterProps) => ReactNode;
 };
 
 export type RadioFilter = {
@@ -48,10 +49,7 @@ export type RangeFilter = {
    Filter Config Union
 ========================================================= */
 
-export type FilterConfig =
-  | CheckboxFilter
-  | RadioFilter
-  | RangeFilter;
+export type FilterConfig = CheckboxFilter | RadioFilter | RangeFilter;
 
 /* =========================================================
    Props
@@ -69,7 +67,7 @@ export type FilterConfig =
  * TypeScript keeps them connected.
  */
 
-type CheckboxFilterProps = {
+export type CheckboxFilterProps = {
   filter: CheckboxFilter;
   value?: string[];
   onChange?: (value: string[]) => void;
@@ -93,19 +91,16 @@ export type ProductFilterItemProps =
   | RangeFilterProps;
 
 const isCheckboxFilterProps = (
-  props: ProductFilterItemProps
-): props is CheckboxFilterProps =>
-  props.filter.type === "checkbox";
+  props: ProductFilterItemProps,
+): props is CheckboxFilterProps => props.filter.type === "checkbox";
 
 const isRadioFilterProps = (
-  props: ProductFilterItemProps
-): props is RadioFilterProps =>
-  props.filter.type === "radio";
+  props: ProductFilterItemProps,
+): props is RadioFilterProps => props.filter.type === "radio";
 
 const isRangeFilterProps = (
-  props: ProductFilterItemProps
-): props is RangeFilterProps =>
-  props.filter.type === "range";
+  props: ProductFilterItemProps,
+): props is RangeFilterProps => props.filter.type === "range";
 
 /* =========================================================
    Component
@@ -114,9 +109,7 @@ const isRangeFilterProps = (
 const ProductFilterItem = (props: ProductFilterItemProps) => {
   const id = useId();
 
-  const [isOpen, setIsOpen] = useState(
-    props.filter.defaultOpen ?? true
-  );
+  const [isOpen, setIsOpen] = useState(props.filter.defaultOpen ?? true);
 
   const contentId = `filter-content-${id}`;
 
@@ -134,17 +127,16 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
 
   const renderContent = () => {
     if (isCheckboxFilterProps(props)) {
+      if (props.filter.render) {
+        return props.filter.render(props);
+      }
       const selectedValues = props.value ?? [];
 
-      const handleCheckboxChange = (
-        optionValue: string
-      ) => {
+      const handleCheckboxChange = (optionValue: string) => {
         const exists = selectedValues.includes(optionValue);
 
         const nextValue = exists
-          ? selectedValues.filter(
-              (item) => item !== optionValue
-            )
+          ? selectedValues.filter((item) => item !== optionValue)
           : [...selectedValues, optionValue];
 
         props.onChange?.(nextValue);
@@ -175,9 +167,7 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
                   type="checkbox"
                   checked={checked}
                   disabled={option.disabled}
-                  onChange={() =>
-                    handleCheckboxChange(option.value)
-                  }
+                  onChange={() => handleCheckboxChange(option.value)}
                   className="
                       h-4 w-4
                       rounded
@@ -194,9 +184,7 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
                 </span>
 
                 {option.count !== undefined && (
-                  <span className="text-xs text-gray-400">
-                    {option.count}
-                  </span>
+                  <span className="text-xs text-gray-400">{option.count}</span>
                 )}
               </label>
             );
@@ -254,9 +242,7 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
                 </span>
 
                 {option.count !== undefined && (
-                  <span className="text-xs text-gray-400">
-                    {option.count}
-                  </span>
+                  <span className="text-xs text-gray-400">{option.count}</span>
                 )}
               </label>
             );
@@ -271,31 +257,26 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
       const step = props.filter.step ?? 1;
 
       const rangeValue =
-        props.value ?? props.filter.defaultValue ?? ([min, max] as [number, number]);
+        props.value ??
+        props.filter.defaultValue ??
+        ([min, max] as [number, number]);
 
       const [currentMin, currentMax] = rangeValue;
 
       const handleMinChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const nextMin = Math.min(
-          Number(event.target.value),
-          currentMax
-        );
+        const nextMin = Math.min(Number(event.target.value), currentMax);
 
         props.onChange?.([nextMin, currentMax]);
       };
 
       const handleMaxChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const nextMax = Math.max(
-          Number(event.target.value),
-          currentMin
-        );
+        const nextMax = Math.max(Number(event.target.value), currentMin);
 
         props.onChange?.([currentMin, nextMax]);
       };
 
       const formatValue =
-        props.filter.formatValue ??
-        ((value: number) => String(value));
+        props.filter.formatValue ?? ((value: number) => String(value));
 
       const minPercent = ((currentMin - min) / (max - min)) * 100;
 
@@ -317,7 +298,8 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
           {/* Slider */}
           <div className="relative h-5">
             {/* Background */}
-            <div className="
+            <div
+              className="
                 absolute
                 top-1/2
                 h-1.5
@@ -325,7 +307,8 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
                 -translate-y-1/2
                 rounded-full
                 bg-gray-200
-              " />
+              "
+            />
 
             {/* Active range */}
             <div
@@ -442,10 +425,8 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
           outline-none
           transition-colors
         "
-        >
-        <span className="font-semibold">
-          {props.filter.label}
-        </span>
+      >
+        <span className="font-semibold">{props.filter.label}</span>
 
         <svg
           viewBox="0 0 20 20"
@@ -476,15 +457,11 @@ const ProductFilterItem = (props: ProductFilterItemProps) => {
           "transition-[grid-template-rows]",
           "duration-200",
           "ease-out",
-          isOpen
-            ? "grid-rows-[1fr]"
-            : "grid-rows-[0fr]",
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         ].join(" ")}
       >
         <div className="overflow-hidden">
-          <div className="pb-4">
-            {renderContent()}
-          </div>
+          <div className="pb-4">{renderContent()}</div>
         </div>
       </div>
     </section>

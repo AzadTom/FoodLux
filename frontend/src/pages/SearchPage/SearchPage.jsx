@@ -69,7 +69,7 @@ const SearchPage = () => {
   return (
     <>
       <section className="flex">
-        <div className="max-w-[250px] w-full">
+        <div className="max-w-[280px] w-full">
           <ProductFilter />
         </div>
         <section className="flex flex-col gap-4 justify-center items-center p-2">
