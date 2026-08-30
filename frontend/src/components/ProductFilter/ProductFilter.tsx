@@ -101,7 +101,7 @@ const ProductFilter = () => {
   const sortFilterValue = getParam(sortFilter.id);
 
   return (
-    <section className="px-4 fixed left-0 right-0 bottom-0 bg-white z-20 md:top-20 md:left-0 max-w-[280px] w-full border p-4">
+    <section className="p-4 fixed bottom-0 left-0 right-0 z-20 bg-white border md:max-w-[280px] md:top-20 md:left-0">
       <div className="flex justify-between items-center">
         <p className="text-xl font-semibold">Filters</p>
         <button className="border p-2 rounded text-base" onClick={clearParams}>

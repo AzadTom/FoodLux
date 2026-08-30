@@ -76,10 +76,10 @@ const SearchPage = () => {
 
   return (
     <>
-      <section className="flex">
-        <div className="max-w-[280px] w-full">
-          <ProductFilter />
-        </div>
+      <section className="flex relative">
+       <div className="md:max-w-[280px] md:w-full">
+         <ProductFilter />
+       </div>
         <section className="flex flex-col gap-4 justify-center items-center p-2">
           <div className="w-full grid grid-cols-1   sm:grid-cols-2  md:grid-cols-4  gap-2 sm:gap-4 justify-between   items-center px-5">
             {finalState.map((item) => (
