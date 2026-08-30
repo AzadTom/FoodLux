@@ -6,8 +6,15 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import ProductItemSkeleton from "@/components/Products/ProductItemSkelton";
-import ProductFilter, { categoryFilter, priceFilter, ratingFilter } from "@/components/ProductFilter/ProductFilter";
+import ProductFilter, {
+  categoryFilter,
+  priceFilter,
+  ratingFilter,
+} from "@/components/ProductFilter/ProductFilter";
 import useSearchParam from "@/components/ProductFilter/useSearchParams";
+import { useDispatch } from "react-redux";
+import { addTocart } from "@/reducers/cartSlice";
+import { addTOfav, removeTofav } from "@/reducers/favSlice";
 
 async function fetchList({ pageParam = 1 }) {
   const response = await axios.get(`${BASE_URL3}/product`, {
@@ -45,6 +52,7 @@ const useInfiniteScrollBest = () => {
 };
 
 const SearchPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { getParam } = useSearchParam();
@@ -60,10 +68,10 @@ const SearchPage = () => {
     categoryValue,
     pricevalue,
     ratingValue,
-    data
+    data,
   );
 
-  console.log("data:",filterData);
+  console.log("data:", filterData);
   const finalState = filterData?.length > 0 ? filterData : data;
 
   return (
@@ -75,7 +83,15 @@ const SearchPage = () => {
         <section className="flex flex-col gap-4 justify-center items-center p-2">
           <div className="w-full grid grid-cols-1   sm:grid-cols-2  md:grid-cols-4  gap-2 sm:gap-4 justify-between   items-center px-5">
             {finalState.map((item) => (
-              <NewProductItem2 {...item} />
+              <NewProductItem2
+                {...item}
+                onAddToCart={({ id }) => dispatch(addTocart({ id }))}
+                onToggleWishlist={({ id, isWishlisted }) =>
+                  isWishlisted
+                    ? dispatch(removeTofav({ id }))
+                    : dispatch(addTOfav({ id }))
+                }
+              />
             ))}
           </div>
           <div
@@ -98,13 +114,7 @@ const SearchPage = () => {
 
 export default SearchPage;
 
-function getFilterList(
-  query,
-  categoryValue,
-  pricevalue,
-  ratingValue,
-  data
-) {
+function getFilterList(query, categoryValue, pricevalue, ratingValue, data) {
   if (!Array.isArray(data)) {
     return [];
   }
@@ -121,9 +131,7 @@ function getFilterList(
     .filter(Number.isFinite);
 
   const minRating =
-    selectedRatings.length > 0
-      ? Math.max(...selectedRatings)
-      : null;
+    selectedRatings.length > 0 ? Math.max(...selectedRatings) : null;
 
   return data.filter((item) => {
     const product = item;
@@ -137,8 +145,7 @@ function getFilterList(
     ========================= */
 
     if (searchQuery) {
-      const productName =
-        String(product.name ?? "").toLowerCase();
+      const productName = String(product.name ?? "").toLowerCase();
 
       if (!productName.includes(searchQuery)) {
         return false;
@@ -150,13 +157,10 @@ function getFilterList(
     ========================= */
 
     if (categories.length > 0) {
-      const productCategory =
-        String(product.category ?? "").toLowerCase();
+      const productCategory = String(product.category ?? "").toLowerCase();
 
       const hasCategory = categories.some(
-        (category) =>
-          productCategory ===
-          String(category).toLowerCase()
+        (category) => productCategory === String(category).toLowerCase(),
       );
 
       if (!hasCategory) {
@@ -170,17 +174,11 @@ function getFilterList(
 
     const productPrice = Number(product.price);
 
-    if (
-      Number.isFinite(minPrice) &&
-      productPrice < minPrice
-    ) {
+    if (Number.isFinite(minPrice) && productPrice < minPrice) {
       return false;
     }
 
-    if (
-      Number.isFinite(maxPrice) &&
-      productPrice > maxPrice
-    ) {
+    if (Number.isFinite(maxPrice) && productPrice > maxPrice) {
       return false;
     }
 
@@ -189,14 +187,9 @@ function getFilterList(
     ========================= */
 
     if (minRating !== null) {
-      const productRating = Number(
-        product.rating
-      );
+      const productRating = Number(product.rating);
 
-      if (
-        !Number.isFinite(productRating) ||
-        productRating < minRating
-      ) {
+      if (!Number.isFinite(productRating) || productRating < minRating) {
         return false;
       }
     }

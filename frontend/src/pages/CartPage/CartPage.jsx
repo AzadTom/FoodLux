@@ -91,7 +91,7 @@ const CartPage = () => {
   if (cart.length === 0) return <Empty heading="Cart is empty" />;
 
   return (
-    <section className="flex justify-center items-center">
+    <section className="flex justify-center items-center mt-6">
       <div className="max-w-[1200px] w-full flex flex-col gap-8 sm:flex-row">
         <Cart />
         <div className="md:sticky md:top-20 md:left-0 md:right-0   md:max-w-[360px] w-full md:self-start">
