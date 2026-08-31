@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ProductFilterItem, {
   CheckboxFilter,
   CheckboxFilterProps,
@@ -6,6 +7,7 @@ import ProductFilterItem, {
 } from "./ProductFilterItem";
 import RatingFilter from "./RatingFilter";
 import useSearchParam from "./useSearchParams";
+import { Fab } from "@mui/material";
 
 export const categoryFilter: CheckboxFilter = {
   id: "category",
@@ -63,7 +65,7 @@ export const ratingFilter: CheckboxFilter = {
       label: "1 star",
     },
   ],
-  render: (props:CheckboxFilterProps) => <RatingFilter {...props}/>,
+  render: (props: CheckboxFilterProps) => <RatingFilter {...props} />,
 };
 
 export const sortFilter: RadioFilter = {
@@ -100,12 +102,14 @@ const ProductFilter = () => {
   const ratingValue = getParam(ratingFilter.id);
   const sortFilterValue = getParam(sortFilter.id);
 
+  const [open, setOpen] = useState(false);
+
   return (
-    <section className="p-4 fixed bottom-0 left-0 right-0 z-20 bg-white border md:max-w-[280px] md:top-20 md:left-0">
+    <section className="hidden md:block p-4 fixed bottom-0 left-0 right-0 z-20  bg-white dark:bg-black border md:max-w-[280px] md:top-20 md:left-0">
       <div className="flex justify-between items-center">
-        <p className="text-xl font-semibold">Filters</p>
-        <button className="border p-2 rounded text-base" onClick={clearParams}>
-          Clear Filters
+        <p className="text-xl font-semibold">Apply</p>
+        <button className="border px-4 py-2 rounded text-base" onClick={clearParams}>
+          Clear
         </button>
       </div>
       <ProductFilterItem

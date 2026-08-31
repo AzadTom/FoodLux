@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { razorPayHandler } from "../../utils/razoPayHandler.js";
 import { setCartNull } from "@/reducers/cartSlice.js";
+import { cn } from "@/lib/utils.js";
 
 const randomAddresses = [
   {
@@ -64,10 +65,10 @@ function Checkout() {
     const amount = subtotal - getDiscount();
     const payload = {
       totalAmount: amount,
-      image:cart[0]?.product?.image,
-      items: cart.map((item)=>({
-        productId:item.productId,
-        quantity:item.quantity,
+      image: cart[0]?.product?.image,
+      items: cart.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
       })),
     };
 
@@ -95,19 +96,22 @@ function Checkout() {
       <h2 className="text-2xl font-semibold text-center flex gap-4 items-center">
         <ShoppingBasketIcon /> {"CheckOut"}
       </h2>
-      <div className="flex sm:max-w-[1000px] w-full  flex-col sm:flex-row sm:items-start">
-        <div className="flex flex-col gap-2  px-4  py-4 justify-center items-center  w-full ">
-          <h2 className="text-xl font-semibold text-center ">Select Address</h2>
+      <div className="flex sm:max-w-[1000px] px-4 w-full  flex-col sm:flex-row sm:items-start gap-12">
+        <div className="flex-shrink-0 md:max-w-sm w-full flex flex-col gap-2  px-4  py-4 justify-center items-center bg-[var(--secondarycolor)] rounded border my-12">
+          <h2 className="text-xl font-semibold text-center ">
+            Choose a Address
+          </h2>
           {randomAddresses.map((item) => (
             <AddressItem
               address={item}
               key={item._id}
+              currentaddress={address}
               onClick={() => selectAddress(item)}
             />
           ))}
         </div>
 
-        <div className="px-4 w-full">
+        <div className="flex-1 w-full">
           <div className="w-full  rounded border my-12">
             <h2 className="text-xl font-semibold text-center bg-[var(--secondarycolor)] py-4">
               Order Details
@@ -147,27 +151,14 @@ function Checkout() {
             </div>
             <hr />
           </div>
-        </div>
-        <div className="mt-12 w-full p-4 sm:p-0">
-          {openAdd && (
-            <div className="flex flex-col text-md px-4  py-2 bg-[var(--secondarycolor)]">
-              <h2 className="font-semibold">{`Deliver to ${address.name}`}</h2>
-              <h2>
-                <span>{address.street}</span> <span>{address.city}</span>
-              </h2>
-              <h2>
-                <span>{address.state}</span> <span>{address.country}</span>{" "}
-                <span>{address.postalCode}</span>
-              </h2>
-            </div>
-          )}
-
-          <button
-            className="px-4 bg-[var(--app-border)] text-[var(--primarycolor)] w-full py-4"
-            onClick={()=>successToHome()}
-          >
-            Place Order
-          </button>
+          <div className="mb-5">
+            <button
+              className="px-4 bg-[var(--app-border)] text-[var(--primarycolor)] w-full py-4"
+              onClick={() => successToHome()}
+            >
+              Place Order
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -178,35 +169,45 @@ export default Checkout;
 
 const CheckoutItem = ({ item }) => {
   return (
-    <>
-      <div className="flex  justify-between items-center px-4 py-2 bg-[var(--secondarycolor)] font-medium  w-full">
-        <span className="text-base font-medium">{`${item.product.name}`}</span>
+    <div className="flex px-4 py-2 bg-[var(--secondarycolor)]">
+      <div>
+        <img
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = `https://placehold.co/600x600?text=Food+Image`;
+          }}
+          width={100}
+          height={100}
+          className="object-cover aspect-square rounded-xl"
+          src={item.product.image}
+          alt="image"
+        />
+      </div>
+      <div className="flex  justify-between items-center px-4 py-2  font-medium  w-full">
+        <span className="text-base font-medium max-w-[100px] md:max-w-[150px] w-full">{`${item.product.name}`}</span>
         <span>{`${item.product.price}  × ${item.quantity}`}</span>
       </div>
-    </>
+    </div>
   );
 };
 
-const AddressItem = ({ address, onClick }) => {
-  const [value, setValue] = useState("");
-
-  const handleOptionChange = (event) => {
-    setValue(event.target.value);
-  };
-
+const AddressItem = ({ address, onClick, currentaddress }) => {
   return (
     <>
       <div
-        className="flex items-center py-2 px-4 justify-between bg-[var(--secondarycolor)] hover:bg-[var(--app-border)] hover:text-[var(--primarycolor)] text-[var(--primarytext)] sm:max-w-auto w-full rounded border relative"
+        className={cn(
+          "flex items-center py-2 px-4 justify-between bg-[var(--secondarycolor)] hover:bg-[var(--app-border)] hover:text-[var(--primarycolor)] text-[var(--primarytext)] sm:max-w-auto w-full rounded border relative",
+          address.name === currentaddress.name
+            ? "bg-[var(--app-border)] text-[var(--primarycolor)]"
+            : "",
+        )}
         onClick={() => onClick()}
       >
         <input
           type="radio"
           className="absolute right-4 top-4"
           value={address.name}
-          checked={value === address.name}
-          onChange={handleOptionChange}
-          onBlur={() => setValue("")}
+          checked={address.name === currentaddress.name}
         />
         <div>
           <h2 className="text-xl font-semibold">{address.name}</h2>
