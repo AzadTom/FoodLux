@@ -17,9 +17,9 @@ function SignUp() {
   } = useSignUp();
 
   return (
-    <section className="flex flex-col justify-center items-center  w-full h-screen">
+    <section className="flex flex-col justify-center items-center  w-full h-screen px-4">
       <form
-        className="max-w-[800px] w-full  flex flex-col justify-center p-[2rem] gap-4 rounded-md"
+        className="max-w-[800px] w-full  flex flex-col justify-center p-[2rem] gap-4  bg-[var(--secondarycolor)] rounded-xl border"
         onSubmit={submitFormHandler}
       >
         <h2 className="text-xl  ">Let's create an account </h2>
@@ -70,7 +70,7 @@ function SignUp() {
           </p>
         </div>
       </form>
-      <div className="flex flex-col text-center gap-2 px-6 w-full">
+      <div className="flex flex-col text-center gap-2 px-6 w-full mt-5">
         <span className="text-sm text-gray-400">OR</span>
         <button className="px-[20px] py-[10px] bg-black text-white rounded-md flex  justify-center gap-1 max-w-[480px] w-full mx-auto">
           <Link to={AUTHBASEURL + `/auth/google?${isLocal(window.location.hostname)}`}>
