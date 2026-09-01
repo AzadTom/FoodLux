@@ -86,8 +86,8 @@ export const getUserProfile = async () => {
 // Products & Categories
 
 const Local3 = "http://localhost:3001";
-const Live3 = "https://nestjsserver.vercel.app";
-export const BASE_URL3 = Local3;
+const Live3 = "https://backend2-seven-beta.vercel.app";
+export const BASE_URL3 = Live3;
 
 
 const api2 = axios.create({
