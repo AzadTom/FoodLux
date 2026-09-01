@@ -1,53 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removeTocart ,getCart } from '../../reducers/cartSlice.js';
+import { removeTocart} from '../../reducers/cartSlice.js';
 import CartCard from './CartCard.jsx';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-import { useEffect } from 'react';
 
 const Cart = () => {
-
-
-
     const dispatch = useDispatch();
-
-
     const { cart} = useSelector((state) => (state.cart));
 
-    const {token} = useSelector((state)=>(state.token));
-
-    
-
-
-     useEffect(()=>{
-
-       dispatch(getCart(token.token)); 
-
-     },[])
-
-
-
     const remove = (item) => {
-
-
-       
-        dispatch(removeTocart({id:item._id,token:token.token}));
-        showToast("remove to cart!", <div><LocalMallIcon/></div> );
-       
-
+        dispatch(removeTocart({id:item.productId}));
+        // showToast("remove to cart!", <div><LocalMallIcon/></div> );
     }
-
-    
-
-
-
-   
-
-
 
     return (
         <>
-          
-            <table className="table-auto text-[var(--secondarytext)]">
+            <table className="table-auto text-[var(--secondarytext)] w-full">
                 <thead  className='text-[var(--primarytext)] font-semibold text-left'>
                     <tr>
                         <th className=" px-4 py-4">Product</th>
@@ -58,7 +25,7 @@ const Cart = () => {
                     </tr>
                 </thead>
                 <tbody  className='text-[var(--secondarytext)]'>
-                 {cart.map((item)=>(<CartCard item={item} key={item._id} remove={()=> remove(item)}/>))}
+                 {cart.map((item)=>(<CartCard item={item} key={item.id} remove={()=> remove(item)}/>))}
                 </tbody>
             </table>
         </>)

@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas=["ecommerce"]
+}
+
+model Product {
+  id String @id @default(uuid()) @db.Uuid()
+  name String
+  slug String @unique
+  heading String?
+  subheading String?
+  description String?
+  image String 
+  price Decimal 
+  stock Int @default(0)
+  rating Decimal @default(0) 
+  status ProductStatus @default(ACTIVE)
+  categoryId String @db.Uuid
+  category Category @relation(fields: [categoryId], references: [id])
+  carts Cart[]
+  wishlists  Wishlist[]
+  orders     OrderItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@schema("ecommerce")
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  DRAFT
+
+  @@schema("ecommerce")
+}
+
+model Category {
+  id       String    @id @default(uuid()) @db.Uuid
+  name     String
+  image    String @default("")
+  products Product[]
+
+  @@schema("ecommerce")
+}
+
+model Cart {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  productId String   @db.Uuid
+  quantity  Int      @default(1)
+
+  product   Product  @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@schema("ecommerce")
+}
+
+model Wishlist {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  productId String   @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@schema("ecommerce")
+}
+
+model Order {
+  id          String       @id @default(uuid()) @db.Uuid
+  userId      String       @db.Uuid
+  status      OrderStatus  @default(PENDING)
+  totalAmount Decimal      @db.Decimal(10, 2)
+  paymentId   String       @default("")
+  image       String       @default("")
+
+  items       OrderItem[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@schema("ecommerce")
+}
+
+model OrderItem {
+  id         String   @id @default(uuid()) @db.Uuid
+  orderId    String   @db.Uuid
+  productId  String   @db.Uuid
+  quantity   Int
+
+  order      Order    @relation(fields: [orderId],references: [id],onDelete: Cascade)
+  product    Product  @relation(fields: [productId],references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([orderId])
+  @@index([productId])
+  @@schema("ecommerce")
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+
+  @@schema("ecommerce")
+}
+
+
+

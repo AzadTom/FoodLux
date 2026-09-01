@@ -19,7 +19,7 @@ const ThemeButton =()=>{
 
     return(
         <>
-         <span className='hidden  fixed  m-4 right-0 bottom-4 bg-[var(--neutral)] sm:flex flex-col justify-center items-center px-4 py-2 w-12 h-12 rounded-[50%]  cursor-pointer border border-[var(--primarycolor)]' id='mode' onClick={changeMode}>
+         <span className='hidden  fixed  m-4 right-0 bottom-4 bg-[var(--neutral)] sm:flex flex-col justify-center items-center px-4 py-2 w-12 h-12 rounded-[50%]  cursor-pointer border  border-black/20 z-50' id='mode' onClick={changeMode}>
         {theme?(<LightModeIcon/>):(<DarkModeIcon/>)}
         </span>
         </>

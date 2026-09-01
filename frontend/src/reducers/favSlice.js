@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ServiceAddtofav,ServiceRemovetofav,ServiceGetfav} from '../services/service.js';
+import {Service2Getfav, Service2Addtofav, Service2Removetofav} from '../services/service.js';
 
 
 const STATUS = Object.freeze({
@@ -11,6 +11,7 @@ const STATUS = Object.freeze({
 const initialState = {
     wishData:[],
     status:STATUS.idle,
+    id:"",
 }
 
  const favSlice = createSlice({
@@ -27,8 +28,6 @@ const initialState = {
     },
 
     extraReducers:(builder)=>{
-
-
         builder.addCase(getfavs.pending,(state,action)=>{
 
             state.status = STATUS.loading;
@@ -37,16 +36,20 @@ const initialState = {
 
             state.wishData =  action.payload;
             state.status = STATUS.idle;
-            
+        })
+        .addCase(addTOfav.pending,(state,action)=>{
+            state.id = action.meta.arg.id;
         })
         .addCase(addTOfav.fulfilled,(state,action)=>{
-
-            state.wishData.push(action.payload.singlefav);
+            state.wishData.push(action.payload);
+             state.id = "";
+        })
+        .addCase(removeTofav.pending,(state,action)=>{
+         state.id = action.meta.arg.id;
         })
         .addCase(removeTofav.fulfilled,(state,action)=>{
-
-             
-            state.wishData = state.wishData.filter((item)=>(item._id !== action.payload._id));
+            state.wishData = state.wishData.filter((item)=>(item.id !== action.payload.id));
+            state.id = "";
         })
 
     }
@@ -59,24 +62,17 @@ const initialState = {
  export const {setWishlistToNull} = favSlice.actions;
 
 
- export const getfavs = createAsyncThunk("/fav/get",async(token,ThunkApi)=>{
-
-    const data  = await ServiceGetfav(token);
-
-    return data;
+ export const getfavs = createAsyncThunk("/fav/get",async(ThunkApi)=>{
+    const data  = await Service2Getfav();
+    return data.data;
  })
 
  export const addTOfav = createAsyncThunk("/fav/add",async(product,ThunkApi)=>{
-
-     const data  = await ServiceAddtofav(product.item,product.token);
-
-     return data;
+     const data  = await Service2Addtofav(product.id);
+     return data.data;
  })
 
-
  export const removeTofav = createAsyncThunk("/fav/remove",async(product,ThunkApi)=>{
-
-    const data  = await ServiceRemovetofav(product.id,product.token);
-
-    return data;
+    const data  = await Service2Removetofav(product.id);
+    return data.data;
 })

@@ -1,154 +1,263 @@
 import axios from 'axios';
- 
-
-const Local  = "http://localhost:5000";
-const Live  = "https://foodlux-backend.vercel.app";
-
-
-export const BASE_URL = Live;
-
-
-// Products
-
-export const Serviceproducts = async()=> {
-
-    const response = await axios.get(`${BASE_URL}/products`,{
-        headers:{"Content-Type":"application/json"},
-        
-    })
-    
-    return response.data;
-} 
-
+export const BASE_URL = "https://foodlux-backend.vercel.app";
+export const AUTHBASEURL = "https://nestjsserver.vercel.app";
 
 // Users
+const api = axios.create({
+    baseURL: AUTHBASEURL,
+});
 
-export const ServiceSignup = async(userDetail)=>{
+api.interceptors.request.use((config) => {
+    const accessToken = localStorage.getItem('accesstoken');
+    if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+}, (error) => Promise.reject(error));
 
-       
-     const response = await axios.post(`${BASE_URL}/users/signup`,userDetail,{
-        headers:{"Content-Type":"application/json"},
-        
-    })
 
-     return response.data;
+export const ServiceSignup = async ({ name, email, password }) => {
+
+    try {
+        const payload = {
+            "username": name || "",
+            "password": password || "",
+            "email": email || "",
+            "productName": "foodlux",
+        }
+
+        const response = await api.post(`/auth/signup`, payload, {
+            headers: { "Content-Type": "application/json" },
+
+        });
+
+        if (response.status === 200 || response.status === 201) {
+            if (response.data?.status === 400) {
+                throw new Error(response.data?.message);
+            }
+            return response.data;
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 }
 
-export const ServiceSignin = async(userDetail)=>{
+export const ServiceSignin = async ({ email, password }) => {
 
-    const response = await axios.post(`${BASE_URL}/users/signin`,userDetail,{
-        headers:{"Content-Type":"application/json"},
-        
-    })
+    try {
 
+        const payload = {
+            email,
+            password
+        };
+
+        const response = await api.post(`/auth/signin`, payload, {
+            headers: { "Content-Type": "application/json" },
+
+        })
+
+        if (response.status === 200 || response.status === 201) {
+            if (response.data?.status === 400) {
+                throw new Error(response.data?.message);
+            }
+            return response.data;
+        }
+
+    } catch (error) {
+        console.error(error);
+        throw error;
+
+    }
+
+}
+
+
+export const getNewAccessToken = async () => {
+    const response = await api.get('/auth/refresh-token');
     return response.data;
 }
 
-export const ServiceUserProfile = async()=>{
-
-     const   response = await axios.get(`${BASE_URL}/users/profile`,{
-        headers:{"Content-Type":"application/json"},
-        
-        
-     })
-
-     return response.data;
+export const getUserProfile = async () => {
+    const response = await api.get('/auth/user/me');
+    return response.data;
 }
+
+// Products & Categories
+
+const Local3 = "http://localhost:3001";
+const Live3 = "https://nestjsserver.vercel.app";
+export const BASE_URL3 = Local3;
+
+
+const api2 = axios.create({
+    baseURL: BASE_URL3,
+});
+
+api2.interceptors.request.use((config) => {
+    const accessToken = localStorage.getItem('accesstoken');
+    if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+}, (error) => Promise.reject(error)); 
+
+api2.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const response = await getNewAccessToken();
+        const newAccessToken = response.data.access_new;
+
+
+        localStorage.setItem("accesstoken", newAccessToken);
+        originalRequest.headers.Authorization =
+          `Bearer ${newAccessToken}`;
+        return api2(originalRequest);
+
+      } catch (refreshError) {
+        localStorage.removeItem("accesstoken");
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+
+export const SeriviceCategoryList = async () => {
+    try {
+        const response = await api2.get(`/product/categories`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("Something went wrong!");
+    } catch (error) {
+        console.error(error);
+        throw new error;
+    }
+}
+
+export const SeriviceEachCategoryList = async (id) => {
+    try {
+        const response = await api2.get(`/product/categories/${id}`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("Something went wrong!");
+    } catch (error) {
+        console.error(error);
+        throw new error;
+    }
+}
+
 
 // Cart
-
-export const ServiceGetCart = async(token)=>{
-
-    const response = await axios.get(`${BASE_URL}/carts/`,{
-         
-        headers:{
-            "Content-Type":"application/json",
-            "Authorization": `Bearer ${token}`
+export const Service2GetCart = async () => {
+    try {
+        const response = await api2.get('/cart/byuser');
+        if (response.status === 200) {
+            return response.data;
         }
-    });
-
-    return response.data;
+        throw new Error("something wrong in getCartlist!");
+    } catch (error) {
+        throw error;
+    }
 }
 
-
-export const ServiceAddtocart =async(product,token)=>{
-
-    const response = await axios.post(`${BASE_URL}/carts/create`,product,{
-        headers:{
-            "Content-Type":"application/json",
-            "Authorization":`Bearer ${token}`,
-        },
-        
-        
-     })
-
-     return response.data;
-}
-
-
-export const ServiceRemovetocart = async(productid,token)=>{
-
-    const response  = await axios.delete(`${BASE_URL}/carts/${productid}`,{
-        headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},
-    })
-
-     return response.data;
+export const Service2AddCart = async (productId, quantity = 1) => {
+    try {
+        const payload = {
+            productId: productId,
+            quantity: quantity
+        }
+        const response = await api2.post('/cart/create', payload);
+        if (response.status === 201) {
+            return response.data;
+        }
+        throw new Error("something wrong in addCartlist!");
+    } catch (error) {
+        throw error;
+    }
 
 }
 
+export const Service2RemoveFromCart = async (productId) => {
+    try {
 
-export const ServiceIncrementDecrement = async(qty,token,productid)=>{
+        const response = await api2.delete(`/cart/remove/${productId}`,);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("something wrong in addCartlist!");
+    } catch (error) {
+        throw error;
+    }
 
-    const response  = await axios.post(`${BASE_URL}/carts/${productid}`,{qty:qty}, {
-        headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},
-    })
+}
 
-     return response.data;
+export const Service2IncrementDecrement = async (productId, quantity = 1) => {
+    try {
 
+        const payload = {
+            productId: productId,
+            quantity: quantity
+        }
+        const response = await api2.patch(`/cart/update/${productId}`, payload);
+        return response.data;
+
+    } catch (error) {
+        throw error;
+    }
 }
 
 
 // Wishlist
 
-export const ServiceGetfav = async(token)=>{
-
-    const response = await axios.get(`${BASE_URL}/favs/`,{
-         
-        headers:{
-            "Content-Type":"application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
+export const Service2Getfav = async () => {
+    const response = await api2.get("/cart/favs/byuser");
+    return response.data;
+}
+export const Service2Addtofav = async (productId) => {
+    const response = await api2.post(`/cart/favs/create`, { productId });
+    return response.data;
+}
+export const Service2Removetofav = async (productid) => {
+    const response = await api2.delete(`/cart/favs/${productid}`)
     return response.data;
 }
 
-
-export const ServiceAddtofav =async(product,token)=>{
-
-    const response = await axios.post(`${BASE_URL}/favs/create`,product,{
-        headers:{
-            "Content-Type":"application/json",
-            "Authorization":`Bearer ${token}`,
-        },
-        
-        
-     })
-
-     return response.data;
+// Order
+export const ServicegetOrderByUser = async () => {
+    const response = await api2.get(`/order/byuser`);
+    return response.data;
 }
 
-
-export const ServiceRemovetofav = async(productid,token)=>{
-
-    const response  = await axios.delete(`${BASE_URL}/favs/${productid}`,{
-        headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},
-    })
-
-     return response.data;
-
+export const ServicegetOrderDetailsByUser = async (id) => {
+    const response = await api2.get(`/order/byuser/${id}`);
+    return response.data;
 }
 
+export const ServiceOrderCreatedByUser = async (payload) => {
+    try {
+        const response = await api2.post(`order/byuser`, payload);
+        return {
+            status: true,
+            data: response.data
+        };
+    } catch (error) {
+        return {
+            status: false,
+            data: { error }
+        }
+    }
+}
 
 
 

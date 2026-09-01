@@ -1,0 +1,35 @@
+import {
+    IsArray,
+    IsNumber,
+    IsOptional,
+    IsString,
+    IsUUID,
+    ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+
+
+export class CreateOrderItemDto {
+    @IsUUID()
+    productId!: string;
+    @IsNumber()
+    quantity!: number;
+}
+
+export class CreateOrderDto {
+    @IsNumber()
+    totalAmount!: number;
+
+    @IsOptional()
+    @IsString()
+    paymentId?: string;
+
+    @IsOptional()
+    @IsString()
+    image?: string;
+
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => CreateOrderItemDto)
+    items!: CreateOrderItemDto[];
+}
