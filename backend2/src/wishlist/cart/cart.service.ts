@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCartDto, CreateWishlistDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { identity } from 'rxjs';
 
 @Injectable()
