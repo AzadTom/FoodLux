@@ -100,7 +100,35 @@ api2.interceptors.request.use((config) => {
         config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
-}, (error) => Promise.reject(error));
+}, (error) => Promise.reject(error)); 
+
+api2.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const response = await getNewAccessToken();
+        const newAccessToken = response.data.access_new;
+
+
+        localStorage.setItem("accesstoken", newAccessToken);
+        originalRequest.headers.Authorization =
+          `Bearer ${newAccessToken}`;
+        return api2(originalRequest);
+
+      } catch (refreshError) {
+        localStorage.removeItem("accesstoken");
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 
 export const SeriviceCategoryList = async () => {
