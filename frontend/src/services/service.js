@@ -84,7 +84,6 @@ export const getUserProfile = async () => {
 }
 
 // Products & Categories
-
 const Local3 = "http://localhost:3001";
 const Live3 = "https://backend2-seven-beta.vercel.app";
 export const BASE_URL2 = Live3;
