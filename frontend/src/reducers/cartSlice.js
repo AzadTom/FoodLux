@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Service2GetCart, Service2AddCart, Service2RemoveFromCart, Service2IncrementDecrement } from "../services/service.js";
+import { setModelOpen } from "./userSlice.js";
 
 
 const STATUS = Object.freeze({
@@ -81,7 +82,7 @@ export default cartSlice.reducer;
 
 export const { setCartNull } = cartSlice.actions;
 
-export const getCart = createAsyncThunk("/cart", async (ThunkApi) => {
+export const getCart = createAsyncThunk("/cart", async (_, ThunkApi) => {
   const data = await Service2GetCart();
   return data.data;
 })
@@ -92,7 +93,8 @@ export const addTocart = createAsyncThunk("/cart/create", async (product, ThunkA
 })
 
 
-export const removeTocart = createAsyncThunk("/cart/remove", async (product, Thunkpi) => {
+export const removeTocart = createAsyncThunk("/cart/remove", async (product, ThunkApi) => {
+
   const data = await Service2RemoveFromCart(product.id);
   return data.data;
 })
