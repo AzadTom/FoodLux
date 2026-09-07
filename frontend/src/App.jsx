@@ -1,4 +1,4 @@
-import { Suspense, lazy, } from "react";
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // other components
@@ -10,6 +10,7 @@ import { Toaster } from "./components/ui/toast";
 import { useDispatch } from "react-redux";
 import { getCart } from "./reducers/cartSlice";
 import { getfavs } from "./reducers/favSlice";
+import ProtectLayout from "./components/Others/ProtectLayout";
 
 // pages components
 const Home = lazy(() => import("./pages/HomePage/Home"));
@@ -25,7 +26,6 @@ const Wishlist = lazy(() => import("./pages/WishlistPage/Wishlist"));
 const NotFound = lazy(() => import("./pages/NotFoundPage/NotFound"));
 
 function App() {
-
   return (
     <>
       <Header />
@@ -75,7 +75,9 @@ function App() {
           path="/cart"
           element={
             <Suspense fallback={<Loading />}>
-              <Cart />
+              <ProtectLayout>
+                <Cart />
+              </ProtectLayout>
             </Suspense>
           }
         />
@@ -83,7 +85,9 @@ function App() {
           path="/checkout/:coupan1/:coupan2"
           element={
             <Suspense fallback={<Loading />}>
-              <Checkout />
+              <ProtectLayout>
+                <Checkout />
+              </ProtectLayout>
             </Suspense>
           }
         />
@@ -115,7 +119,9 @@ function App() {
           path="/fav"
           element={
             <Suspense fallback={<Loading />}>
-              <Wishlist />
+              <ProtectLayout>
+                <Wishlist />
+              </ProtectLayout>
             </Suspense>
           }
         />

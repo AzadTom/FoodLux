@@ -22,7 +22,7 @@
     "include": [
         "src/**/*.ts",
         "src/**/*.tsx"
-    ],
+,         "src/components/Products/LoginModel.jsx"    ],
     "exclude": [
         "node_modules"
     ]

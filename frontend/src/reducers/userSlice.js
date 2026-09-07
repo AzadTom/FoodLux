@@ -16,6 +16,7 @@ function getInitialSate() {
         access_token: access_token ? access_token : "",
         user: info ? info : "",
         status: STATUS.idle,
+        isModelOpen:false,
     };
 };
 
@@ -39,6 +40,9 @@ const userSlice = createSlice({
             state.access_token=accesstoken;
             localStorage.setItem("accesstoken", accesstoken);
             localStorage.setItem("info", JSON.stringify(action.payload));
+        },
+        setModelOpen:(state,action)=>{
+            state.isModelOpen = action.payload;
         }
 
     },
@@ -94,7 +98,7 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export const { setUserNull,setUserData} = userSlice.actions;
+export const { setUserNull,setUserData,setModelOpen} = userSlice.actions;
 
 export const signUp = createAsyncThunk("/users", async (userDetail, ThunkApi) => {
 

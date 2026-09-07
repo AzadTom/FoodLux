@@ -12,9 +12,11 @@ import ProductFilter, {
   ratingFilter,
 } from "@/components/ProductFilter/ProductFilter";
 import useSearchParam from "@/components/ProductFilter/useSearchParams";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTocart } from "@/reducers/cartSlice";
 import { addTOfav, removeTofav } from "@/reducers/favSlice";
+import LoginModel from "@/components/Products/LoginModel";
+import { setModelOpen } from "@/reducers/userSlice";
 
 async function fetchList({ pageParam = 1 }) {
   const response = await axios.get(`${BASE_URL3}/product`, {
@@ -55,11 +57,28 @@ const SearchPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { isLogin } = useSelector((state) => state.user);
   const { getParam } = useSearchParam();
   const categoryValue = getParam(categoryFilter.id);
   const pricevalue = getParam(priceFilter.id);
   const ratingValue = getParam(ratingFilter.id);
   const query = getParam("query");
+
+  const handleAddToCart = (id) => {
+    if (!isLogin) {
+      dispatch(setModelOpen(true));
+      return;
+    }
+    dispatch(addTocart({ id }));
+  };
+
+  const handleToggleWishlist = ({ id, isMatch }) => {
+    if (!isLogin) {
+      dispatch(setModelOpen(true));
+      return;
+    }
+    isMatch ? dispatch(removeTofav({ id })) : dispatch(addTOfav({ id }));
+  };
 
   const { isLoading, data, ref } = useInfiniteScrollBest();
 
@@ -76,20 +95,19 @@ const SearchPage = () => {
 
   return (
     <>
+      <LoginModel />
       <section className="flex relative">
-       <div className="md:max-w-[280px] md:w-full">
-         <ProductFilter />
-       </div>
+        <div className="md:max-w-[280px] md:w-full">
+          <ProductFilter />
+        </div>
         <section className="flex flex-col gap-4 justify-center items-center p-2">
           <div className="w-full grid grid-cols-1   sm:grid-cols-2  md:grid-cols-4  gap-2 sm:gap-4 justify-between   items-center px-5">
             {finalState.map((item) => (
               <NewProductItem2
                 {...item}
-                onAddToCart={({ id }) => dispatch(addTocart({ id }))}
-                onToggleWishlist={({ id, isWishlisted }) =>
-                  isWishlisted
-                    ? dispatch(removeTofav({ id }))
-                    : dispatch(addTOfav({ id }))
+                onAddToCart={({ id }) => handleAddToCart(id)}
+                onToggleWishlist={({ id, isMatch }) =>
+                  handleToggleWishlist({ id, isMatch })
                 }
               />
             ))}

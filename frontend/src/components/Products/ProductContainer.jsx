@@ -9,15 +9,16 @@ import ProductItemSkeleton from "./ProductItemSkelton";
 import { SwiperSlide } from "swiper/react";
 import NewProductItem2 from "./NewProductItem2";
 import SwiperUtils2 from "./SwiperUtils/SwiperUtils2";
-import { useDispatch } from "react-redux";
-import { addTocart} from "@/reducers/cartSlice";
-import { addTOfav,removeTofav } from "@/reducers/favSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addTocart } from "@/reducers/cartSlice";
+import { addTOfav, removeTofav } from "@/reducers/favSlice";
+import LoginModel from "./LoginModel";
+import { setModelOpen } from "@/reducers/userSlice";
 
 const ColumnArr = [2, 7, 8];
 const getColumn = (index) => (ColumnArr.includes(index) ? 5 : 4);
 
 const ProductContainer = () => {
-
   const { data, isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: () => SeriviceCategoryList(),
@@ -30,6 +31,7 @@ const ProductContainer = () => {
 
   return (
     <section>
+      <LoginModel />
       {categorylist?.map((item, index) => (
         <ProductItemContainer
           key={item.id}
@@ -67,11 +69,28 @@ const ProductItemContainer = ({
     gcTime: 1000 * 60 * 30,
   });
 
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.user);
   const iamloading = parentLoading || isLoading;
   const getClass = () => (coloum === 4 ? "" : "aspect-[9/16]");
   const getRow = () => (coloum === 4 ? 2 : 1);
   const getVertical = () => (coloum === 4 ? false : true);
-  const dispatch = useDispatch();
+
+  const handleAddToCart = (id) => {
+    if (!isLogin) {
+      dispatch(setModelOpen(true));
+      return;
+    }
+    dispatch(addTocart({ id }));
+  };
+
+  const handleToggleWishlist = ({ id, isMatch }) => {
+    if (!isLogin) {
+      dispatch(setModelOpen(true));
+      return;
+    }
+    isMatch ? dispatch(removeTofav({ id })) : dispatch(addTOfav({ id }));
+  };
 
   if (carasouel) {
     return (
@@ -110,11 +129,9 @@ const ProductItemContainer = ({
                       {...item}
                       vertical={getVertical()}
                       className={getClass()}
-                      onAddToCart={({ id }) => dispatch(addTocart({ id }))}
-                      onToggleWishlist={({ id, isWishlisted }) =>
-                        isWishlisted
-                          ? dispatch(removeTofav({ id }))
-                          : dispatch(addTOfav({ id }))
+                      onAddToCart={({ id }) => handleAddToCart(id)}
+                      onToggleWishlist={({ id, isMatch }) =>
+                        handleToggleWishlist({ id, isMatch })
                       }
                     />
                   </SwiperSlide>
@@ -147,11 +164,9 @@ const ProductItemContainer = ({
               <NewProductItem2
                 key={item.id}
                 {...item}
-                onAddToCart={({ id }) => dispatch(addTocart({ id }))}
+                onAddToCart={({ id }) => handleAddToCart(id)}
                 onToggleWishlist={({ id, isMatch }) =>
-                  isMatch
-                    ? dispatch(removeTofav({ id }))
-                    : dispatch(addTOfav({ id }))
+                  handleToggleWishlist({ id, isMatch })
                 }
               />
             ))}
