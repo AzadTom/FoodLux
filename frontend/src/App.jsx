@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { getCart } from "./reducers/cartSlice";
 import { getfavs } from "./reducers/favSlice";
 import ProtectLayout from "./components/Others/ProtectLayout";
+import LoginModel from "./components/Products/LoginModel";
 
 // pages components
 const Home = lazy(() => import("./pages/HomePage/Home"));
@@ -28,6 +29,7 @@ const NotFound = lazy(() => import("./pages/NotFoundPage/NotFound"));
 function App() {
   return (
     <>
+      <LoginModel/>
       <Header />
       <Routes>
         <Route

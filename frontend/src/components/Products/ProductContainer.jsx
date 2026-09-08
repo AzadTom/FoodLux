@@ -12,7 +12,6 @@ import SwiperUtils2 from "./SwiperUtils/SwiperUtils2";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocart } from "@/reducers/cartSlice";
 import { addTOfav, removeTofav } from "@/reducers/favSlice";
-import LoginModel from "./LoginModel";
 import { setModelOpen } from "@/reducers/userSlice";
 
 const ColumnArr = [2, 7, 8];
@@ -31,7 +30,6 @@ const ProductContainer = () => {
 
   return (
     <section>
-      <LoginModel />
       {categorylist?.map((item, index) => (
         <ProductItemContainer
           key={item.id}
