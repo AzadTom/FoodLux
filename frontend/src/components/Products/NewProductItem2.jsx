@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "../ui/spinner";
+import AddIcon from "@mui/icons-material/Add";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const NewProductItem2 = ({
   id,
@@ -129,16 +131,11 @@ const NewProductItem2 = ({
             shadow-sm
             backdrop-blur-sm
 
-            opacity-0
-            translate-y-[-6px]
-            pointer-events-none
+            opacity-100
+            translate-y-0
 
             transition-all
             duration-300
-
-            group-hover:translate-y-0
-            group-hover:opacity-100
-            group-hover:pointer-events-auto
 
             hover:scale-110
             hover:bg-white
@@ -146,7 +143,7 @@ const NewProductItem2 = ({
           >
             {currentFavId === id ? (
               <div className="flex">
-                <Spinner className="size-3" />
+                <Spinner className="size-3 text-black" />
               </div>
             ) : (
               <svg
@@ -172,21 +169,15 @@ const NewProductItem2 = ({
             <div
               className="
               absolute
-              bottom-4
-              left-4
-              right-4
+              bottom-0
+              right-0
               z-10
 
-              translate-y-4
-              opacity-0
+              translate-y-0
+              opacity-100
               pointer-events-none
-
               transition-all
               duration-300
-
-              group-hover:translate-y-0
-              group-hover:opacity-100
-              group-hover:pointer-events-auto
             "
             >
               <button
@@ -195,7 +186,6 @@ const NewProductItem2 = ({
                 disabled={addToCartId === id}
                 className="
                 flex
-                w-full
                 items-center
                 justify-center
                 gap-2
@@ -211,30 +201,21 @@ const NewProductItem2 = ({
                 duration-200
                 hover:bg-gray-50
                 active:scale-[0.98]
+                cursor-pointer
+                pointer-events-auto
               "
               >
                 {addToCartId === id ? (
                   <div className="flex  items-center gap-2">
-                    <Spinner className="size-3" /> {"Loading..."}
+                    <Spinner className="size-3" />
                   </div>
                 ) : (
                   <div className="flex gap-5">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="h-5 w-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6"
-                      />
-                      <circle cx="10" cy="20" r="1" />
-                      <circle cx="18" cy="20" r="1" />
-                    </svg>
-                    {isMatch ? "Go to Cart" : "Add to Cart"}
+                    {isMatch ? (
+                      <ShoppingCartIcon className="h-5 w-5" />
+                    ) : (
+                      <AddIcon className="h-5 w-5" />
+                    )}
                   </div>
                 )}
               </button>

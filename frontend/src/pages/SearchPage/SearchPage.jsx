@@ -15,7 +15,6 @@ import useSearchParam from "@/components/ProductFilter/useSearchParams";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocart } from "@/reducers/cartSlice";
 import { addTOfav, removeTofav } from "@/reducers/favSlice";
-import LoginModel from "@/components/Products/LoginModel";
 import { setModelOpen } from "@/reducers/userSlice";
 
 async function fetchList({ pageParam = 1 }) {
@@ -95,7 +94,6 @@ const SearchPage = () => {
 
   return (
     <>
-      <LoginModel />
       <section className="flex relative">
         <div className="md:max-w-[280px] md:w-full">
           <ProductFilter />
