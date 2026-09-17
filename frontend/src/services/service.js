@@ -1,8 +1,7 @@
 import { notifyTokenExpired } from '@/utils/authEvent';
 import axios from 'axios';
 export const BASE_URL = "https://foodlux-backend.vercel.app";
-// export const AUTHBASEURL = "https://nestjsserver.vercel.app";
-export const AUTHBASEURL = "http://localhost:3000";
+export const AUTHBASEURL = "https://nestjsserver.vercel.app";
 
 // Users
 const api = axios.create({
@@ -86,8 +85,8 @@ export const getUserProfile = async () => {
 }
 
 // Products & Categories
-export const BASE_URL3 = "http://localhost:3001";
-// export const BASE_URL3 = "https://backend2-seven-beta.vercel.app";
+// export const BASE_URL3 = "http://localhost:3001";
+export const BASE_URL3 = "https://backend2-seven-beta.vercel.app";
 
 
 const api2 = axios.create({
