@@ -12,6 +12,7 @@ import { getCart } from "./reducers/cartSlice";
 import { getfavs } from "./reducers/favSlice";
 import ProtectLayout from "./components/Others/ProtectLayout";
 import LoginModel from "./components/Products/LoginModel";
+import AuthHandler from "./components/AuthHandler/AuthHandler";
 
 // pages components
 const Home = lazy(() => import("./pages/HomePage/Home"));
@@ -29,7 +30,8 @@ const NotFound = lazy(() => import("./pages/NotFoundPage/NotFound"));
 function App() {
   return (
     <>
-      <LoginModel/>
+      <AuthHandler />
+      <LoginModel />
       <Header />
       <Routes>
         <Route

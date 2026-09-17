@@ -11,6 +11,7 @@ import { getfavs } from "@/reducers/favSlice";
 
 const CategoryList = () => {
   const dispatch = useDispatch();
+  const {isLogin} = useSelector((state)=>state.user);
   const { cart } = useSelector((state) => state.cart);
   const { wishData } = useSelector((state) => state.favData);
 
@@ -23,11 +24,13 @@ const CategoryList = () => {
   });
 
   useEffect(() => {
+    if(!isLogin) return;
     if (cart.length > 0) return;
     dispatch(getCart());
   }, []);
 
   useEffect(() => {
+    if(!isLogin) return;
     if (wishData.length > 0) return;
     dispatch(getfavs());
   }, []);
