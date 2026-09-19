@@ -71,12 +71,12 @@ const SearchPage = () => {
     dispatch(addTocart({ id }));
   };
 
-  const handleToggleWishlist = ({ id, isMatch }) => {
+  const handleToggleWishlist = ({ id, isWishlisted }) => {
     if (!isLogin) {
       dispatch(setModelOpen(true));
       return;
     }
-    isMatch ? dispatch(removeTofav({ id })) : dispatch(addTOfav({ id }));
+    isWishlisted ? dispatch(removeTofav({ id })) : dispatch(addTOfav({ id }));
   };
 
   const { isLoading, data, ref } = useInfiniteScrollBest();
@@ -104,8 +104,8 @@ const SearchPage = () => {
               <NewProductItem2
                 {...item}
                 onAddToCart={({ id }) => handleAddToCart(id)}
-                onToggleWishlist={({ id, isMatch }) =>
-                  handleToggleWishlist({ id, isMatch })
+                onToggleWishlist={({ id, isWishlisted }) =>
+                  handleToggleWishlist({ id, isWishlisted })
                 }
               />
             ))}
