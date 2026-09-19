@@ -46,6 +46,10 @@ function App() {
     dispatch(getfavs());
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <AuthHandler />

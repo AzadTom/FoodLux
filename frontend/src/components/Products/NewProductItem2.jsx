@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "../ui/spinner";
 import AddIcon from "@mui/icons-material/Add";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const NewProductItem2 = ({
   id,
@@ -25,12 +25,14 @@ const NewProductItem2 = ({
 }) => {
   const { cart, addToCartId } = useSelector((state) => state.cart);
   const { wishData, id: currentFavId } = useSelector((state) => state.favData);
-  const isWishlisted =wishData && wishData.find((item) => item.productId === id);
+  const isWishlisted =
+    wishData && wishData.find((item) => item.productId === id);
   const isMatch = cart && cart.find((item) => item.productId === id);
   const navigate = useNavigate();
 
   const handleAddToCart = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
+    // e.stopPropagation();
 
     if (stock <= 0 || status !== "ACTIVE") return;
 
@@ -50,7 +52,8 @@ const NewProductItem2 = ({
   };
 
   const handleWishlist = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
+    // e.stopPropagation();
 
     onToggleWishlist?.({
       id,
