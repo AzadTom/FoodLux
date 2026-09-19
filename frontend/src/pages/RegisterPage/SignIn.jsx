@@ -78,5 +78,5 @@ function SignIn() {
 export default SignIn;
 
 export const isLocal = (host) => {
-  return `product=${"foodlux"}&clientUrl=${host === "localhost" ? "local" : "production"}`;
+  return `product=${"foodlux"}&clientUrl=${host === "localhost" ? "http://localhost:5173" : "https://food-lux.vercel.app"}`;
 };
