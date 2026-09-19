@@ -82,12 +82,12 @@ const ProductItemContainer = ({
     dispatch(addTocart({ id }));
   };
 
-  const handleToggleWishlist = ({ id, isMatch }) => {
+  const handleToggleWishlist = ({ id, isWishlisted }) => {
     if (!isLogin) {
       dispatch(setModelOpen(true));
       return;
     }
-    isMatch ? dispatch(removeTofav({ id })) : dispatch(addTOfav({ id }));
+    isWishlisted ? dispatch(removeTofav({ id })) : dispatch(addTOfav({ id }));
   };
 
   if (carasouel) {
@@ -128,8 +128,8 @@ const ProductItemContainer = ({
                       vertical={getVertical()}
                       className={getClass()}
                       onAddToCart={({ id }) => handleAddToCart(id)}
-                      onToggleWishlist={({ id, isMatch }) =>
-                        handleToggleWishlist({ id, isMatch })
+                      onToggleWishlist={({ id, isWishlisted }) =>
+                        handleToggleWishlist({ id, isWishlisted })
                       }
                     />
                   </SwiperSlide>
