@@ -95,14 +95,14 @@ const Details = ({
   return (
     <div>
       <TopHeading title="Details" />
-      <section className="flex flex-col md:flex-row gap-5  md:gap-12  items-center justify-between">
-        <div className="flex-1">
+      <section className="flex flex-col md:flex-row gap-5  md:gap-12">
+        <div className="flex-1 w-full h-full aspect-square">
           <img
-            width={600}
-            height={600}
+            width={300}
+            height={300}
             src={image}
             alt={name}
-            className="w-full h-full  object-cover rounded-lg"
+            className="w-full h-full  object-cover rounded-lg aspect-square"
             onError={(e) => {
               e.currentTarget.onerror = null;
               e.currentTarget.src = `https://placehold.co/600x600?text=Food+Image`;
@@ -120,7 +120,7 @@ const Details = ({
             className="
             absolute
             right-4
-            top-4
+            top-0
             z-10
             flex
             h-10
@@ -186,15 +186,15 @@ const Details = ({
               Go to cart
             </button>
           </div>
+          <section className="max-w-6xl">
+            <h3 className="text-2xl font-bold mt-10 mb-5">Description</h3>
+            <p className="text-gray-600">
+              {description}
+              {description}
+              {description}
+            </p>
+          </section>
         </div>
-      </section>
-      <section className="max-w-6xl">
-        <h3 className="text-2xl font-bold mt-10 mb-5">Description</h3>
-        <p className="text-gray-600">
-          {description}
-          {description}
-          {description}
-        </p>
       </section>
     </div>
   );
