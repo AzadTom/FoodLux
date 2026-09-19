@@ -111,7 +111,7 @@ api2.interceptors.response.use(
 
             try {
                 const response = await getNewAccessToken();
-                const newAccessToken = response.data.access_new;
+                const newAccessToken = response.data.access_token;
                 localStorage.setItem("accesstoken", newAccessToken);
                 originalRequest.headers.Authorization =
                     `Bearer ${newAccessToken}`;
