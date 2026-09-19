@@ -32,7 +32,7 @@ const NewProductItem2 = ({
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    e.stopPropagation();
+    // e.stopPropagation();
 
     if (stock <= 0 || status !== "ACTIVE") return;
 
@@ -53,7 +53,7 @@ const NewProductItem2 = ({
 
   const handleWishlist = (e) => {
     e.preventDefault();
-    e.stopPropagation();
+    // e.stopPropagation();
 
     onToggleWishlist?.({
       id,
