@@ -25,8 +25,7 @@ const NewProductItem2 = ({
 }) => {
   const { cart, addToCartId } = useSelector((state) => state.cart);
   const { wishData, id: currentFavId } = useSelector((state) => state.favData);
-  const isWishlisted =
-    wishData && wishData.find((item) => item.productId === id);
+  const isWishlisted =wishData && wishData.find((item) => item.productId === id);
   const isMatch = cart && cart.find((item) => item.productId === id);
   const navigate = useNavigate();
 

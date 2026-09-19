@@ -15,7 +15,7 @@ const Cart = () => {
 
   return (
     <div className="w-full">
-      <TopHeading title="Carts" />
+      <TopHeading title="Carts"  className="px-4"/>
       <table className="table-auto text-[var(--secondarytext)] w-full">
         <thead className="text-[var(--primarytext)] font-semibold text-left">
           <tr>
