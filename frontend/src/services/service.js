@@ -154,6 +154,19 @@ export const SeriviceEachCategoryList = async (id) => {
     }
 }
 
+export const SeriviceEachProductDetails = async (id) => {
+    try {
+        const response = await api2.get(`/product/${id}`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw new Error("Something went wrong!");
+    } catch (error) {
+        console.error(error);
+        throw new error;
+    }
+}
+
 
 // Cart
 export const Service2GetCart = async () => {

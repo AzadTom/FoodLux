@@ -1,8 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import Cart from "../../components/Cart/Cart";
 import OrderSummary from "../../components/Cart/OrderSummary";
-import { getCart } from "@/reducers/cartSlice";
-import { useEffect } from "react";
 import {
   ServicegetOrderByUser,
   ServicegetOrderDetailsByUser,
@@ -19,6 +17,7 @@ import OrderItemCard from "./OrderItemCard";
 import { formatOrderDateTime } from "@/lib/utils";
 import SingleOrderSummary from "./SingleOrderSummary";
 import OrderFooter from "./OrderFooter";
+import TopHeading from "@/components/Others/TopHeading";
 
 export default function CartOrderTabs() {
   const [activeTab, setActiveTab] = useState(0);
@@ -81,12 +80,6 @@ export default function CartOrderTabs() {
 
 const CartPage = () => {
   const { cart } = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (cart.length > 0) return;
-    dispatch(getCart());
-  }, []);
 
   if (cart.length === 0) return <Empty heading="Cart is empty" />;
 
@@ -114,6 +107,7 @@ function OrderPage() {
 
   return (
     <section className="max-w-[1200px] mx-auto w-full p-6">
+      <TopHeading title="Orders"/>
       <div className="flex justify-between items-start">
         <div>
           <h2 className="text-2xl font-semibold">Your Orders</h2>

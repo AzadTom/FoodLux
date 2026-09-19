@@ -1,4 +1,3 @@
-import SlideCard from "./SlideCard";
 import HeroVideo from "./HeroVideo";
 import SwiperUtils2 from "../Products/SwiperUtils/SwiperUtils2";
 import { SwiperSlide } from "swiper/react";

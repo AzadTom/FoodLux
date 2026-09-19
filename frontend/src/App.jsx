@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // other components
@@ -7,12 +7,13 @@ import Loading from "./components/Others/Loading";
 import ThemeButton from "./components/Theme/ThemeButton";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import { Toaster } from "./components/ui/toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "./reducers/cartSlice";
 import { getfavs } from "./reducers/favSlice";
 import ProtectLayout from "./components/Others/ProtectLayout";
 import LoginModel from "./components/Products/LoginModel";
 import AuthHandler from "./components/AuthHandler/AuthHandler";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
 
 // pages components
 const Home = lazy(() => import("./pages/HomePage/Home"));
@@ -28,6 +29,23 @@ const Wishlist = lazy(() => import("./pages/WishlistPage/Wishlist"));
 const NotFound = lazy(() => import("./pages/NotFoundPage/NotFound"));
 
 function App() {
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
+  const { wishData } = useSelector((state) => state.favData);
+
+  useEffect(() => {
+    if (!isLogin) return;
+    if (cart.length > 0) return;
+    dispatch(getCart());
+  }, []);
+
+  useEffect(() => {
+    if (!isLogin) return;
+    if (wishData.length > 0) return;
+    dispatch(getfavs());
+  }, []);
+
   return (
     <>
       <AuthHandler />
@@ -126,6 +144,14 @@ function App() {
               <ProtectLayout>
                 <Wishlist />
               </ProtectLayout>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <Suspense fallback={<Loading />}>
+              <ProductDetail />
             </Suspense>
           }
         />
