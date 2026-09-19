@@ -1,19 +1,12 @@
 import { SeriviceCategoryList } from "@/services/service";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React from "react";
 import ErrorContainer from "./ErrorContainer";
 import { Marquee } from "../shadcn-space/animations/marquee";
 import TopHeading from "./TopHeading";
 import CategoryItemSkeleton from "./CategoryItemSkeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { getCart } from "@/reducers/cartSlice";
-import { getfavs } from "@/reducers/favSlice";
 
 const CategoryList = () => {
-  const dispatch = useDispatch();
-  const {isLogin} = useSelector((state)=>state.user);
-  const { cart } = useSelector((state) => state.cart);
-  const { wishData } = useSelector((state) => state.favData);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["categories"],
@@ -22,18 +15,6 @@ const CategoryList = () => {
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 30,
   });
-
-  useEffect(() => {
-    if(!isLogin) return;
-    if (cart.length > 0) return;
-    dispatch(getCart());
-  }, []);
-
-  useEffect(() => {
-    if(!isLogin) return;
-    if (wishData.length > 0) return;
-    dispatch(getfavs());
-  }, []);
 
   if (error) {
     return <ErrorContainer />;

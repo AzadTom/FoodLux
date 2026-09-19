@@ -1,19 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addTOfav, getfavs, removeTofav } from "../../reducers/favSlice.js";
+import { addTOfav, removeTofav } from "../../reducers/favSlice.js";
 import { addTocart } from "../../reducers/cartSlice.js";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import NewProductItem2 from "@/components/Products/NewProductItem2";
+import TopHeading from "@/components/Others/TopHeading.jsx";
 
 const Wishlist = () => {
   const { wishData } = useSelector((state) => state.favData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (wishData?.length > 0) return;
-    dispatch(getfavs());
-  }, [wishData]);
 
   if (wishData.length == 0) {
     return (
@@ -33,6 +28,7 @@ const Wishlist = () => {
 
   return (
     <>
+     <TopHeading title="Wishlist" className="px-4" />
       <section className="flex flex-col gap-4 justify-center items-center p-2">
         <div className="grid grid-cols-1   sm:grid-cols-2  md:grid-cols-4  gap-2 sm:gap-4 justify-between   items-center px-5">
           {wishData.map((item) => (

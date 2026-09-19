@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTocart } from "@/reducers/cartSlice";
 import { addTOfav, removeTofav } from "@/reducers/favSlice";
 import { setModelOpen } from "@/reducers/userSlice";
+import TopHeading from "@/components/Others/TopHeading";
 
 async function fetchList({ pageParam = 1 }) {
   const response = await axios.get(`${BASE_URL3}/product`, {
@@ -94,6 +95,7 @@ const SearchPage = () => {
 
   return (
     <>
+      <TopHeading title="Search"  className="px-4" /> 
       <section className="flex relative">
         <div className="md:max-w-[280px] md:w-full">
           <ProductFilter />

@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { getCart } from "@/reducers/cartSlice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "../ui/spinner";
 import AddIcon from "@mui/icons-material/Add";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -25,8 +25,7 @@ const NewProductItem2 = ({
 }) => {
   const { cart, addToCartId } = useSelector((state) => state.cart);
   const { wishData, id: currentFavId } = useSelector((state) => state.favData);
-  const isWishlisted =
-    wishData && wishData.find((item) => item.productId === id);
+  const isWishlisted =wishData && wishData.find((item) => item.productId === id);
   const isMatch = cart && cart.find((item) => item.productId === id);
   const navigate = useNavigate();
 
@@ -64,7 +63,7 @@ const NewProductItem2 = ({
   const isOutOfStock = stock <= 0 || status !== "ACTIVE";
 
   return (
-    <>
+    <Link to={`/product/${id}`}>
       <article className="group w-full min-w-0">
         {/* Image Card */}
         <div
@@ -280,7 +279,7 @@ const NewProductItem2 = ({
           )}
         </div>
       </article>
-    </>
+    </Link>
   );
 };
 
