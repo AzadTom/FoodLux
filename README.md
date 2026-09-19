@@ -20,7 +20,7 @@
 
  
 ### FrontEnd 
-* [FrontEnd Live](https://foodlux-frontend.vercel.app/)
+* [FrontEnd Live](https://food-lux.vercel.app/)
 
 ### BackEnd
 * [BackEnd Live](https://foodlux-backend.vercel.app/)
